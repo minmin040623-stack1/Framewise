@@ -1,3 +1,13 @@
+const croppedImage =
+localStorage.getItem("croppedImage");
+
+if(croppedImage){
+
+    document
+        .getElementById("croppedPreview")
+        .src = croppedImage;
+
+}
 const photoInfo =
 JSON.parse(localStorage.getItem("photoInfo"));
 

@@ -118,6 +118,14 @@ function submitCrop(){
         JSON.stringify(cropData)
     );
 
+    // 사용자가 크롭한 이미지를 PNG로 저장
+    const croppedCanvas = cropper.getCroppedCanvas({
+        width: 500
+    });
+
+    const croppedImage = croppedCanvas.toDataURL("image/png");
+
+    localStorage.setItem("croppedImage", croppedImage);
     // 임시 점수 (다음 버전에서 알고리즘으로 교체)
     const score =
 calculateScore(cropData,image);
