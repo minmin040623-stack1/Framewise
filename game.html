@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FrameWise | Challenge</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Cropper.js -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/game.css">
+</head>
+
+<body>
+
+<header class="game-header">
+
+    <div class="container">
+
+        <a href="index.html" class="logo">
+            📷 FrameWise
+        </a>
+
+        <div class="header-right">
+
+            <div class="timer">
+
+                ⏱ <span id="time">30</span>s
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+<main class="game-page">
+
+<div class="container">
+
+<div class="game-layout">
+
+<!-- LEFT -->
+
+<section class="image-panel">
+
+<h2>Crop the Best Composition</h2>
+
+<p>
+
+Adjust the crop box to create the most visually pleasing composition.
+
+</p>
+
+<div class="image-wrapper">
+
+<img
+id="targetImage"
+src=""
+alt="Sample Image">
+
+</div>
+
+</section>
+
+<!-- RIGHT -->
+
+<aside class="control-panel">
+
+<div class="score-card">
+
+    <h3>Mission</h3>
+
+    <p id="missionText">
+        Loading...
+    </p>
+
+</div>
+
+<div class="score-card">
+
+<h3>Difficulty</h3>
+
+<p id="difficultyText">
+    Loading...
+</p>
+
+</div>
+
+<div class="score-card">
+
+<h3>Status</h3>
+
+<p id="statusText">
+
+Waiting...
+
+</p>
+
+</div>
+
+<button id="submitBtn" class="primary-button">
+
+Submit Crop
+
+</button>
+
+</aside>
+
+</div>
+
+</div>
+
+</main>
+
+<!-- AI Loading Overlay -->
+
+<div id="loadingOverlay" class="loading-overlay hidden">
+
+    <div class="loading-box">
+
+        <h2>🤖 AI is analyzing...</h2>
+
+        <p>Evaluating your composition</p>
+
+        <div class="loading-bar">
+
+            <div class="loading-progress"></div>
+
+        </div>
+
+    </div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+
+<script src="js/game.js"></script>
+
+</body>
+
+</html>

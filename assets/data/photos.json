@@ -1,0 +1,93 @@
+[
+    {
+        "id": 1,
+        "image": "sample1.jpg",
+        "mission": "Rule of Thirds",
+        "difficulty": 2,
+        "tip": "Place the subject near the intersection points of the grid.",
+        "referenceCrop": {
+            "x": 300,
+            "y": 180,
+            "width": 700,
+            "height": 480
+        }
+    },
+    {
+        "id": 2,
+        "image": "sample2.jpg",
+        "mission": "Leading Lines",
+        "difficulty": 3,
+        "tip": "Place the subject near the intersection points of the grid.",
+        "referenceCrop": {
+            "x": 300,
+            "y": 180,
+            "width": 700,
+            "height": 480
+        }
+    },
+    {
+        "id": 3,
+        "image": "sample3.jpg",
+        "mission": "Symmetry",
+        "difficulty": 2,
+        "tip": "Place the subject near the intersection points of the grid.",
+        "referenceCrop": {
+            "x": 300,
+            "y": 180,
+            "width": 700,
+            "height": 480
+        }
+    },
+    {
+        "id": 4,
+        "image": "sample4.jpg",
+        "mission": "Framing",
+        "difficulty": 1,
+        "tip": "Use natural frames to draw attention to the main subject.",
+        "referenceCrop": {
+            "x": 300,
+            "y": 180,
+            "width": 700,
+            "height": 480
+        }
+    },
+    {
+        "id": 5,
+        "image": "sample5.jpg",
+        "mission": "Balance",
+        "difficulty": 2,
+        "tip": "Place the subject near the intersection points of the grid.",
+        "referenceCrop": {
+            "x": 300,
+            "y": 180,
+            "width": 700,
+            "height": 480
+        }
+    },
+    {
+        "id": 6,
+        "image": "sample6.jpg",
+        "mission": "Minimalism",
+        "difficulty": 3,
+        "tip": "Place the subject near the intersection points of the grid.",
+        "referenceCrop": {
+            "x": 300,
+            "y": 180,
+            "width": 700,
+            "height": 480
+        }
+    },
+    {
+        "id": 7,
+        "image": "sample7.jpg",
+        "mission": "Rule of Thirds",
+        "difficulty": 2,
+        "tip": "Place the subject near the intersection points of the grid.",
+        "referenceCrop": {
+            "x": 300,
+            "y": 180,
+            "width": 700,
+            "height": 480
+        }
+    }
+]

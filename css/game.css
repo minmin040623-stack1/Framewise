@@ -1,0 +1,325 @@
+/* ========================================
+   FrameWise - Game Page
+======================================== */
+
+/* ---------- Header ---------- */
+
+.game-header{
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    background:rgba(15,23,42,.85);
+    backdrop-filter:blur(16px);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.game-header .container{
+
+    height:80px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.timer{
+
+    font-size:1.2rem;
+
+    font-weight:600;
+
+    color:white;
+
+}
+
+/* ---------- Main ---------- */
+
+.game-page{
+
+    padding:60px 0;
+
+}
+
+.game-layout{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:40px;
+
+    align-items:start;
+
+}
+
+/* ---------- Left Panel ---------- */
+
+.image-panel{
+
+    background:var(--surface-color);
+
+    border:1px solid var(--border-color);
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.image-panel h2{
+
+    margin-bottom:10px;
+
+}
+
+.image-panel p{
+
+    margin-bottom:25px;
+
+}
+
+/* ---------- Image ---------- */
+
+.image-wrapper{
+
+    width:100%;
+
+    height:650px;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    background:#0b1220;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.image-wrapper img{
+
+    max-width:100%;
+
+    max-height:100%;
+
+    display:block;
+
+}
+
+/* ---------- Right Panel ---------- */
+
+.control-panel{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.score-card{
+
+    background:var(--surface-color);
+
+    border:1px solid var(--border-color);
+
+    border-radius:18px;
+
+    padding:24px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.score-card h3{
+
+    margin-bottom:12px;
+
+}
+
+.score-card p{
+
+    color:var(--sub-text);
+
+}
+
+/* ---------- Submit Button ---------- */
+
+#submitBtn{
+
+    width:100%;
+
+    margin-top:10px;
+
+    font-size:1.05rem;
+
+    padding:18px;
+
+}
+
+/* ---------- Cropper ---------- */
+
+.cropper-view-box{
+
+    outline:2px solid #3B82F6;
+
+    outline-color:#3B82F6;
+
+}
+
+.cropper-face{
+
+    background:rgba(59,130,246,.12);
+
+}
+
+.cropper-line{
+
+    background:#3B82F6;
+
+}
+
+.cropper-point{
+
+    background:#3B82F6;
+
+}
+
+/* ---------- Responsive ---------- */
+
+@media(max-width:1100px){
+
+    .game-layout{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .image-wrapper{
+
+        height:500px;
+
+    }
+
+}
+
+@media(max-width:700px){
+
+    .image-wrapper{
+
+        height:350px;
+
+    }
+
+}
+/* ===========================
+   AI Loading Overlay
+=========================== */
+
+.loading-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(15,23,42,.85);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:9999;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+.loading-box{
+
+    width:420px;
+
+    padding:40px;
+
+    background:#1e293b;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
+
+}
+
+.loading-box h2{
+
+    margin-bottom:15px;
+
+}
+
+.loading-box p{
+
+    margin-bottom:30px;
+
+    color:#cbd5e1;
+
+}
+
+.loading-bar{
+
+    width:100%;
+
+    height:12px;
+
+    background:#334155;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+.loading-progress{
+
+    width:0%;
+
+    height:100%;
+
+    background:#3b82f6;
+
+    animation:loading 2s linear forwards;
+
+}
+
+@keyframes loading{
+
+    from{
+
+        width:0%;
+
+    }
+
+    to{
+
+        width:100%;
+
+    }
+
+}
