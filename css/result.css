@@ -155,3 +155,29 @@
     box-shadow:0 10px 30px rgba(0,0,0,.08);
 
 }
+
+.reference-preview{
+
+    margin-top:50px;
+
+}
+
+.reference-preview h3{
+
+    margin-bottom:20px;
+
+}
+
+#referenceCanvas{
+
+    width:100%;
+
+    max-width:450px;
+
+    border:2px solid #E5E7EB;
+
+    border-radius:16px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}

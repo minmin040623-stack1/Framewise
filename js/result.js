@@ -44,3 +44,37 @@ document.getElementById("nextBtn").addEventListener("click", ()=>{
     window.location.href = "game.html";
 
 });
+
+const canvas = document.getElementById("referenceCanvas");
+const ctx = canvas.getContext("2d");
+
+const img = new Image();
+
+img.src = "assets/images/" + photoInfo.image;
+
+img.onload = () => {
+
+    const ref = photoInfo.referenceCrop;
+
+    canvas.width = ref.width;
+    canvas.height = ref.height;
+
+    ctx.drawImage(
+
+        img,
+
+        ref.x,
+        ref.y,
+
+        ref.width,
+        ref.height,
+
+        0,
+        0,
+
+        ref.width,
+        ref.height
+
+    );
+
+}; 
