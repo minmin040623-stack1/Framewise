@@ -4,224 +4,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn photographic composition through hands-on crop practice and transparent, rule-based feedback.">
 
-    <title>FrameWise | AI Composition Trainer</title>
+    <title>FrameWise | Composition Practice</title>
 
-    <meta name="description"
-        content="FrameWise helps you learn photographic composition through AI-powered crop analysis.">
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    <!-- CSS -->
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/home.css">
 </head>
 
-<body>
+<body id="top">
 
-    <!-- ========================= -->
-    <!-- Header -->
-    <!-- ========================= -->
+<header class="header">
+    <div class="container">
+        <a href="#top" class="logo" aria-label="FrameWise home">
+            <span class="logo-icon" aria-hidden="true">📷</span>
+            <span class="logo-text">FrameWise</span>
+        </a>
 
-    <header class="header">
+        <nav class="navigation" aria-label="Primary navigation">
+            <a href="#how-it-works">How it works</a>
+            <a href="#features">What you learn</a>
+            <a href="game.html?mode=practice">Start practicing</a>
+        </nav>
+    </div>
+</header>
 
-        <div class="container">
+<main>
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-left">
+                <p class="tag">Transparent composition practice</p>
+                <h1>
+                    Train your eye.
+                    <span>See the reason.</span>
+                </h1>
+                <p class="description">
+                    Crop real photographs, then review exactly how subject placement,
+                    space, alignment, and visual layers affected your result.
+                    FrameWise uses clear photo-specific rules and manually reviewed guides.
+                </p>
 
-            <div class="logo">
+                <div class="hero-buttons">
+                    <a href="game.html?mode=timed" class="primary-button">
+                        Start Timed Challenge
+                    </a>
+                    <a href="game.html?mode=practice" class="secondary-button">
+                        Practice Without Timer
+                    </a>
+                </div>
 
-                <span class="logo-icon">📷</span>
-
-                <span class="logo-text">
-                    FrameWise
-                </span>
-
+                <p class="hero-note">
+                    No black-box verdicts. Every score includes its criteria, weight, and visual evidence.
+                </p>
             </div>
 
-            <nav class="navigation">
-
-                <a href="#">Home</a>
-
-                <a href="#">About</a>
-
-                <a href="#">Leaderboard</a>
-
-            </nav>
-
-        </div>
-
-    </header>
-
-
-    <!-- ========================= -->
-    <!-- Hero -->
-    <!-- ========================= -->
-
-    <main>
-
-        <section class="hero">
-
-            <div class="container hero-container">
-
-                <!-- Left -->
-
-                <div class="hero-left">
-
-                    <p class="tag">
-                        AI Photography Learning Platform
-                    </p>
-
-                    <h1>
-
-                        Learn Photography
-
-                        <span>with AI.</span>
-
-                    </h1>
-
-                    <p class="description">
-
-                        Improve your photographic composition by
-                        cropping professional images.
-
-                        Receive instant AI feedback,
-                        compare your result with experts,
-                        and sharpen your creative eye.
-
-                    </p>
-
-                    <div class="hero-buttons">
-
-                        <a href="game.html" class="primary-button">
-
-                            Start Challenge
-
-                        </a>
-
-                        <a href="#" class="secondary-button">
-
-                            Learn More
-
-                        </a>
-
+            <div class="hero-right" aria-label="FrameWise crop preview">
+                <div class="preview-card home-preview-card">
+                    <div class="preview-image">
+                        <img src="assets/images/sample8.jpg" alt="A red cabin in a snowy landscape shown as a crop exercise">
+                        <span class="preview-crop-box" aria-hidden="true"></span>
+                        <span class="third-line vertical-one" aria-hidden="true"></span>
+                        <span class="third-line vertical-two" aria-hidden="true"></span>
+                        <span class="third-line horizontal-one" aria-hidden="true"></span>
+                        <span class="third-line horizontal-two" aria-hidden="true"></span>
                     </div>
 
-                </div>
-
-
-                <!-- Right -->
-
-                <div class="hero-right">
-
-                    <div class="preview-card">
-
-                        <div class="preview-image">
-
-                            Image Preview
-
+                    <div class="preview-score">
+                        <div>
+                            <p>Current goal</p>
+                            <strong>Subject isolation</strong>
                         </div>
-
-                        <div class="preview-score">
-
-                            <div>
-
-                                <p>AI Score</p>
-
-                                <h2>91</h2>
-
-                            </div>
-
-                            <div>
-
-                                ★★★★★
-
-                            </div>
-
-                        </div>
-
+                        <span class="preview-badge">3 valid examples</span>
                     </div>
-
                 </div>
-
             </div>
-
-        </section>
-
-
-        <!-- ========================= -->
-        <!-- Features -->
-        <!-- ========================= -->
-
-        <section class="features">
-
-            <div class="container feature-grid">
-
-                <div class="feature-card">
-
-                    <h3>AI Evaluation</h3>
-
-                    <p>
-
-                        Analyze composition using AI.
-
-                    </p>
-
-                </div>
-
-                <div class="feature-card">
-
-                    <h3>Professional Feedback</h3>
-
-                    <p>
-
-                        Receive detailed improvement suggestions.
-
-                    </p>
-
-                </div>
-
-                <div class="feature-card">
-
-                    <h3>Composition Learning</h3>
-
-                    <p>
-
-                        Practice with real-world photography.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- ========================= -->
-    <!-- Footer -->
-    <!-- ========================= -->
-
-    <footer class="footer">
-
-        <div class="container">
-
-            <p>
-
-                © 2026 FrameWise
-
-            </p>
-
         </div>
+    </section>
 
-    </footer>
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-heading">
+                <p class="section-kicker">How it works</p>
+                <h2>A short practice loop with visible evidence</h2>
+            </div>
+
+            <ol class="step-grid">
+                <li>
+                    <span>01</span>
+                    <h3>Read the goal</h3>
+                    <p>Each photo tells you which composition idea to practice and what will be measured.</p>
+                </li>
+                <li>
+                    <span>02</span>
+                    <h3>Shape the crop</h3>
+                    <p>Move, resize, and zoom until the subject and surrounding space support that goal.</p>
+                </li>
+                <li>
+                    <span>03</span>
+                    <h3>Review the evidence</h3>
+                    <p>See weighted criteria, guide overlays, and several coach examples with different reasoning.</p>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-heading">
+                <p class="section-kicker">What you learn</p>
+                <h2>Composition principles you can apply again</h2>
+            </div>
+
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <span class="feature-icon" aria-hidden="true">⊞</span>
+                    <h3>Photo-specific scoring</h3>
+                    <p>Rule of thirds, lead room, framing, layers, curves, and leading lines are used only when they fit the image.</p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="feature-icon" aria-hidden="true">◎</span>
+                    <h3>More than one answer</h3>
+                    <p>Compare several strong crops and read why each one works instead of copying a single rectangle.</p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="feature-icon" aria-hidden="true">↗</span>
+                    <h3>Practice history</h3>
+                    <p>Retry the same photo, track your running average, and continue without receiving the same random photo twice.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 FrameWise · A rule-based photography composition trainer</p>
+    </div>
+</footer>
 
 </body>
 

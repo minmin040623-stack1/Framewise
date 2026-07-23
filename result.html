@@ -2,122 +2,170 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Review your FrameWise composition score, evidence, and coach crop examples.">
 
-    <title>FrameWise | Result</title>
+    <title>FrameWise | Composition Feedback</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/result.css">
-
 </head>
 
 <body>
 
 <header class="result-header">
-
     <div class="container">
-
-        <a href="index.html" class="logo">
-
-            📷 FrameWise
-
+        <a href="index.html" class="logo" aria-label="FrameWise home">
+            <span aria-hidden="true">📷</span>
+            FrameWise
         </a>
-
+        <span class="result-header-label">Composition feedback</span>
     </div>
-
 </header>
 
 <main class="result-page">
+    <div class="container">
+        <article class="result-card">
+            <header class="result-intro">
+                <div>
+                    <p class="eyebrow">Challenge complete</p>
+                    <h1>Your composition feedback</h1>
+                    <p id="resultMission" class="subtitle">Photo-specific composition review</p>
+                </div>
 
-<div class="container">
+                <div class="score-summary" aria-label="Composition score">
+                    <div class="score-circle">
+                        <span id="scoreValue">--</span>
+                        <small>/ 100</small>
+                    </div>
+                    <div>
+                        <h2 id="gradeText">Calculating…</h2>
+                        <p id="gradeSummary">Review the evidence behind your score.</p>
+                    </div>
+                </div>
+            </header>
 
-<div class="result-card">
+            <section class="session-stats" aria-label="Practice history">
+                <div>
+                    <span>Attempts</span>
+                    <strong id="attemptCount">0</strong>
+                </div>
+                <div>
+                    <span>Average</span>
+                    <strong id="averageScore">--</strong>
+                </div>
+                <div>
+                    <span>Personal best</span>
+                    <strong id="bestScore">--</strong>
+                </div>
+            </section>
 
-<h1>Your AI Analysis</h1>
+            <section id="scoreBreakdownSection" class="analysis-section">
+                <div class="analysis-heading">
+                    <div>
+                        <p class="eyebrow">Transparent scoring</p>
+                        <h2>How your score was built</h2>
+                    </div>
+                    <span id="scoreMethod" class="score-method">Rule-based review</span>
+                </div>
 
-<p class="subtitle">
+                <div id="scoreBreakdown" class="score-breakdown"></div>
+            </section>
 
-Composition evaluation completed.
+            <section class="analysis-section">
+                <div class="analysis-heading">
+                    <div>
+                        <p class="eyebrow">Measured evidence</p>
+                        <h2>What the crop changed</h2>
+                    </div>
+                </div>
+                <div id="criteriaDetails" class="criteria-details"></div>
+            </section>
 
-</p>
+            <section class="feedback-section" aria-labelledby="feedbackHeading">
+                <div class="analysis-heading">
+                    <div>
+                        <p class="eyebrow">Coach notes</p>
+                        <h2 id="feedbackHeading">What worked and what to try next</h2>
+                    </div>
+                </div>
+                <div id="feedbackList" class="feedback-list" aria-live="polite"></div>
+            </section>
 
-<div class="score-circle">
+            <section class="comparison-section" aria-labelledby="comparisonHeading">
+                <div class="analysis-heading comparison-heading">
+                    <div>
+                        <p class="eyebrow">Visual comparison</p>
+                        <h2 id="comparisonHeading">Your crop and coach examples</h2>
+                    </div>
+                    <button id="guideToggle" class="guide-toggle" type="button" aria-pressed="true">
+                        Hide coach guide
+                    </button>
+                </div>
 
-<span id="scoreValue">92</span>
+                <div class="comparison-grid">
+                    <section class="preview-card">
+                        <h3>Your crop</h3>
+                        <div class="preview-media">
+                            <img id="croppedPreview" src="" alt="Your submitted crop">
+                        </div>
+                        <p class="preview-caption">
+                            Your crop stays unmarked so you can compare it clearly.
+                        </p>
+                    </section>
 
-</div>
+                    <section class="preview-card reference-preview">
+                        <div class="reference-heading">
+                            <h3>Coach crop example</h3>
+                            <span id="referenceCounter" class="reference-counter">1 / 1</span>
+                        </div>
 
-<h2 id="gradeText">
+                        <canvas
+                            id="referenceCanvas"
+                            aria-label="Recommended composition example"
+                            aria-describedby="guideExplanation referenceReason"
+                        ></canvas>
+                        <div id="guideNote" class="guide-note" hidden>
+                            <p id="guideLabel" class="guide-label"></p>
+                            <p id="guideExplanation" class="guide-explanation"></p>
+                        </div>
+                        <p id="referenceReason" class="reference-reason"></p>
 
-Excellent!
+                        <div id="referenceControls" class="reference-controls">
+                            <button id="previousReferenceBtn" class="reference-button" type="button">
+                                ← Previous
+                            </button>
+                            <button id="nextReferenceBtn" class="reference-button" type="button">
+                                Next →
+                            </button>
+                        </div>
 
-</h2>
+                        <p class="preview-caption">
+                            Good composition has more than one answer. Compare the reasoning, not just the rectangle.
+                        </p>
+                    </section>
+                </div>
+            </section>
 
-<div class="feedback-list">
-
-<div class="feedback good">
-
-✔ Subject placement is excellent.
-
-</div>
-
-<div class="feedback good">
-
-✔ Strong visual balance.
-
-</div>
-
-<div class="feedback normal">
-
-△ Crop slightly tighter.
-
-</div>
-
-<div class="feedback bad">
-
-✖ Too much empty space.
-
-</div>
-
-</div>
-
-<button id="nextBtn" class="primary-button">
-
-<div class="crop-preview">
-
-    <h3>Your Crop</h3>
-
-    <img
-        id="croppedPreview"
-        src=""
-        alt="Your cropped image">
-
-</div>
-
-<div class="reference-preview">
-
-    <h3>AI Recommended Crop</h3>
-
-    <canvas id="referenceCanvas"></canvas>
-
-</div>
-
-Next Challenge
-
-</button>
-
-</div>
-
-</div>
-
+            <footer class="result-footer">
+                <p id="sourceCredit" class="source-credit"></p>
+                <div class="result-actions">
+                    <button id="retryBtn" class="secondary-action" type="button">
+                        Retry This Photo
+                    </button>
+                    <button id="nextBtn" class="primary-button" type="button">
+                        Next Challenge
+                    </button>
+                </div>
+            </footer>
+        </article>
+    </div>
 </main>
 
 <script src="js/result.js"></script>

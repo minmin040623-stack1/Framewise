@@ -1,0 +1,10 @@
+{
+  "name": "framewise",
+  "version": "2.0.0",
+  "private": true,
+  "description": "A rule-based photography composition crop trainer.",
+  "scripts": {
+    "test": "node tests/composition-score.test.js && node tests/photo-selection.test.js && node tests/result-runtime.test.js",
+    "serve": "npx serve ."
+  }
+}

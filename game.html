@@ -4,18 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Practice photographic composition by cropping real images with clear, rule-based feedback.">
 
-    <title>FrameWise | Challenge</title>
+    <title>FrameWise | Composition Challenge</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Cropper.js -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/game.css">
@@ -24,127 +21,106 @@
 <body>
 
 <header class="game-header">
-
     <div class="container">
-
-        <a href="index.html" class="logo">
-            📷 FrameWise
+        <a href="index.html" class="logo" aria-label="FrameWise home">
+            <span aria-hidden="true">📷</span>
+            FrameWise
         </a>
 
         <div class="header-right">
-
-            <div class="timer">
-
-                ⏱ <span id="time">30</span>s
-
+            <span id="modeBadge" class="mode-badge">Timed challenge</span>
+            <div id="timer" class="timer" aria-label="Time remaining" aria-live="off">
+                <span aria-hidden="true">⏱</span>
+                <span id="time">--</span><span id="timerSuffix">s</span>
             </div>
-
         </div>
-
     </div>
-
 </header>
 
 <main class="game-page">
+    <div class="container">
+        <section class="challenge-brief" aria-labelledby="missionText">
+            <div>
+                <p class="eyebrow">Current composition goal</p>
+                <h1 id="missionText">Loading challenge…</h1>
+                <p id="tipText" class="challenge-tip">Preparing the composition guide.</p>
+            </div>
 
-<div class="container">
+            <div class="challenge-meta">
+                <span id="difficultyText" class="meta-pill">Difficulty: --</span>
+                <span id="statusText" class="meta-pill status-pill" role="status" aria-live="polite">
+                    Loading image…
+                </span>
+            </div>
+        </section>
 
-<div class="game-layout">
+        <div class="game-layout">
+            <section class="image-panel" aria-labelledby="cropHeading">
+                <div class="panel-heading">
+                    <div>
+                        <p class="eyebrow">Your turn</p>
+                        <h2 id="cropHeading">Shape the frame</h2>
+                    </div>
+                    <p>Drag the image, resize the crop box, or use the controls.</p>
+                </div>
 
-<!-- LEFT -->
+                <div class="image-wrapper">
+                    <img id="targetImage" src="" alt="">
+                </div>
+            </section>
 
-<section class="image-panel">
+            <aside class="control-panel" aria-label="Crop controls">
+                <section class="control-card">
+                    <p class="eyebrow">Evaluation</p>
+                    <h2>What will be measured</h2>
+                    <ul id="criteriaList" class="criteria-list">
+                        <li>Loading criteria…</li>
+                    </ul>
+                    <p class="annotation-note">
+                        FrameWise uses manually reviewed guide points and transparent composition rules.
+                    </p>
+                </section>
 
-<h2>Crop the Best Composition</h2>
+                <section class="control-card">
+                    <p class="eyebrow">Controls</p>
+                    <div class="crop-actions">
+                        <button id="zoomOutBtn" class="control-button" type="button" disabled>
+                            − Zoom
+                        </button>
+                        <button id="zoomInBtn" class="control-button" type="button" disabled>
+                            + Zoom
+                        </button>
+                        <button id="resetCropBtn" class="control-button" type="button" disabled>
+                            Reset
+                        </button>
+                    </div>
+                    <a id="modeSwitch" class="mode-switch" href="game.html?mode=practice">
+                        Switch to untimed practice
+                    </a>
+                </section>
 
-<p>
-
-Adjust the crop box to create the most visually pleasing composition.
-
-</p>
-
-<div class="image-wrapper">
-
-<img
-id="targetImage"
-src=""
-alt="Sample Image">
-
-</div>
-
-</section>
-
-<!-- RIGHT -->
-
-<aside class="control-panel">
-
-<div class="score-card">
-
-    <h3>Mission</h3>
-
-    <p id="missionText">
-        Loading...
-    </p>
-
-</div>
-
-<div class="score-card">
-
-<h3>Difficulty</h3>
-
-<p id="difficultyText">
-    Loading...
-</p>
-
-</div>
-
-<div class="score-card">
-
-<h3>Status</h3>
-
-<p id="statusText">
-
-Waiting...
-
-</p>
-
-</div>
-
-<button id="submitBtn" class="primary-button">
-
-Submit Crop
-
-</button>
-
-</aside>
-
-</div>
-
-</div>
-
+                <button id="submitBtn" class="primary-button submit-button" type="button" disabled>
+                    Check My Composition
+                </button>
+            </aside>
+        </div>
+    </div>
 </main>
 
-<!-- AI Loading Overlay -->
-
-<div id="loadingOverlay" class="loading-overlay hidden">
-
+<div id="loadingOverlay" class="loading-overlay hidden" role="status" aria-live="polite" aria-hidden="true">
     <div class="loading-box">
-
-        <h2>🤖 AI is analyzing...</h2>
-
-        <p>Evaluating your composition</p>
-
-        <div class="loading-bar">
-
+        <span class="loading-icon" aria-hidden="true">◫</span>
+        <h2>Building your feedback…</h2>
+        <p>Comparing your crop with this photo's composition goals.</p>
+        <div class="loading-bar" aria-hidden="true">
             <div class="loading-progress"></div>
-
         </div>
-
     </div>
-
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+<script src="js/photo-selection.js"></script>
+<script src="js/composition-score.js"></script>
 <script src="js/game.js"></script>
 
 </body>

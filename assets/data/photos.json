@@ -2,92 +2,1321 @@
     {
         "id": 1,
         "image": "sample1.jpg",
-        "mission": "Rule of Thirds",
+        "mission": "Rule of Thirds & Subject Placement",
         "difficulty": 2,
-        "tip": "Place the subject near the intersection points of the grid.",
-        "referenceCrop": {
-            "x": 300,
-            "y": 180,
-            "width": 700,
-            "height": 480
-        }
+        "tip": "Place the standing person near the lower-left thirds point while keeping the shoreline visible.",
+        "coachOverlay": {
+            "type": "rule-of-thirds",
+            "label": "Rule of thirds",
+            "targetAnchor": "bottom-left",
+            "guideText": "The white grid divides the frame into thirds. The yellow circle shows where to place the person."
+        },
+        "targetCompositions": [
+            {
+                "type": "rule-of-thirds",
+                "category": "targetComposition",
+                "weight": 1,
+                "subjectId": "person",
+                "target": {
+                    "anchors": ["bottom-left"],
+                    "excellentDistance": 0.08,
+                    "maxDistance": 0.25
+                }
+            },
+            {
+                "type": "crop-area-range",
+                "label": "Scene simplification",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "target": {
+                    "min": 0.28,
+                    "max": 0.66,
+                    "softness": 0.18
+                }
+            }
+        ],
+        "annotations": {
+            "source": "manual",
+            "subjects": [
+                {
+                    "id": "person",
+                    "role": "primary",
+                    "importance": 1,
+                    "bbox": {
+                        "x": 0.37,
+                        "y": 0.58,
+                        "width": 0.09,
+                        "height": 0.38
+                    },
+                    "anchor": {
+                        "x": 0.415,
+                        "y": 0.74
+                    }
+                }
+            ]
+        },
+        "evaluation": {
+            "weights": {
+                "targetComposition": 50,
+                "subjectPreservation": 25,
+                "alignment": 0,
+                "spaceAndBalance": 15,
+                "referenceSimilarity": 10
+            }
+        },
+        "referenceCrops": [
+            {
+                "x": 0.16,
+                "y": 0.30,
+                "width": 0.68,
+                "height": 0.68,
+                "reason": "The person sits near the left third while the shoreline leads the eye into the open water."
+            },
+            {
+                "x": 0.08,
+                "y": 0.22,
+                "width": 0.82,
+                "height": 0.75,
+                "reason": "A wider environmental crop keeps the beach context and gives the person room toward the sea."
+            },
+            {
+                "x": 0.25,
+                "y": 0.36,
+                "width": 0.48,
+                "height": 0.62,
+                "reason": "A tighter crop makes the person the clear subject while preserving the curved shoreline."
+            }
+        ]
     },
     {
         "id": 2,
         "image": "sample2.jpg",
-        "mission": "Leading Lines",
-        "difficulty": 3,
-        "tip": "Place the subject near the intersection points of the grid.",
-        "referenceCrop": {
-            "x": 300,
-            "y": 180,
-            "width": 700,
-            "height": 480
-        }
+        "title": "14",
+        "creator": "juanmarin",
+        "sourceUrl": "https://www.flickr.com/photos/juanmarin/6356033521/",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "mission": "Rule of Thirds & Lead Room",
+        "difficulty": 2,
+        "tip": "Place the dog near the right-third line and leave open beach in the direction it is looking.",
+        "coachOverlay": {
+            "type": "look-room",
+            "label": "Look room",
+            "subjectId": "dog",
+            "guideText": "The cyan arrow follows the dog's gaze. Keep enough open beach in front of the arrow."
+        },
+        "targetCompositions": [
+            {
+                "type": "rule-of-thirds",
+                "category": "targetComposition",
+                "weight": 1,
+                "subjectId": "dog",
+                "target": {
+                    "anchors": ["bottom-right"],
+                    "excellentDistance": 0.07,
+                    "maxDistance": 0.25
+                }
+            },
+            {
+                "type": "look-room",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "subjectId": "dog",
+                "target": {
+                    "minFrontBackRatio": 1.3
+                }
+            },
+            {
+                "type": "crop-area-range",
+                "label": "Background reduction",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "target": {
+                    "min": 0.45,
+                    "max": 0.72,
+                    "softness": 0.20
+                }
+            }
+        ],
+        "annotations": {
+            "source": "manual",
+            "subjects": [
+                {
+                    "id": "dog",
+                    "role": "primary",
+                    "importance": 1,
+                    "bbox": {
+                        "x": 0.45,
+                        "y": 0.39,
+                        "width": 0.44,
+                        "height": 0.50
+                    },
+                    "anchor": {
+                        "x": 0.67,
+                        "y": 0.62
+                    },
+                    "lookDirection": "left"
+                }
+            ]
+        },
+        "evaluation": {
+            "weights": {
+                "targetComposition": 40,
+                "subjectPreservation": 20,
+                "alignment": 0,
+                "spaceAndBalance": 30,
+                "referenceSimilarity": 10
+            }
+        },
+        "referenceCrops": [
+            {
+                "x": 0.00,
+                "y": 0.255,
+                "width": 0.929,
+                "height": 0.606,
+                "reason": "The human-rated crop removes most of the empty sky and foreground while placing the dog near the right third with open beach in its gaze direction."
+            },
+            {
+                "x": 0.15,
+                "y": 0.24,
+                "width": 0.80,
+                "height": 0.70,
+                "reason": "A balanced landscape crop keeps the shoreline context, reduces empty sky, and gives the dog comfortable lead room on the left."
+            },
+            {
+                "x": 0.29,
+                "y": 0.10,
+                "width": 0.58,
+                "height": 0.80,
+                "reason": "This tighter portrait crop makes the dog dominant while keeping its full body and open beach in the direction it is looking."
+            }
+        ]
     },
     {
         "id": 3,
         "image": "sample3.jpg",
-        "mission": "Symmetry",
+        "mission": "Centered Composition",
         "difficulty": 2,
-        "tip": "Place the subject near the intersection points of the grid.",
-        "referenceCrop": {
-            "x": 300,
-            "y": 180,
-            "width": 700,
-            "height": 480
-        }
+        "tip": "Center the person and use the bridge rail as a stable horizontal anchor.",
+        "coachOverlay": {
+            "type": "centered",
+            "label": "Centered composition",
+            "guideText": "The dashed cross marks the frame center. Place the person over the yellow center point."
+        },
+        "targetCompositions": [
+            {
+                "type": "centered",
+                "category": "targetComposition",
+                "weight": 1,
+                "subjectId": "person",
+                "target": {
+                    "axes": ["x"],
+                    "excellentDistance": 0.04,
+                    "maxDistance": 0.20
+                }
+            }
+        ],
+        "annotations": {
+            "source": "manual",
+            "subjects": [
+                {
+                    "id": "person",
+                    "role": "primary",
+                    "importance": 1,
+                    "bbox": {
+                        "x": 0.31,
+                        "y": 0.49,
+                        "width": 0.21,
+                        "height": 0.51
+                    },
+                    "anchor": {
+                        "x": 0.415,
+                        "y": 0.70
+                    }
+                }
+            ],
+            "horizon": {
+                "y": 0.66,
+                "angleDegrees": 0,
+                "source": "manual"
+            }
+        },
+        "evaluation": {
+            "weights": {
+                "targetComposition": 60,
+                "subjectPreservation": 30,
+                "alignment": 0,
+                "spaceAndBalance": 0,
+                "referenceSimilarity": 10
+            }
+        },
+        "referenceCrops": [
+            {
+                "x": 0.12,
+                "y": 0.18,
+                "width": 0.56,
+                "height": 0.82,
+                "reason": "The centered portrait creates a stable composition while the bridge rail anchors the lower frame."
+            },
+            {
+                "x": 0.18,
+                "y": 0.26,
+                "width": 0.44,
+                "height": 0.74,
+                "reason": "A tighter centered crop emphasizes the face and keeps equal visual breathing room around the body."
+            },
+            {
+                "x": 0.08,
+                "y": 0.12,
+                "width": 0.64,
+                "height": 0.88,
+                "reason": "This wider version balances the portrait with enough city and river context."
+            }
+        ]
     },
     {
         "id": 4,
         "image": "sample4.jpg",
-        "mission": "Framing",
-        "difficulty": 1,
-        "tip": "Use natural frames to draw attention to the main subject.",
-        "referenceCrop": {
-            "x": 300,
-            "y": 180,
-            "width": 700,
-            "height": 480
-        }
+        "mission": "Symmetry & Frame Within a Frame",
+        "difficulty": 2,
+        "tip": "Center the atrium and preserve the oval ceiling as a complete architectural frame.",
+        "coachOverlay": {
+            "type": "symmetry",
+            "label": "Vertical symmetry axis",
+            "axis": "vertical",
+            "guideText": "The yellow line marks the symmetry axis. Balance the atrium evenly on both sides."
+        },
+        "targetCompositions": [
+            {
+                "type": "centered",
+                "category": "targetComposition",
+                "weight": 1,
+                "subjectId": "atrium",
+                "target": {
+                    "axes": ["x"],
+                    "excellentDistance": 0.04,
+                    "maxDistance": 0.18
+                }
+            },
+            {
+                "type": "frame-preservation",
+                "label": "Oval frame preservation",
+                "category": "targetComposition",
+                "weight": 1,
+                "frameId": "ceiling-frame",
+                "target": {
+                    "minVisibleRatio": 0.80
+                }
+            },
+            {
+                "type": "crop-area-range",
+                "label": "Architectural crop",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "target": {
+                    "min": 0.46,
+                    "max": 0.78,
+                    "softness": 0.16
+                }
+            }
+        ],
+        "annotations": {
+            "source": "manual",
+            "subjects": [
+                {
+                    "id": "atrium",
+                    "role": "primary",
+                    "importance": 1,
+                    "anchor": {
+                        "x": 0.50,
+                        "y": 0.42
+                    }
+                }
+            ],
+            "frames": [
+                {
+                    "id": "ceiling-frame",
+                    "bbox": {
+                        "x": 0.17,
+                        "y": 0.00,
+                        "width": 0.75,
+                        "height": 0.45
+                    },
+                    "source": "manual"
+                }
+            ]
+        },
+        "evaluation": {
+            "weights": {
+                "targetComposition": 65,
+                "subjectPreservation": 0,
+                "alignment": 0,
+                "spaceAndBalance": 25,
+                "referenceSimilarity": 10
+            }
+        },
+        "referenceCrops": [
+            {
+                "x": 0.05,
+                "y": 0.00,
+                "width": 0.90,
+                "height": 0.86,
+                "reason": "The oval ceiling and balconies create a complete natural frame around the center of the atrium."
+            },
+            {
+                "x": 0.10,
+                "y": 0.02,
+                "width": 0.80,
+                "height": 0.78,
+                "reason": "A centered crop strengthens the repeating curves and removes distracting outer edges."
+            },
+            {
+                "x": 0.16,
+                "y": 0.05,
+                "width": 0.68,
+                "height": 0.70,
+                "reason": "The tighter crop turns the dome and balcony bands into layered frames around the central space."
+            }
+        ]
     },
     {
         "id": 5,
         "image": "sample5.jpg",
-        "mission": "Balance",
+        "mission": "Layered Cityscape",
         "difficulty": 2,
-        "tip": "Place the subject near the intersection points of the grid.",
-        "referenceCrop": {
-            "x": 300,
-            "y": 180,
-            "width": 700,
-            "height": 480
-        }
+        "tip": "Reduce empty sky and foreground clutter while keeping the hills, town, and greenery as distinct layers.",
+        "coachOverlay": {
+            "type": "layers",
+            "label": "Landscape depth layers",
+            "guideText": "The tinted bands separate sky, hills, town, and foreground. Keep every layer visible without letting empty sky dominate."
+        },
+        "targetCompositions": [
+            {
+                "type": "layer-proportions",
+                "label": "Cityscape depth layers",
+                "category": "targetComposition",
+                "weight": 1,
+                "target": {
+                    "softness": 0.10,
+                    "ranges": {
+                        "sky": {
+                            "min": 0.12,
+                            "max": 0.31
+                        },
+                        "hills": {
+                            "min": 0.16,
+                            "max": 0.25
+                        },
+                        "town": {
+                            "min": 0.34,
+                            "max": 0.48
+                        },
+                        "foreground": {
+                            "min": 0.08,
+                            "max": 0.23
+                        }
+                    }
+                }
+            },
+            {
+                "type": "crop-area-range",
+                "label": "Distraction reduction",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "target": {
+                    "min": 0.40,
+                    "max": 0.68,
+                    "softness": 0.18
+                }
+            }
+        ],
+        "annotations": {
+            "source": "manual",
+            "layers": [
+                {
+                    "id": "sky",
+                    "label": "sky",
+                    "role": "background",
+                    "y": 0.00,
+                    "height": 0.34
+                },
+                {
+                    "id": "hills",
+                    "label": "hills",
+                    "role": "background",
+                    "y": 0.34,
+                    "height": 0.14
+                },
+                {
+                    "id": "town",
+                    "label": "town",
+                    "role": "middle",
+                    "y": 0.48,
+                    "height": 0.27
+                },
+                {
+                    "id": "foreground",
+                    "label": "foreground",
+                    "role": "foreground",
+                    "y": 0.75,
+                    "height": 0.25
+                }
+            ]
+        },
+        "evaluation": {
+            "weights": {
+                "targetComposition": 60,
+                "subjectPreservation": 0,
+                "alignment": 0,
+                "spaceAndBalance": 30,
+                "referenceSimilarity": 10
+            }
+        },
+        "referenceCrops": [
+            {
+                "x": 0.10,
+                "y": 0.18,
+                "width": 0.80,
+                "height": 0.65,
+                "reason": "The town fills the center while the mountains and foreground greenery balance the upper and lower frame."
+            },
+            {
+                "x": 0.04,
+                "y": 0.13,
+                "width": 0.86,
+                "height": 0.72,
+                "reason": "A wider crop balances the bright right hillside with the darker trees on the left."
+            },
+            {
+                "x": 0.20,
+                "y": 0.25,
+                "width": 0.67,
+                "height": 0.62,
+                "reason": "This closer view gives the town more visual weight and reduces empty sky and foreground clutter."
+            }
+        ]
     },
     {
         "id": 6,
         "image": "sample6.jpg",
-        "mission": "Minimalism",
-        "difficulty": 3,
-        "tip": "Place the subject near the intersection points of the grid.",
-        "referenceCrop": {
-            "x": 300,
-            "y": 180,
-            "width": 700,
-            "height": 480
-        }
+        "mission": "Foreground, Middle Ground & Background",
+        "difficulty": 2,
+        "tip": "Keep the blue-roofed buildings as a foreground anchor, with the sea in the middle and the sky behind it.",
+        "coachOverlay": {
+            "type": "layers",
+            "label": "Foreground, middle ground, background",
+            "guideText": "The tinted bands separate sky, sea, and buildings. Keep the buildings large enough to anchor the foreground."
+        },
+        "targetCompositions": [
+            {
+                "type": "layer-proportions",
+                "label": "Three-layer depth",
+                "category": "targetComposition",
+                "weight": 1,
+                "target": {
+                    "softness": 0.10,
+                    "ranges": {
+                        "sky": {
+                            "min": 0.18,
+                            "max": 0.34
+                        },
+                        "sea": {
+                            "min": 0.16,
+                            "max": 0.28
+                        },
+                        "buildings": {
+                            "min": 0.43,
+                            "max": 0.60
+                        }
+                    }
+                }
+            },
+            {
+                "type": "crop-area-range",
+                "label": "Foreground-preserving crop",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "target": {
+                    "min": 0.50,
+                    "max": 0.82,
+                    "softness": 0.18
+                }
+            }
+        ],
+        "annotations": {
+            "source": "manual",
+            "layers": [
+                {
+                    "id": "sky",
+                    "label": "sky",
+                    "role": "background",
+                    "y": 0.00,
+                    "height": 0.394
+                },
+                {
+                    "id": "sea",
+                    "label": "sea",
+                    "role": "middle",
+                    "y": 0.394,
+                    "height": 0.156
+                },
+                {
+                    "id": "buildings",
+                    "label": "buildings",
+                    "role": "foreground",
+                    "y": 0.55,
+                    "height": 0.45
+                }
+            ]
+        },
+        "evaluation": {
+            "weights": {
+                "targetComposition": 60,
+                "subjectPreservation": 0,
+                "alignment": 0,
+                "spaceAndBalance": 30,
+                "referenceSimilarity": 10
+            }
+        },
+        "referenceCrops": [
+            {
+                "x": 0.00,
+                "y": 0.16,
+                "width": 1.00,
+                "height": 0.78,
+                "reason": "The blue-roofed neighborhood fills the foreground, while a clear band of sea and a smaller band of sky preserve depth."
+            },
+            {
+                "x": 0.05,
+                "y": 0.22,
+                "width": 0.90,
+                "height": 0.70,
+                "reason": "This balanced crop gives the colorful roofs more visual weight and keeps the sea as a calm middle layer."
+            },
+            {
+                "x": 0.10,
+                "y": 0.27,
+                "width": 0.80,
+                "height": 0.63,
+                "reason": "A tighter crop emphasizes the rooftops and courtyard while retaining enough sea and sky to show the coastal setting."
+            }
+        ]
     },
     {
         "id": 7,
         "image": "sample7.jpg",
-        "mission": "Rule of Thirds",
+        "mission": "Rule of Thirds & Landscape Layers",
         "difficulty": 2,
-        "tip": "Place the subject near the intersection points of the grid.",
-        "referenceCrop": {
-            "x": 300,
-            "y": 180,
-            "width": 700,
-            "height": 480
-        }
+        "tip": "Place the mountain village near the lower-right thirds point and remove the roadside edge.",
+        "coachOverlay": {
+            "type": "rule-of-thirds",
+            "label": "Rule of thirds",
+            "targetAnchor": "bottom-right",
+            "guideText": "The white grid divides the frame into thirds. The yellow circle shows where to place the mountain village."
+        },
+        "targetCompositions": [
+            {
+                "type": "rule-of-thirds",
+                "category": "targetComposition",
+                "weight": 1,
+                "subjectId": "mountain-village",
+                "target": {
+                    "anchors": ["bottom-right"],
+                    "excellentDistance": 0.08,
+                    "maxDistance": 0.25
+                }
+            },
+            {
+                "type": "crop-area-range",
+                "label": "Roadside reduction",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "target": {
+                    "min": 0.50,
+                    "max": 0.82,
+                    "softness": 0.18
+                }
+            }
+        ],
+        "annotations": {
+            "source": "manual",
+            "subjects": [
+                {
+                    "id": "mountain-village",
+                    "role": "primary",
+                    "importance": 1,
+                    "bbox": {
+                        "x": 0.40,
+                        "y": 0.50,
+                        "width": 0.50,
+                        "height": 0.28
+                    },
+                    "anchor": {
+                        "x": 0.70,
+                        "y": 0.58
+                    }
+                }
+            ]
+        },
+        "evaluation": {
+            "weights": {
+                "targetComposition": 55,
+                "subjectPreservation": 25,
+                "alignment": 0,
+                "spaceAndBalance": 10,
+                "referenceSimilarity": 10
+            }
+        },
+        "referenceCrops": [
+            {
+                "x": 0.03,
+                "y": 0.00,
+                "width": 0.94,
+                "height": 0.86,
+                "reason": "The mountain ridge and village sit near the lower third, leaving space for the dramatic clouds."
+            },
+            {
+                "x": 0.12,
+                "y": 0.06,
+                "width": 0.78,
+                "height": 0.72,
+                "reason": "This crop removes the roadside foreground and gives the faint rainbow a clearer place in the frame."
+            },
+            {
+                "x": 0.25,
+                "y": 0.02,
+                "width": 0.72,
+                "height": 0.78,
+                "reason": "Emphasizing the mountain on the right creates a stronger lower-third anchor beneath the open sky."
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "image": "sample8.jpg",
+        "title": "Little Red House",
+        "creator": "marceloquinan",
+        "sourceUrl": "https://www.flickr.com/photos/marceloquinan/14139164702/",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "mission": "Subject Isolation",
+        "difficulty": 1,
+        "tip": "Reduce the heavy foreground stream until the red cabin becomes the clear subject.",
+        "coachOverlay": {
+            "type": "rule-of-thirds",
+            "label": "Rule of thirds",
+            "targetAnchor": "top-right",
+            "guideText": "The white grid divides the frame into thirds. The yellow circle shows where to place the red cabin."
+        },
+        "targetCompositions": [
+            {
+                "type": "rule-of-thirds",
+                "category": "targetComposition",
+                "weight": 1,
+                "subjectId": "cabin",
+                "target": {
+                    "anchors": ["top-right"],
+                    "excellentDistance": 0.07,
+                    "maxDistance": 0.24
+                }
+            },
+            {
+                "type": "subject-prominence",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "subjectId": "cabin",
+                "target": {
+                    "min": 0.20,
+                    "max": 0.38,
+                    "softness": 0.12
+                }
+            }
+        ],
+        "annotations": {
+            "source": "manual",
+            "subjects": [
+                {
+                    "id": "cabin",
+                    "role": "primary",
+                    "importance": 1,
+                    "bbox": {
+                        "x": 0.53,
+                        "y": 0.13,
+                        "width": 0.42,
+                        "height": 0.19
+                    },
+                    "anchor": {
+                        "x": 0.74,
+                        "y": 0.225
+                    }
+                }
+            ]
+        },
+        "evaluation": {
+            "weights": {
+                "targetComposition": 45,
+                "subjectPreservation": 25,
+                "alignment": 0,
+                "spaceAndBalance": 20,
+                "referenceSimilarity": 10
+            }
+        },
+        "referenceCrops": [
+            {
+                "x": 0.172,
+                "y": 0.090,
+                "width": 0.804,
+                "height": 0.378,
+                "reason": "The human-rated crop removes nearly seventy percent of the frame, changing a stream-dominated vertical photo into a landscape composition centered on the red cabin."
+            },
+            {
+                "x": 0.060,
+                "y": 0.040,
+                "width": 0.920,
+                "height": 0.480,
+                "reason": "This wider crop keeps one band of the stream as a foreground anchor while the red cabin remains the strongest color and subject."
+            },
+            {
+                "x": 0.340,
+                "y": 0.090,
+                "width": 0.620,
+                "height": 0.320,
+                "reason": "A tighter crop isolates the cabin and surrounding snow, using the dark trees and roof as a compact natural frame."
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "image": "sample9.jpg",
+        "title": "image",
+        "creator": "angel_ina",
+        "sourceUrl": "https://www.flickr.com/photos/angel_ina/11341534884/",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "mission": "Rule of Thirds & Negative Space",
+        "difficulty": 1,
+        "tip": "Place the snow-covered tree near the upper-right thirds point and simplify the empty snow around it.",
+        "coachOverlay": {
+            "type": "rule-of-thirds",
+            "label": "Rule of thirds",
+            "targetAnchor": "top-right",
+            "guideText": "The white grid divides the frame into thirds. The yellow circle shows where to place the snow-covered tree."
+        },
+        "targetCompositions": [
+            {
+                "type": "rule-of-thirds",
+                "category": "targetComposition",
+                "weight": 1,
+                "subjectId": "tree",
+                "target": {
+                    "anchors": ["top-right"],
+                    "excellentDistance": 0.07,
+                    "maxDistance": 0.24
+                }
+            },
+            {
+                "type": "crop-area-range",
+                "label": "Negative space crop",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "target": {
+                    "min": 0.32,
+                    "max": 0.58,
+                    "softness": 0.18
+                }
+            }
+        ],
+        "annotations": {
+            "source": "manual",
+            "subjects": [
+                {
+                    "id": "tree",
+                    "role": "primary",
+                    "importance": 1,
+                    "bbox": {
+                        "x": 0.50,
+                        "y": 0.33,
+                        "width": 0.20,
+                        "height": 0.30
+                    },
+                    "anchor": {
+                        "x": 0.60,
+                        "y": 0.49
+                    }
+                }
+            ]
+        },
+        "evaluation": {
+            "weights": {
+                "targetComposition": 45,
+                "subjectPreservation": 20,
+                "alignment": 0,
+                "spaceAndBalance": 25,
+                "referenceSimilarity": 10
+            }
+        },
+        "referenceCrops": [
+            {
+                "x": 0.131,
+                "y": 0.272,
+                "width": 0.695,
+                "height": 0.592,
+                "reason": "The tighter frame places the tree close to the upper-right thirds point and removes much of the featureless snow."
+            },
+            {
+                "x": 0.07,
+                "y": 0.20,
+                "width": 0.84,
+                "height": 0.67,
+                "reason": "A wider crop keeps the small sign as a counterweight while still organizing the tree with the thirds grid."
+            },
+            {
+                "x": 0.23,
+                "y": 0.29,
+                "width": 0.55,
+                "height": 0.60,
+                "reason": "This closer crop isolates the snow-laden tree and retains a clean field of negative space around its branches."
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "image": "sample10.jpg",
+        "title": "20120419-DSC_4952.jpg",
+        "creator": "akdetrick",
+        "sourceUrl": "https://www.flickr.com/photos/akdetrick/7186342794/",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "mission": "Centered Composition & Fill the Frame",
+        "difficulty": 1,
+        "tip": "Center the balloon and crop away enough empty sky and city clutter for its shape to dominate.",
+        "coachOverlay": {
+            "type": "centered",
+            "label": "Centered composition",
+            "guideText": "The dashed cross marks the frame center. Place the balloon over the yellow center point."
+        },
+        "targetCompositions": [
+            {
+                "type": "centered",
+                "category": "targetComposition",
+                "weight": 1,
+                "subjectId": "balloon",
+                "target": {
+                    "axes": ["x", "y"],
+                    "excellentDistance": 0.06,
+                    "maxDistance": 0.24
+                }
+            },
+            {
+                "type": "subject-prominence",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "subjectId": "balloon",
+                "target": {
+                    "min": 0.12,
+                    "max": 0.28,
+                    "softness": 0.10
+                }
+            },
+            {
+                "type": "crop-area-range",
+                "label": "Background reduction",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "target": {
+                    "min": 0.24,
+                    "max": 0.52,
+                    "softness": 0.16
+                }
+            }
+        ],
+        "annotations": {
+            "source": "manual",
+            "subjects": [
+                {
+                    "id": "balloon",
+                    "role": "primary",
+                    "importance": 1,
+                    "bbox": {
+                        "x": 0.40,
+                        "y": 0.13,
+                        "width": 0.23,
+                        "height": 0.27
+                    },
+                    "anchor": {
+                        "x": 0.515,
+                        "y": 0.265
+                    }
+                }
+            ]
+        },
+        "evaluation": {
+            "weights": {
+                "targetComposition": 45,
+                "subjectPreservation": 20,
+                "alignment": 0,
+                "spaceAndBalance": 25,
+                "referenceSimilarity": 10
+            }
+        },
+        "referenceCrops": [
+            {
+                "x": 0.209,
+                "y": 0.00,
+                "width": 0.625,
+                "height": 0.578,
+                "reason": "The balloon becomes the clear centered subject while most of the unrelated skyline is removed."
+            },
+            {
+                "x": 0.12,
+                "y": 0.00,
+                "width": 0.76,
+                "height": 0.62,
+                "reason": "This wider crop preserves more atmosphere and a narrow strip of city while keeping the balloon centered."
+            },
+            {
+                "x": 0.28,
+                "y": 0.00,
+                "width": 0.48,
+                "height": 0.53,
+                "reason": "A close crop fills the frame with the balloon and removes nearly all competing detail below it."
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "image": "sample11.jpg",
+        "title": "Beach Walk",
+        "creator": "betchaboy",
+        "sourceUrl": "https://www.flickr.com/photos/betchaboy/8455922255/",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "mission": "Curved Shoreline & Layered Landscape",
+        "difficulty": 2,
+        "tip": "Use a panoramic crop that follows the shoreline curve and reduces the empty foreground.",
+        "coachOverlay": {
+            "type": "curve",
+            "label": "Shoreline curve",
+            "pathId": "shoreline",
+            "guideText": "The pink line traces the shoreline's natural curve. Keep enough of the curve to carry the eye across the photo."
+        },
+        "targetCompositions": [
+            {
+                "type": "curve-preservation",
+                "label": "Shoreline curve",
+                "category": "targetComposition",
+                "weight": 1,
+                "pathId": "shoreline",
+                "target": {
+                    "minVisibleRatio": 0.75,
+                    "minSpan": 0.35
+                }
+            },
+            {
+                "type": "horizon-position",
+                "category": "alignment",
+                "weight": 1,
+                "target": {
+                    "lines": [0.40],
+                    "excellentDistance": 0.06,
+                    "maxDistance": 0.22
+                }
+            },
+            {
+                "type": "crop-area-range",
+                "label": "Panoramic crop",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "target": {
+                    "min": 0.32,
+                    "max": 0.55,
+                    "softness": 0.18
+                }
+            }
+        ],
+        "annotations": {
+            "source": "manual",
+            "horizon": {
+                "y": 0.30,
+                "angleDegrees": 0,
+                "source": "manual"
+            },
+            "curves": [
+                {
+                    "id": "shoreline",
+                    "source": "manual",
+                    "points": [
+                        {"x": 0.43, "y": 0.52},
+                        {"x": 0.56, "y": 0.45},
+                        {"x": 0.70, "y": 0.38},
+                        {"x": 0.88, "y": 0.33}
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "weights": {
+                "targetComposition": 45,
+                "subjectPreservation": 0,
+                "alignment": 20,
+                "spaceAndBalance": 25,
+                "referenceSimilarity": 10
+            }
+        },
+        "referenceCrops": [
+            {
+                "x": 0.005,
+                "y": 0.132,
+                "width": 0.992,
+                "height": 0.408,
+                "reason": "The panoramic frame follows the coastline from the foreground into the distance and removes most of the empty sand."
+            },
+            {
+                "x": 0.00,
+                "y": 0.08,
+                "width": 1.00,
+                "height": 0.55,
+                "reason": "This broader landscape crop retains more surf while the shoreline still carries the eye toward the horizon."
+            },
+            {
+                "x": 0.06,
+                "y": 0.18,
+                "width": 0.90,
+                "height": 0.34,
+                "reason": "A tighter panoramic crop makes the sweeping shoreline the dominant graphic shape."
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "image": "sample12.jpg",
+        "title": "Cabo da Roca, Sintra",
+        "creator": "sey_alg9",
+        "sourceUrl": "https://www.flickr.com/photos/sey_alg9/4932170466/",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "mission": "Leading Lines & Rule of Thirds",
+        "difficulty": 2,
+        "tip": "Let the fence and path lead toward the lighthouse near the upper-right thirds point.",
+        "coachOverlay": {
+            "type": "leading-line",
+            "label": "Fence leading line",
+            "pathId": "fence",
+            "guideText": "The purple arrow follows the fence toward the lighthouse. Preserve both ends so the line still leads to the subject."
+        },
+        "targetCompositions": [
+            {
+                "type": "leading-line",
+                "label": "Fence leading line",
+                "category": "targetComposition",
+                "weight": 1,
+                "pathId": "fence",
+                "target": {
+                    "minVisibleRatio": 0.75,
+                    "minSpan": 0.30
+                }
+            },
+            {
+                "type": "rule-of-thirds",
+                "category": "targetComposition",
+                "weight": 1,
+                "subjectId": "lighthouse",
+                "target": {
+                    "anchors": ["top-right"],
+                    "excellentDistance": 0.07,
+                    "maxDistance": 0.24
+                }
+            },
+            {
+                "type": "crop-area-range",
+                "label": "Leading-line context",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "target": {
+                    "min": 0.62,
+                    "max": 0.86,
+                    "softness": 0.16
+                }
+            }
+        ],
+        "annotations": {
+            "source": "manual",
+            "subjects": [
+                {
+                    "id": "lighthouse",
+                    "role": "primary",
+                    "importance": 1,
+                    "bbox": {
+                        "x": 0.59,
+                        "y": 0.29,
+                        "width": 0.16,
+                        "height": 0.25
+                    },
+                    "anchor": {
+                        "x": 0.66,
+                        "y": 0.42
+                    }
+                }
+            ],
+            "lines": [
+                {
+                    "id": "fence",
+                    "source": "manual",
+                    "points": [
+                        {"x": 0.98, "y": 0.90},
+                        {"x": 0.85, "y": 0.72},
+                        {"x": 0.72, "y": 0.54},
+                        {"x": 0.66, "y": 0.42}
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "weights": {
+                "targetComposition": 50,
+                "subjectPreservation": 20,
+                "alignment": 0,
+                "spaceAndBalance": 20,
+                "referenceSimilarity": 10
+            }
+        },
+        "referenceCrops": [
+            {
+                "x": 0.00,
+                "y": 0.166,
+                "width": 0.996,
+                "height": 0.763,
+                "reason": "The crop removes unused sky while preserving the fence and path that converge toward the lighthouse."
+            },
+            {
+                "x": 0.05,
+                "y": 0.12,
+                "width": 0.92,
+                "height": 0.82,
+                "reason": "A wider version keeps the dramatic foreground line and gives the lighthouse more environmental context."
+            },
+            {
+                "x": 0.16,
+                "y": 0.22,
+                "width": 0.80,
+                "height": 0.72,
+                "reason": "This closer crop strengthens the diagonal fence while moving the lighthouse nearer the upper-right thirds point."
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "image": "sample13.jpg",
+        "title": "White Egret Eating Fish",
+        "creator": "adrusi",
+        "sourceUrl": "https://www.flickr.com/photos/adrusi/4973476179/",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "mission": "Lead Room, Thirds & Fill the Frame",
+        "difficulty": 2,
+        "tip": "Bring the egret toward the upper-left thirds area while keeping open water in front of its beak.",
+        "coachOverlay": {
+            "type": "look-room",
+            "label": "Look room",
+            "subjectId": "egret",
+            "guideText": "The cyan arrow follows the egret's gaze. Leave open water in front of its beak so the frame does not feel cramped."
+        },
+        "targetCompositions": [
+            {
+                "type": "rule-of-thirds",
+                "category": "targetComposition",
+                "weight": 1,
+                "subjectId": "egret",
+                "target": {
+                    "anchors": ["top-left"],
+                    "excellentDistance": 0.08,
+                    "maxDistance": 0.25
+                }
+            },
+            {
+                "type": "look-room",
+                "category": "targetComposition",
+                "weight": 1,
+                "subjectId": "egret",
+                "target": {
+                    "minFrontBackRatio": 1.3
+                }
+            },
+            {
+                "type": "subject-prominence",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "subjectId": "egret",
+                "target": {
+                    "min": 0.16,
+                    "max": 0.32,
+                    "softness": 0.12
+                }
+            },
+            {
+                "type": "crop-area-range",
+                "label": "Wildlife crop",
+                "category": "spaceAndBalance",
+                "weight": 1,
+                "target": {
+                    "min": 0.42,
+                    "max": 0.64,
+                    "softness": 0.18
+                }
+            }
+        ],
+        "annotations": {
+            "source": "manual",
+            "subjects": [
+                {
+                    "id": "egret",
+                    "role": "primary",
+                    "importance": 1,
+                    "bbox": {
+                        "x": 0.28,
+                        "y": 0.28,
+                        "width": 0.27,
+                        "height": 0.45
+                    },
+                    "anchor": {
+                        "x": 0.42,
+                        "y": 0.49
+                    },
+                    "lookDirection": "right"
+                }
+            ]
+        },
+        "evaluation": {
+            "weights": {
+                "targetComposition": 40,
+                "subjectPreservation": 20,
+                "alignment": 0,
+                "spaceAndBalance": 30,
+                "referenceSimilarity": 10
+            }
+        },
+        "referenceCrops": [
+            {
+                "x": 0.016,
+                "y": 0.281,
+                "width": 0.884,
+                "height": 0.717,
+                "reason": "The closer crop removes empty water but leaves generous space in front of the egret's beak."
+            },
+            {
+                "x": 0.08,
+                "y": 0.18,
+                "width": 0.84,
+                "height": 0.74,
+                "reason": "This wider wildlife crop keeps the full bird and enough surrounding water to show its habitat."
+            },
+            {
+                "x": 0.20,
+                "y": 0.25,
+                "width": 0.68,
+                "height": 0.62,
+                "reason": "A tighter square crop increases the egret's visual weight while retaining lead room on the right."
+            }
+        ]
     }
 ]

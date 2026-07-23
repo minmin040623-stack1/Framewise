@@ -1,238 +1,310 @@
-// ==========================================
-// FrameWise Game v1.0
-// ==========================================
-
 const image = document.getElementById("targetImage");
-
-let currentPhoto = null;
-
-async function loadPhoto() {
-
-    const response = await fetch("assets/data/photos.json");
-    const photos = await response.json();
-
-    const randomIndex = Math.floor(Math.random() * photos.length);
-
-    currentPhoto = photos[randomIndex];
-
-    // 사진 표시
-    image.src = "assets/images/" + currentPhoto.image;
-
-    // Mission 표시
-    document.getElementById("missionText").textContent =
-        currentPhoto.mission;
-
-    // Difficulty 표시
-    const difficultyMap = {
-        1: "Easy",
-        2: "Medium",
-        3: "Hard"
-    };
-
-    document.getElementById("difficultyText").textContent =
-        difficultyMap[currentPhoto.difficulty];
-
-    // Status 표시
-    document.getElementById("statusText").textContent =
-        "Ready!";
-}
-
-// ---------- 랜덤 사진 선택 ----------
-
-
-
-// ---------- 전역 변수 ----------
-
-let cropper;
-let timeLeft = 30;
-
-const timer = document.getElementById("time");
+const imageWrapper = document.querySelector(".image-wrapper");
+const timer = document.getElementById("timer");
+const timerValue = document.getElementById("time");
+const timerSuffix = document.getElementById("timerSuffix");
 const submitBtn = document.getElementById("submitBtn");
 const statusText = document.getElementById("statusText");
+const missionText = document.getElementById("missionText");
+const tipText = document.getElementById("tipText");
+const difficultyText = document.getElementById("difficultyText");
+const criteriaList = document.getElementById("criteriaList");
+const modeBadge = document.getElementById("modeBadge");
+const modeSwitch = document.getElementById("modeSwitch");
+const zoomOutBtn = document.getElementById("zoomOutBtn");
+const zoomInBtn = document.getElementById("zoomInBtn");
+const resetCropBtn = document.getElementById("resetCropBtn");
+const overlay = document.getElementById("loadingOverlay");
 
-// ---------- 이미지 로드 후 Cropper 생성 ----------
-
-image.onload = () => {
-
-    cropper = new Cropper(image, {
-
-        viewMode: 1,
-
-        dragMode: "move",
-
-        autoCropArea: 0.5,
-
-        responsive: true,
-
-        movable: true,
-
-        zoomable: true,
-
-        scalable: false,
-
-        rotatable: false,
-
-        cropBoxMovable: true,
-
-        cropBoxResizable: true,
-
-        background: false
-
-    });
-
+const DIFFICULTY_LABELS = {
+    1: "Easy",
+    2: "Medium",
+    3: "Hard"
 };
-loadPhoto();
-// ---------- 타이머 ----------
 
-const timerInterval = setInterval(() => {
+const TIME_BY_DIFFICULTY = {
+    1: 45,
+    2: 40,
+    3: 35
+};
 
-    timeLeft--;
+const CRITERIA_LABELS = {
+    "rule-of-thirds": "Subject placement on the thirds grid",
+    centered: "Alignment with the frame center",
+    "look-room": "Space in the subject's viewing direction",
+    "horizon-position": "Horizon placement",
+    "crop-area-range": "How much of the original frame remains",
+    "subject-prominence": "Subject size inside the crop",
+    "layer-proportions": "Foreground, middle ground, and background proportions",
+    "frame-preservation": "Preservation of the natural frame",
+    "curve-preservation": "Preservation of the shoreline curve",
+    "leading-line": "Preservation of the leading line"
+};
 
-    timer.textContent = timeLeft;
+const params = new URLSearchParams(window.location.search);
+const requestedPhotoId = params.get("photo");
+const storedMode = sessionStorage.getItem("framewiseMode");
+const gameMode = params.get("mode") === "practice" || (!params.get("mode") && storedMode === "practice")
+    ? "practice"
+    : "timed";
 
-    if (timeLeft <= 0) {
+let currentPhoto = null;
+let cropper = null;
+let timerInterval = null;
+let timeLeft = null;
+let hasSubmitted = false;
 
-        clearInterval(timerInterval);
+function setStatus(message, state = "normal") {
+    statusText.textContent = message;
+    statusText.dataset.state = state;
+}
 
-        submitCrop();
+function setControlsEnabled(enabled) {
+    submitBtn.disabled = !enabled;
+    zoomOutBtn.disabled = !enabled;
+    zoomInBtn.disabled = !enabled;
+    resetCropBtn.disabled = !enabled;
+}
 
+function safeParse(value, fallback) {
+    try {
+        return value ? JSON.parse(value) : fallback;
+    } catch {
+        return fallback;
     }
+}
 
-},1000);
+function renderCriteria(photo) {
+    criteriaList.replaceChildren();
 
-// ---------- 제출 ----------
-
-submitBtn.addEventListener("click", submitCrop);
-
-function submitCrop(){
-
-    clearInterval(timerInterval);
-
-    submitBtn.disabled = true;
-
-    const cropData = cropper.getData();
-
-    // 나중에 결과 페이지에서 사용할 수 있도록 저장
-    localStorage.setItem(
-        "cropData",
-        JSON.stringify(cropData)
-    );
-
-    // 사용자가 크롭한 이미지를 PNG로 저장
-    const croppedCanvas = cropper.getCroppedCanvas({
-        width: 500
+    (photo.targetCompositions || []).forEach((criterion) => {
+        const item = document.createElement("li");
+        item.textContent = CRITERIA_LABELS[criterion.type] || criterion.label || criterion.type;
+        criteriaList.appendChild(item);
     });
 
-    const croppedImage = croppedCanvas.toDataURL("image/png");
+    const preservationWeight = photo.evaluation?.weights?.subjectPreservation || 0;
 
-    localStorage.setItem("croppedImage", croppedImage);
-    // 임시 점수 (다음 버전에서 알고리즘으로 교체)
-    const score =
-calculateScore(cropData,image);
-
-    localStorage.setItem("score", score);
-
-    localStorage.setItem(
-    "photoInfo",
-    JSON.stringify(currentPhoto)
-);
-    // 로딩 화면 표시
-    const overlay = document.getElementById("loadingOverlay");
-
-    overlay.classList.remove("hidden");
-
-    // 2초 후 결과 페이지 이동
-    setTimeout(() => {
-
-        window.location.href = "result.html";
-
-    }, 2000);
-
+    if (preservationWeight > 0) {
+        const item = document.createElement("li");
+        item.textContent = "Preservation of the main subject";
+        criteriaList.appendChild(item);
+    }
 }
-function calculateScore(cropData, image){
 
-    const imgWidth = image.naturalWidth;
-    const imgHeight = image.naturalHeight;
+function configureMode(photo) {
+    sessionStorage.setItem("framewiseMode", gameMode);
 
-    const centerX = cropData.x + cropData.width / 2;
-    const centerY = cropData.y + cropData.height / 2;
-
-    // 이미지 중심
-    const imageCenterX = imgWidth / 2;
-    const imageCenterY = imgHeight / 2;
-
-    // 중심과의 거리
-    const distance = Math.sqrt(
-        Math.pow(centerX - imageCenterX,2) +
-        Math.pow(centerY - imageCenterY,2)
-    );
-
-    const maxDistance = Math.sqrt(
-        imageCenterX**2 +
-        imageCenterY**2
-    );
-
-    let centerScore =
-        30 * (1 - distance/maxDistance);
-
-    centerScore = Math.max(0,centerScore);
-
-    //--------------------------------------------------
-
-    const cropArea =
-        cropData.width * cropData.height;
-
-    const imageArea =
-        imgWidth * imgHeight;
-
-    const areaRatio =
-        cropArea / imageArea;
-
-    let sizeScore = 25;
-
-    if(areaRatio<0.15){
-
-        sizeScore=10;
-
-    }else if(areaRatio>0.75){
-
-        sizeScore=12;
-
+    if (gameMode === "practice") {
+        modeBadge.textContent = "Untimed practice";
+        timerValue.textContent = "∞";
+        timerSuffix.textContent = "";
+        timer.classList.add("practice-timer");
+        modeSwitch.textContent = "Switch to timed challenge";
+        modeSwitch.href = `game.html?mode=timed&photo=${photo.id}`;
+        return;
     }
 
-    //--------------------------------------------------
+    modeBadge.textContent = "Timed challenge";
+    timerSuffix.textContent = "s";
+    modeSwitch.textContent = "Switch to untimed practice";
+    modeSwitch.href = `game.html?mode=practice&photo=${photo.id}`;
+}
 
-    const ratio =
-        cropData.width/cropData.height;
+function startTimer(photo) {
+    if (gameMode === "practice") {
+        return;
+    }
 
-    let ratioScore =
-        25-Math.abs(ratio-1.5)*10;
+    timeLeft = TIME_BY_DIFFICULTY[photo.difficulty] || 40;
+    timerValue.textContent = timeLeft;
 
-    ratioScore=Math.max(5,ratioScore);
+    timerInterval = window.setInterval(() => {
+        timeLeft -= 1;
+        timerValue.textContent = timeLeft;
 
-    //--------------------------------------------------
+        if (timeLeft <= 10) {
+            timer.classList.add("timer-warning");
+        }
 
-    let edgeScore=20;
+        if (timeLeft <= 0) {
+            window.clearInterval(timerInterval);
+            submitCrop();
+        }
+    }, 1000);
+}
 
-    if(cropData.x<30) edgeScore-=5;
-    if(cropData.y<30) edgeScore-=5;
+function loadImage(photo) {
+    return new Promise((resolve, reject) => {
+        image.onload = resolve;
+        image.onerror = () => reject(new Error("The selected image could not be loaded."));
+        image.alt = photo.title
+            ? `${photo.title} — crop practice image`
+            : `${photo.mission} crop practice image`;
+        image.src = `assets/images/${photo.image}`;
+    });
+}
 
-    if(cropData.x+cropData.width>imgWidth-30)
-        edgeScore-=5;
+function fitImageWrapperToPhoto() {
+    if (!image.naturalWidth || !image.naturalHeight) {
+        return;
+    }
 
-    if(cropData.y+cropData.height>imgHeight-30)
-        edgeScore-=5;
+    const imageRatio = image.naturalWidth / image.naturalHeight;
+    const isMobile = window.innerWidth <= 720;
+    const preferredHeight = isMobile
+        ? Math.min(520, Math.max(320, window.innerHeight * 0.58))
+        : Math.min(650, Math.max(430, window.innerHeight * 0.65));
 
-    //--------------------------------------------------
+    imageWrapper.style.setProperty(
+        "--image-ratio",
+        `${image.naturalWidth} / ${image.naturalHeight}`
+    );
+    imageWrapper.style.setProperty(
+        "--image-max-width",
+        `${Math.round(preferredHeight * imageRatio)}px`
+    );
+}
 
-    const total =
-        Math.round(
-            centerScore+
-            sizeScore+
-            ratioScore+
-            edgeScore
+function initializeCropper(photo) {
+    return new Promise((resolve, reject) => {
+        if (typeof window.Cropper !== "function") {
+            reject(new Error("The crop tool could not be loaded."));
+            return;
+        }
+
+        cropper = new Cropper(image, {
+            viewMode: 1,
+            dragMode: "move",
+            autoCropArea: 0.58,
+            responsive: true,
+            movable: true,
+            zoomable: true,
+            scalable: false,
+            rotatable: false,
+            cropBoxMovable: true,
+            cropBoxResizable: true,
+            background: false,
+            guides: true,
+            center: true,
+            ready() {
+                setControlsEnabled(true);
+                setStatus("Ready to crop", "ready");
+                startTimer(photo);
+                resolve();
+            }
+        });
+    });
+}
+
+async function loadPhoto() {
+    try {
+        setControlsEnabled(false);
+        setStatus("Loading image…", "loading");
+
+        const response = await fetch("assets/data/photos.json");
+
+        if (!response.ok) {
+            throw new Error(`Photo data request failed (${response.status}).`);
+        }
+
+        const photos = await response.json();
+        const lastPhotoId = sessionStorage.getItem("framewiseLastPhotoId");
+
+        currentPhoto = window.FrameWisePhotoSelection.choosePhoto(photos, {
+            requestedId: requestedPhotoId,
+            lastPhotoId
+        });
+
+        if (!currentPhoto) {
+            throw new Error("No practice photos are available.");
+        }
+
+        sessionStorage.setItem("framewiseLastPhotoId", currentPhoto.id);
+        missionText.textContent = currentPhoto.mission;
+        tipText.textContent = currentPhoto.tip;
+        difficultyText.textContent = `Difficulty: ${DIFFICULTY_LABELS[currentPhoto.difficulty] || "Custom"}`;
+        renderCriteria(currentPhoto);
+        configureMode(currentPhoto);
+
+        await loadImage(currentPhoto);
+        fitImageWrapperToPhoto();
+        await initializeCropper(currentPhoto);
+    } catch (error) {
+        console.error(error);
+        setStatus(error.message || "The challenge could not be loaded.", "error");
+        missionText.textContent = "Challenge unavailable";
+        tipText.textContent = "Return home and try again.";
+        setControlsEnabled(false);
+    }
+}
+
+function saveAttempt(score) {
+    const history = safeParse(localStorage.getItem("framewiseHistory"), []);
+    const nextHistory = Array.isArray(history) ? history.slice(-49) : [];
+
+    nextHistory.push({
+        photoId: currentPhoto.id,
+        mission: currentPhoto.mission,
+        score,
+        completedAt: new Date().toISOString()
+    });
+
+    localStorage.setItem("framewiseHistory", JSON.stringify(nextHistory));
+}
+
+function submitCrop() {
+    if (hasSubmitted || !cropper || !currentPhoto) {
+        return;
+    }
+
+    hasSubmitted = true;
+    window.clearInterval(timerInterval);
+    setControlsEnabled(false);
+    setStatus("Building feedback…", "loading");
+
+    try {
+        const cropData = cropper.getData();
+        const croppedCanvas = cropper.getCroppedCanvas({
+            width: 500,
+            maxHeight: 900,
+            imageSmoothingEnabled: true,
+            imageSmoothingQuality: "high"
+        });
+        const croppedImage = croppedCanvas.toDataURL("image/jpeg", 0.9);
+        const scoreAnalysis = window.FrameWiseScore.evaluateComposition(
+            currentPhoto,
+            cropData,
+            image.naturalWidth,
+            image.naturalHeight
         );
 
-    return Math.min(100,total);
+        localStorage.setItem("cropData", JSON.stringify(cropData));
+        localStorage.setItem("croppedImage", croppedImage);
+        localStorage.setItem("score", String(scoreAnalysis.score));
+        localStorage.setItem("scoreAnalysis", JSON.stringify(scoreAnalysis));
+        localStorage.setItem("photoInfo", JSON.stringify(currentPhoto));
+        localStorage.setItem("framewiseGameMode", gameMode);
+        saveAttempt(scoreAnalysis.score);
 
+        overlay.classList.remove("hidden");
+        overlay.setAttribute("aria-hidden", "false");
+
+        window.setTimeout(() => {
+            window.location.href = "result.html";
+        }, 650);
+    } catch (error) {
+        console.error(error);
+        hasSubmitted = false;
+        setControlsEnabled(true);
+        setStatus("Could not save this crop. Please try again.", "error");
+    }
 }
+
+zoomOutBtn.addEventListener("click", () => cropper?.zoom(-0.1));
+zoomInBtn.addEventListener("click", () => cropper?.zoom(0.1));
+resetCropBtn.addEventListener("click", () => cropper?.reset());
+submitBtn.addEventListener("click", submitCrop);
+window.addEventListener("resize", fitImageWrapperToPhoto);
+
+loadPhoto();
