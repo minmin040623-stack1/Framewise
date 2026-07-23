@@ -62,6 +62,23 @@ function evaluateFullImage(photoId) {
     );
 }
 
+function evaluateNormalizedCrop(photoId, crop) {
+    const photo = photos.find((item) => item.id === photoId);
+    const size = imageSizes[photoId];
+
+    return scorer.evaluateComposition(
+        photo,
+        {
+            x: crop.x * size.width,
+            y: crop.y * size.height,
+            width: crop.width * size.width,
+            height: crop.height * size.height
+        },
+        size.width,
+        size.height
+    );
+}
+
 assert.deepEqual(
     scorer.normalizeCrop(
         { x: 100, y: 50, width: 400, height: 300 },
@@ -139,6 +156,17 @@ photos.forEach((photo) => {
         );
     }
 
+    if (photo.coachOverlay.type === "centered") {
+        assert.ok(
+            photo.coachOverlay.axes?.length > 0,
+            `sample${photo.id} centered overlay has no axes`
+        );
+        assert.ok(
+            photo.coachOverlay.axes.every((axis) => ["x", "y"].includes(axis)),
+            `sample${photo.id} centered overlay has an invalid axis`
+        );
+    }
+
     if (photo.coachOverlay.type === "look-room") {
         const subject = (photo.annotations.subjects || [])
             .find((item) => item.id === photo.coachOverlay.subjectId);
@@ -194,8 +222,21 @@ photos.forEach((photo) => {
 
 const curveResult = evaluateReference(11);
 const leadingLineResult = evaluateReference(12);
+const sample9 = photos.find((photo) => photo.id === 9);
+const sample9OldTightCrop = evaluateNormalizedCrop(9, {
+    x: 0.131,
+    y: 0.272,
+    width: 0.695,
+    height: 0.592
+});
+const sample9RevisedCrop = evaluateReference(9);
 
 assert.ok(curveResult.criteria.some((criterion) => criterion.id === "curve-preservation"));
 assert.ok(leadingLineResult.criteria.some((criterion) => criterion.id === "leading-line"));
+assert.equal(sample9.coachOverlay.targetAnchor, "bottom-right");
+assert.ok(
+    sample9RevisedCrop.score >= sample9OldTightCrop.score + 15,
+    "sample9 should reward the wider two-line thirds composition over the old tight crop"
+);
 
 console.log("composition-score tests passed");

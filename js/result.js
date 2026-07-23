@@ -21,17 +21,17 @@ function initializeResult() {
     document.getElementById("resultMission").textContent = photoInfo.mission;
 
     if (score >= 92) {
-        grade.textContent = "Excellent control";
-        gradeSummary.textContent = "Your crop closely matches this photo's composition goals.";
+        grade.textContent = "구도를 아주 잘 잡았어요";
+        gradeSummary.textContent = "내 크롭이 이 사진의 구도 목표와 매우 잘 맞습니다.";
     } else if (score >= 82) {
-        grade.textContent = "Strong composition";
-        gradeSummary.textContent = "The main structure works, with a small adjustment left to explore.";
+        grade.textContent = "탄탄한 구도예요";
+        gradeSummary.textContent = "전체 구조가 좋습니다. 작은 조정으로 더 나아질 수 있어요.";
     } else if (score >= 70) {
-        grade.textContent = "Good direction";
-        gradeSummary.textContent = "The idea is visible. Use the evidence below to refine the crop.";
+        grade.textContent = "좋은 방향이에요";
+        gradeSummary.textContent = "의도한 구도가 보입니다. 아래 근거를 참고해 조금 더 다듬어 보세요.";
     } else {
-        grade.textContent = "Keep exploring";
-        gradeSummary.textContent = "Try the suggested adjustment, then retry this same photo.";
+        grade.textContent = "조금 더 살펴볼까요?";
+        gradeSummary.textContent = "추천한 부분을 조정한 뒤 같은 사진에 다시 도전해 보세요.";
     }
 
     renderHistory();
@@ -89,7 +89,7 @@ function renderScoreDetails() {
             value.className = "breakdown-value";
 
             label.textContent = item.label;
-            weight.textContent = `${item.weight}% of total`;
+            weight.textContent = `전체 점수의 ${item.weight}%`;
             value.textContent = `${roundedScore} / 100`;
             fill.style.width = `${Math.max(0, Math.min(100, item.score))}%`;
 
@@ -107,8 +107,8 @@ function renderScoreDetails() {
     }
 
     scoreMethod.textContent = scoreAnalysis.annotationBasis === "manual"
-        ? "Manual guides · rule-based"
-        : "Rule-based composition review";
+        ? "사람이 검토한 가이드 · 규칙 기반"
+        : "규칙 기반 구도 평가";
 
     criteria.forEach((item) => {
         const card = document.createElement("article");
@@ -130,7 +130,7 @@ function renderScoreDetails() {
 
     const messages = feedback.length > 0
         ? feedback
-        : [{ tone: "normal", text: "Detailed feedback is not available for this photo." }];
+        : [{ tone: "normal", text: "이 사진의 상세 피드백은 아직 준비되지 않았습니다." }];
 
     messages.forEach((item) => {
         const message = document.createElement("div");
@@ -150,22 +150,37 @@ function renderScoreDetails() {
 
 function renderSourceCredit() {
     const sourceCredit = document.getElementById("sourceCredit");
+    const creditsLink = document.createElement("a");
 
-    if (!photoInfo.sourceUrl) {
-        sourceCredit.textContent = "Project sample · source and license record pending verification.";
+    creditsLink.href = "credits.html";
+    creditsLink.textContent = "사진 출처";
+
+    if (photoInfo.rightsType === "original") {
+        sourceCredit.append(
+            document.createTextNode("직접 촬영한 사진 © 2026 FrameWise 촬영자 · "),
+            creditsLink
+        );
         return;
     }
 
-    const prefix = document.createTextNode("Photo: ");
+    if (!photoInfo.sourceUrl) {
+        sourceCredit.append(
+            document.createTextNode("사진 권리 정보를 확인할 수 없습니다 · "),
+            creditsLink
+        );
+        return;
+    }
+
+    const prefix = document.createTextNode("사진: ");
     const sourceLink = document.createElement("a");
     const creator = document.createTextNode(
-        ` by ${photoInfo.creator || "source creator"} · `
+        ` · 촬영: ${photoInfo.creator || "원저작자"} · `
     );
 
     sourceLink.href = photoInfo.sourceUrl;
     sourceLink.target = "_blank";
     sourceLink.rel = "noreferrer";
-    sourceLink.textContent = photoInfo.title || "View original";
+    sourceLink.textContent = photoInfo.title || "원본 보기";
 
     sourceCredit.append(prefix, sourceLink, creator);
 
@@ -174,13 +189,20 @@ function renderSourceCredit() {
         licenseLink.href = photoInfo.licenseUrl;
         licenseLink.target = "_blank";
         licenseLink.rel = "noreferrer";
-        licenseLink.textContent = photoInfo.license || "View license";
+        licenseLink.textContent = photoInfo.license || "라이선스 보기";
         sourceCredit.appendChild(licenseLink);
     } else {
         sourceCredit.append(
-            document.createTextNode(photoInfo.license || "License on source page")
+            document.createTextNode(photoInfo.license || "원본 페이지의 라이선스 참고")
         );
     }
+
+    sourceCredit.append(
+        document.createTextNode(
+            ` · ${photoInfo.modifications || "FrameWise 크롭 화면에서 사용했습니다."} · `
+        ),
+        creditsLink
+    );
 }
 
 function configureNavigation() {
@@ -288,21 +310,30 @@ function drawRuleOfThirds(context, width, height, targetAnchor) {
     }
 }
 
-function drawCenteredGuide(context, width, height) {
+function drawCenteredGuide(context, width, height, axes = ["x", "y"]) {
     context.strokeStyle = "rgba(255, 255, 255, 0.9)";
     context.setLineDash([10, 8]);
     context.beginPath();
-    context.moveTo(width / 2, 0);
-    context.lineTo(width / 2, height);
-    context.moveTo(0, height / 2);
-    context.lineTo(width, height / 2);
+
+    if (axes.includes("x")) {
+        context.moveTo(width / 2, 0);
+        context.lineTo(width / 2, height);
+    }
+
+    if (axes.includes("y")) {
+        context.moveTo(0, height / 2);
+        context.lineTo(width, height / 2);
+    }
+
     context.stroke();
 
-    context.setLineDash([]);
-    context.fillStyle = "#FBBF24";
-    context.beginPath();
-    context.arc(width / 2, height / 2, Math.max(5, width / 130), 0, Math.PI * 2);
-    context.fill();
+    if (axes.includes("x") && axes.includes("y")) {
+        context.setLineDash([]);
+        context.fillStyle = "#FBBF24";
+        context.beginPath();
+        context.arc(width / 2, height / 2, Math.max(5, width / 130), 0, Math.PI * 2);
+        context.fill();
+    }
 }
 
 function drawSymmetryGuide(context, width, height, axis) {
@@ -452,7 +483,7 @@ function drawCoachGuide(context, width, height, crop) {
             drawRuleOfThirds(context, width, height, coachOverlay.targetAnchor);
             break;
         case "centered":
-            drawCenteredGuide(context, width, height);
+            drawCenteredGuide(context, width, height, coachOverlay.axes);
             break;
         case "symmetry":
             drawSymmetryGuide(context, width, height, coachOverlay.axis);
@@ -543,7 +574,7 @@ function renderReferenceCrop() {
 
 function initializeReferencePreview() {
     if (referenceCrops.length === 0) {
-        referenceReason.textContent = "No coach example is available for this photo yet.";
+        referenceReason.textContent = "이 사진의 추천 크롭 예시는 아직 준비되지 않았습니다.";
         referenceCounter.textContent = "0 / 0";
         referenceControls.hidden = true;
         referenceCanvas.hidden = true;
@@ -560,7 +591,7 @@ function initializeReferencePreview() {
     referenceImage = new Image();
     referenceImage.onload = renderReferenceCrop;
     referenceImage.onerror = () => {
-        referenceReason.textContent = "The coach example could not be loaded.";
+        referenceReason.textContent = "추천 크롭 예시를 불러오지 못했습니다.";
         referenceControls.hidden = true;
         referenceCanvas.hidden = true;
         guideNote.hidden = true;
@@ -586,8 +617,8 @@ guideToggle.addEventListener("click", () => {
     guidesVisible = !guidesVisible;
     guideToggle.setAttribute("aria-pressed", String(guidesVisible));
     guideToggle.textContent = guidesVisible
-        ? "Hide coach guide"
-        : "Show coach guide";
+        ? "구도 가이드 숨기기"
+        : "구도 가이드 보기";
     renderReferenceCrop();
 });
 

@@ -129,12 +129,12 @@ const elements = Object.fromEntries(ids.map((id) => [id, createElement(id)]));
 const photoInfo = {
     id: 9,
     image: "sample9.jpg",
-    mission: "Rule of Thirds & Negative Space",
+    mission: "삼등분할 구도와 여백",
     coachOverlay: {
         type: "rule-of-thirds",
-        label: "Rule of thirds",
+        label: "삼등분할 구도",
         targetAnchor: "top-right",
-        guideText: "The white grid divides the frame into thirds."
+        guideText: "흰색 격자는 화면을 가로와 세로로 3등분합니다."
     },
     targetCompositions: [{ type: "rule-of-thirds" }],
     annotations: { source: "manual", subjects: [] },
@@ -144,7 +144,7 @@ const photoInfo = {
             y: 0.2,
             width: 0.7,
             height: 0.6,
-            reason: "Test coach crop reason."
+            reason: "추천 크롭 이유 테스트."
         }
     ]
 };
@@ -154,28 +154,28 @@ const scoreAnalysis = {
     breakdown: [
         {
             key: "targetComposition",
-            label: "Target composition",
+            label: "목표 구도 일치도",
             score: 92,
             weight: 90
         },
         {
             key: "referenceSimilarity",
-            label: "Coach crop similarity",
+            label: "추천 크롭 유사도",
             score: 100,
             weight: 10
         }
     ],
     criteria: [
         {
-            label: "Rule of thirds",
+            label: "삼등분할 구도",
             score: 92,
-            message: "The subject is close to the target thirds point."
+            message: "피사체가 목표 삼등분 교차점 가까이에 있습니다."
         }
     ],
     feedback: [
         {
             tone: "good",
-            text: "The subject placement supports the mission."
+            text: "피사체 배치가 목표 구도와 잘 맞습니다."
         }
     ]
 };
@@ -241,23 +241,23 @@ vm.runInNewContext(resultScript, sandbox, { filename: "js/result.js" });
 
 assert.equal(redirectTarget, null);
 assert.equal(elements.scoreValue.textContent, 92);
-assert.equal(elements.referenceReason.textContent, "Test coach crop reason.");
-assert.equal(elements.guideLabel.textContent, "Rule of thirds");
+assert.equal(elements.referenceReason.textContent, "추천 크롭 이유 테스트.");
+assert.equal(elements.guideLabel.textContent, "삼등분할 구도");
 assert.equal(
     elements.guideExplanation.textContent,
-    "The white grid divides the frame into thirds."
+    "흰색 격자는 화면을 가로와 세로로 3등분합니다."
 );
 assert.equal(elements.guideToggle.getAttribute("aria-pressed"), undefined);
 assert.ok(drawImageCalls > 0, "Coach crop canvas never called drawImage");
 
 elements.guideToggle.click();
 assert.equal(elements.guideToggle.getAttribute("aria-pressed"), "false");
-assert.equal(elements.guideToggle.textContent, "Show coach guide");
+assert.equal(elements.guideToggle.textContent, "구도 가이드 보기");
 assert.equal(elements.guideNote.hidden, true);
 
 elements.guideToggle.click();
 assert.equal(elements.guideToggle.getAttribute("aria-pressed"), "true");
-assert.equal(elements.guideToggle.textContent, "Hide coach guide");
+assert.equal(elements.guideToggle.textContent, "구도 가이드 숨기기");
 assert.equal(elements.guideNote.hidden, false);
 
 console.log("result runtime test passed");

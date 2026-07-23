@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Review your FrameWise composition score, evidence, and coach crop examples.">
+    <meta name="description" content="FrameWise 구도 점수와 측정 근거, 추천 크롭 예시를 확인하세요.">
 
-    <title>FrameWise | Composition Feedback</title>
+    <title>FrameWise | 사진 구도 피드백</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/common.css">
@@ -21,11 +21,11 @@
 
 <header class="result-header">
     <div class="container">
-        <a href="index.html" class="logo" aria-label="FrameWise home">
+        <a href="index.html" class="logo" aria-label="FrameWise 홈">
             <span aria-hidden="true">📷</span>
             FrameWise
         </a>
-        <span class="result-header-label">Composition feedback</span>
+        <span class="result-header-label">사진 구도 피드백</span>
     </div>
 </header>
 
@@ -34,34 +34,34 @@
         <article class="result-card">
             <header class="result-intro">
                 <div>
-                    <p class="eyebrow">Challenge complete</p>
-                    <h1>Your composition feedback</h1>
-                    <p id="resultMission" class="subtitle">Photo-specific composition review</p>
+                    <p class="eyebrow">도전 완료</p>
+                    <h1>내 사진 구도 피드백</h1>
+                    <p id="resultMission" class="subtitle">사진별 구도 분석</p>
                 </div>
 
-                <div class="score-summary" aria-label="Composition score">
+                <div class="score-summary" aria-label="사진 구도 점수">
                     <div class="score-circle">
                         <span id="scoreValue">--</span>
                         <small>/ 100</small>
                     </div>
                     <div>
-                        <h2 id="gradeText">Calculating…</h2>
-                        <p id="gradeSummary">Review the evidence behind your score.</p>
+                        <h2 id="gradeText">계산 중…</h2>
+                        <p id="gradeSummary">점수의 근거를 확인해 보세요.</p>
                     </div>
                 </div>
             </header>
 
-            <section class="session-stats" aria-label="Practice history">
+            <section class="session-stats" aria-label="연습 기록">
                 <div>
-                    <span>Attempts</span>
+                    <span>도전 횟수</span>
                     <strong id="attemptCount">0</strong>
                 </div>
                 <div>
-                    <span>Average</span>
+                    <span>평균</span>
                     <strong id="averageScore">--</strong>
                 </div>
                 <div>
-                    <span>Personal best</span>
+                    <span>최고 점수</span>
                     <strong id="bestScore">--</strong>
                 </div>
             </section>
@@ -69,10 +69,10 @@
             <section id="scoreBreakdownSection" class="analysis-section">
                 <div class="analysis-heading">
                     <div>
-                        <p class="eyebrow">Transparent scoring</p>
-                        <h2>How your score was built</h2>
+                        <p class="eyebrow">투명한 점수</p>
+                        <h2>점수는 이렇게 계산되었습니다</h2>
                     </div>
-                    <span id="scoreMethod" class="score-method">Rule-based review</span>
+                    <span id="scoreMethod" class="score-method">규칙 기반 평가</span>
                 </div>
 
                 <div id="scoreBreakdown" class="score-breakdown"></div>
@@ -81,8 +81,8 @@
             <section class="analysis-section">
                 <div class="analysis-heading">
                     <div>
-                        <p class="eyebrow">Measured evidence</p>
-                        <h2>What the crop changed</h2>
+                        <p class="eyebrow">측정 근거</p>
+                        <h2>크롭으로 달라진 부분</h2>
                     </div>
                 </div>
                 <div id="criteriaDetails" class="criteria-details"></div>
@@ -91,8 +91,8 @@
             <section class="feedback-section" aria-labelledby="feedbackHeading">
                 <div class="analysis-heading">
                     <div>
-                        <p class="eyebrow">Coach notes</p>
-                        <h2 id="feedbackHeading">What worked and what to try next</h2>
+                        <p class="eyebrow">코치 피드백</p>
+                        <h2 id="feedbackHeading">잘한 점과 다음에 바꿔볼 점</h2>
                     </div>
                 </div>
                 <div id="feedbackList" class="feedback-list" aria-live="polite"></div>
@@ -101,34 +101,34 @@
             <section class="comparison-section" aria-labelledby="comparisonHeading">
                 <div class="analysis-heading comparison-heading">
                     <div>
-                        <p class="eyebrow">Visual comparison</p>
-                        <h2 id="comparisonHeading">Your crop and coach examples</h2>
+                        <p class="eyebrow">눈으로 비교하기</p>
+                        <h2 id="comparisonHeading">내 크롭과 추천 예시</h2>
                     </div>
                     <button id="guideToggle" class="guide-toggle" type="button" aria-pressed="true">
-                        Hide coach guide
+                        구도 가이드 숨기기
                     </button>
                 </div>
 
                 <div class="comparison-grid">
                     <section class="preview-card">
-                        <h3>Your crop</h3>
+                        <h3>내 크롭</h3>
                         <div class="preview-media">
-                            <img id="croppedPreview" src="" alt="Your submitted crop">
+                            <img id="croppedPreview" src="" alt="사용자가 제출한 크롭">
                         </div>
                         <p class="preview-caption">
-                            Your crop stays unmarked so you can compare it clearly.
+                            쉽게 비교할 수 있도록 내 크롭에는 가이드 선을 표시하지 않습니다.
                         </p>
                     </section>
 
                     <section class="preview-card reference-preview">
                         <div class="reference-heading">
-                            <h3>Coach crop example</h3>
+                            <h3>추천 크롭 예시</h3>
                             <span id="referenceCounter" class="reference-counter">1 / 1</span>
                         </div>
 
                         <canvas
                             id="referenceCanvas"
-                            aria-label="Recommended composition example"
+                            aria-label="추천 구도 예시"
                             aria-describedby="guideExplanation referenceReason"
                         ></canvas>
                         <div id="guideNote" class="guide-note" hidden>
@@ -139,15 +139,15 @@
 
                         <div id="referenceControls" class="reference-controls">
                             <button id="previousReferenceBtn" class="reference-button" type="button">
-                                ← Previous
+                                ← 이전
                             </button>
                             <button id="nextReferenceBtn" class="reference-button" type="button">
-                                Next →
+                                다음 →
                             </button>
                         </div>
 
                         <p class="preview-caption">
-                            Good composition has more than one answer. Compare the reasoning, not just the rectangle.
+                            좋은 구도에는 여러 답이 있습니다. 크롭 영역뿐 아니라 추천 이유도 비교해 보세요.
                         </p>
                     </section>
                 </div>
@@ -157,16 +157,20 @@
                 <p id="sourceCredit" class="source-credit"></p>
                 <div class="result-actions">
                     <button id="retryBtn" class="secondary-action" type="button">
-                        Retry This Photo
+                        같은 사진 다시 도전
                     </button>
                     <button id="nextBtn" class="primary-button" type="button">
-                        Next Challenge
+                        다음 도전
                     </button>
                 </div>
             </footer>
         </article>
     </div>
 </main>
+
+<footer class="legal-footer">
+    <a href="credits.html">사진 출처 및 이용 안내</a>
+</footer>
 
 <script src="js/result.js"></script>
 

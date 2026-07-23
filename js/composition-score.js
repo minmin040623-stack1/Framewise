@@ -10,11 +10,11 @@
     const EPSILON = 0.000001;
 
     const CATEGORY_LABELS = {
-        targetComposition: "Target composition",
-        subjectPreservation: "Subject preservation",
-        alignment: "Alignment",
-        spaceAndBalance: "Space & balance",
-        referenceSimilarity: "Coach crop similarity"
+        targetComposition: "목표 구도 일치도",
+        subjectPreservation: "피사체 보존",
+        alignment: "수평·정렬",
+        spaceAndBalance: "여백과 균형",
+        referenceSimilarity: "추천 크롭 유사도"
     };
 
     const THIRD_POINTS = {
@@ -22,6 +22,20 @@
         "top-right": { x: 2 / 3, y: 1 / 3 },
         "bottom-left": { x: 1 / 3, y: 2 / 3 },
         "bottom-right": { x: 2 / 3, y: 2 / 3 }
+    };
+
+    const THIRD_POINT_LABELS = {
+        "top-left": "왼쪽 위",
+        "top-right": "오른쪽 위",
+        "bottom-left": "왼쪽 아래",
+        "bottom-right": "오른쪽 아래"
+    };
+
+    const DIRECTION_LABELS = {
+        left: "왼쪽",
+        right: "오른쪽",
+        up: "위쪽",
+        down: "아래쪽"
     };
 
     function clamp(value, min, max) {
@@ -146,16 +160,17 @@
         const excellentDistance = target.target?.excellentDistance ?? 0.06;
         const maxDistance = target.target?.maxDistance ?? 0.24;
         const score = scoreDistance(nearestDistance, excellentDistance, maxDistance);
+        const nearestLabel = THIRD_POINT_LABELS[nearestName] || nearestName;
 
         return {
             id: "rule-of-thirds",
-            label: "Rule of thirds",
+            label: "삼등분할 구도",
             category: target.category || "targetComposition",
             score,
             weight: target.weight ?? 1,
             message: score >= 80
-                ? `The subject anchor is within ${round(nearestDistance * 100, 1)}% of the ${nearestName} thirds point.`
-                : `Move the subject closer to the ${nearestName} thirds point; it is ${round(nearestDistance * 100, 1)}% away.`
+                ? `피사체 기준점이 ${nearestLabel} 삼등분 교차점에서 ${round(nearestDistance * 100, 1)}% 이내에 있습니다.`
+                : `피사체를 ${nearestLabel} 삼등분 교차점에 더 가깝게 옮겨 보세요. 현재 거리는 ${round(nearestDistance * 100, 1)}%입니다.`
         };
     }
 
@@ -183,17 +198,19 @@
             target.target?.excellentDistance ?? 0.04,
             target.target?.maxDistance ?? 0.22
         );
-        const axisLabel = axes.length === 1 ? `${axes[0].toUpperCase()} axis` : "frame center";
+        const axisLabel = axes.length === 1
+            ? axes[0] === "x" ? "세로 중심선" : "가로 중심선"
+            : "화면 중심";
 
         return {
             id: "centered",
-            label: "Centered composition",
+            label: "중앙 구도",
             category: target.category || "targetComposition",
             score,
             weight: target.weight ?? 1,
             message: score >= 80
-                ? `The subject is aligned with the ${axisLabel} within ${round(distance * 100, 1)}%.`
-                : `Shift the crop so the subject is closer to the ${axisLabel}; the offset is ${round(distance * 100, 1)}%.`
+                ? `피사체가 ${axisLabel}에서 ${round(distance * 100, 1)}% 이내로 정렬되어 있습니다.`
+                : `피사체가 ${axisLabel}에 더 가까워지도록 크롭을 옮겨 보세요. 현재 어긋난 정도는 ${round(distance * 100, 1)}%입니다.`
         };
     }
 
@@ -230,16 +247,17 @@
         const ratio = frontSpace / Math.max(backSpace, EPSILON);
         const minimumRatio = target.target?.minFrontBackRatio ?? 1.2;
         const score = 100 * clamp(ratio / minimumRatio, 0, 1);
+        const directionLabel = DIRECTION_LABELS[subject.lookDirection] || "시선";
 
         return {
             id: "look-room",
-            label: "Look room",
+            label: "시선 여백",
             category: target.category || "spaceAndBalance",
             score,
             weight: target.weight ?? 1,
             message: score >= 80
-                ? `The space in front of the subject is ${round(ratio, 1)}× the space behind it.`
-                : `Leave more room in the ${subject.lookDirection}ward gaze direction; the front/back ratio is ${round(ratio, 1)}×.`
+                ? `피사체 앞쪽 여백이 뒤쪽 여백의 ${round(ratio, 1)}배로 확보되었습니다.`
+                : `피사체가 바라보는 ${directionLabel}에 여백을 더 남겨 보세요. 앞뒤 여백 비율은 현재 ${round(ratio, 1)}배입니다.`
         };
     }
 
@@ -249,11 +267,11 @@
         if (!horizon || horizon.y < crop.y || horizon.y > crop.y + crop.height) {
             return {
                 id: "horizon-position",
-                label: "Horizon placement",
+                label: "수평선 위치",
                 category: target.category || "alignment",
                 score: 0,
                 weight: target.weight ?? 1,
-                message: "Keep the annotated horizon inside the crop."
+                message: "표시된 수평선이 크롭 안에 들어오도록 조정해 보세요."
             };
         }
 
@@ -268,13 +286,13 @@
 
         return {
             id: "horizon-position",
-            label: "Horizon placement",
+            label: "수평선 위치",
             category: target.category || "alignment",
             score,
             weight: target.weight ?? 1,
             message: score >= 80
-                ? `The horizon sits at ${round(localY * 100, 1)}% of the crop, close to the target division.`
-                : `Place the horizon nearer a target division; it currently sits at ${round(localY * 100, 1)}%.`
+                ? `수평선이 크롭 높이의 ${round(localY * 100, 1)}% 지점에 있어 목표 분할선에 가깝습니다.`
+                : `수평선을 목표 분할선에 더 가깝게 배치해 보세요. 현재 위치는 위에서 ${round(localY * 100, 1)}% 지점입니다.`
         };
     }
 
@@ -287,13 +305,13 @@
 
         return {
             id: "crop-area-range",
-            label: target.label || "Crop amount",
+            label: target.label || "크롭 범위",
             category: target.category || "spaceAndBalance",
             score,
             weight: target.weight ?? 1,
             message: score >= 80
-                ? `The crop retains ${round(ratio * 100, 1)}% of the original, within this photo's target range.`
-                : `This crop retains ${round(ratio * 100, 1)}%; aim for ${round(min * 100)}–${round(max * 100)}%.`
+                ? `원본의 ${round(ratio * 100, 1)}%를 남겨 이 사진의 권장 범위에 들어옵니다.`
+                : `원본의 ${round(ratio * 100, 1)}%가 남았습니다. ${round(min * 100)}~${round(max * 100)}%를 목표로 조절해 보세요.`
         };
     }
 
@@ -312,13 +330,13 @@
 
         return {
             id: "subject-prominence",
-            label: "Subject prominence",
+            label: "피사체 크기",
             category: target.category || "spaceAndBalance",
             score,
             weight: target.weight ?? 1,
             message: score >= 80
-                ? `The primary subject occupies ${round(prominence * 100, 1)}% of the crop.`
-                : `The primary subject occupies ${round(prominence * 100, 1)}%; aim for ${round(min * 100)}–${round(max * 100)}%.`
+                ? `주요 피사체가 크롭 화면의 ${round(prominence * 100, 1)}%를 차지합니다.`
+                : `주요 피사체가 화면의 ${round(prominence * 100, 1)}%를 차지합니다. ${round(min * 100)}~${round(max * 100)}%를 목표로 조절해 보세요.`
         };
     }
 
@@ -367,13 +385,13 @@
 
         return {
             id: "layer-proportions",
-            label: target.label || "Foreground, middle ground & background",
+            label: target.label || "전경·중경·배경",
             category: target.category || "spaceAndBalance",
             score,
             weight: target.weight ?? 1,
             message: score >= 80
-                ? `The crop keeps a clear depth sequence: ${shares}.`
-                : `${weakestLayer.label} occupies ${round(weakestLayer.share * 100)}%; aim for ${round(weakestRange.min * 100)}–${round(weakestRange.max * 100)}%. Current layers: ${shares}.`
+                ? `화면의 깊이 단계가 분명하게 유지됩니다: ${shares}.`
+                : `${weakestLayer.label} 영역은 ${round(weakestLayer.share * 100)}%입니다. ${round(weakestRange.min * 100)}~${round(weakestRange.max * 100)}%를 목표로 해보세요. 현재 비율: ${shares}.`
         };
     }
 
@@ -392,13 +410,13 @@
 
         return {
             id: "frame-preservation",
-            label: target.label || "Natural frame preservation",
+            label: target.label || "프레임 속 프레임 보존",
             category: target.category || "targetComposition",
             score,
             weight: target.weight ?? 1,
             message: score >= 80
-                ? `The crop preserves ${round(visibleRatio * 100)}% of the annotated architectural frame.`
-                : `Keep more of the architectural frame visible; only ${round(visibleRatio * 100)}% remains.`
+                ? `표시된 건축 프레임의 ${round(visibleRatio * 100)}%를 보존했습니다.`
+                : `건축 프레임이 더 많이 보이도록 크롭해 보세요. 현재 ${round(visibleRatio * 100)}%가 남아 있습니다.`
         };
     }
 
@@ -438,8 +456,8 @@
             score,
             weight: target.weight ?? 1,
             message: score >= 80
-                ? `The crop retains ${round(visibleRatio * 100)}% of the annotated ${defaultLabel.toLowerCase()} path with enough visual span.`
-                : `Keep more of the annotated ${defaultLabel.toLowerCase()} path inside the crop; ${round(visibleRatio * 100)}% of its guide points remain.`
+                ? `표시된 ${defaultLabel}의 ${round(visibleRatio * 100)}%를 충분한 길이로 보존했습니다.`
+                : `표시된 ${defaultLabel}이 크롭 안에 더 많이 들어오게 해보세요. 현재 가이드 지점의 ${round(visibleRatio * 100)}%가 남아 있습니다.`
         };
     }
 
@@ -449,7 +467,7 @@
             photo,
             crop,
             "curves",
-            "Shoreline curve"
+            "해안선 곡선"
         );
     }
 
@@ -459,7 +477,7 @@
             photo,
             crop,
             "lines",
-            "Leading line"
+            "리딩 라인"
         );
     }
 
@@ -508,8 +526,8 @@
             score,
             weight: 1,
             message: ratio >= 0.95
-                ? `The crop preserves ${round(ratio * 100, 1)}% of the annotated subject.`
-                : `Only ${round(ratio * 100, 1)}% of the annotated subject remains; avoid cutting important parts.`
+                ? `표시된 피사체의 ${round(ratio * 100, 1)}%를 보존했습니다.`
+                : `표시된 피사체가 ${round(ratio * 100, 1)}%만 남았습니다. 중요한 부분이 잘리지 않게 조정해 보세요.`
         };
     }
 
@@ -538,7 +556,7 @@
             category: "referenceSimilarity",
             score: bestIoU * 100,
             weight: 1,
-            message: `The crop overlaps coach example ${bestIndex + 1} by ${round(bestIoU * 100, 1)}%.`
+            message: `내 크롭과 추천 예시 ${bestIndex + 1}번이 ${round(bestIoU * 100, 1)}% 겹칩니다.`
         };
     }
 
@@ -587,7 +605,7 @@
                 breakdown: [],
                 feedback: [{
                     tone: "normal",
-                    text: "This photo still uses the legacy geometry score because composition annotations are not available yet."
+                    text: "이 사진에는 구도 주석이 없어 이전 방식의 기하학 점수를 사용합니다."
                 }]
             };
         }
@@ -650,7 +668,7 @@
 
         feedback.push({
             tone: "normal",
-            text: "This is a rule-based estimate using manually reviewed photo annotations, not automatic subject detection."
+            text: "이 점수는 자동 피사체 인식 결과가 아니라, 사람이 검토한 사진 주석과 구도 규칙을 사용한 추정치입니다."
         });
 
         return {

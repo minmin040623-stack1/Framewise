@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Practice photographic composition by cropping real images with clear, rule-based feedback.">
+    <meta name="description" content="실제 사진을 직접 크롭하고 명확한 구도 기준에 따라 피드백을 받아 보세요.">
 
-    <title>FrameWise | Composition Challenge</title>
+    <title>FrameWise | 사진 구도 도전</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
     <link rel="stylesheet" href="css/reset.css">
@@ -22,16 +22,16 @@
 
 <header class="game-header">
     <div class="container">
-        <a href="index.html" class="logo" aria-label="FrameWise home">
+        <a href="index.html" class="logo" aria-label="FrameWise 홈">
             <span aria-hidden="true">📷</span>
             FrameWise
         </a>
 
         <div class="header-right">
-            <span id="modeBadge" class="mode-badge">Timed challenge</span>
-            <div id="timer" class="timer" aria-label="Time remaining" aria-live="off">
+            <span id="modeBadge" class="mode-badge">시간 제한 도전</span>
+            <div id="timer" class="timer" aria-label="남은 시간" aria-live="off">
                 <span aria-hidden="true">⏱</span>
-                <span id="time">--</span><span id="timerSuffix">s</span>
+                <span id="time">--</span><span id="timerSuffix">초</span>
             </div>
         </div>
     </div>
@@ -41,15 +41,15 @@
     <div class="container">
         <section class="challenge-brief" aria-labelledby="missionText">
             <div>
-                <p class="eyebrow">Current composition goal</p>
-                <h1 id="missionText">Loading challenge…</h1>
-                <p id="tipText" class="challenge-tip">Preparing the composition guide.</p>
+                <p class="eyebrow">현재 구도 목표</p>
+                <h1 id="missionText">도전을 불러오는 중…</h1>
+                <p id="tipText" class="challenge-tip">구도 가이드를 준비하고 있습니다.</p>
             </div>
 
             <div class="challenge-meta">
-                <span id="difficultyText" class="meta-pill">Difficulty: --</span>
+                <span id="difficultyText" class="meta-pill">난이도: --</span>
                 <span id="statusText" class="meta-pill status-pill" role="status" aria-live="polite">
-                    Loading image…
+                    사진 불러오는 중…
                 </span>
             </div>
         </section>
@@ -58,10 +58,10 @@
             <section class="image-panel" aria-labelledby="cropHeading">
                 <div class="panel-heading">
                     <div>
-                        <p class="eyebrow">Your turn</p>
-                        <h2 id="cropHeading">Shape the frame</h2>
+                        <p class="eyebrow">직접 해보기</p>
+                        <h2 id="cropHeading">원하는 구도로 크롭하세요</h2>
                     </div>
-                    <p>Drag the image, resize the crop box, or use the controls.</p>
+                    <p>사진을 드래그하거나 크롭 영역과 확대·축소 버튼을 조절하세요.</p>
                 </div>
 
                 <div class="image-wrapper">
@@ -69,49 +69,53 @@
                 </div>
             </section>
 
-            <aside class="control-panel" aria-label="Crop controls">
+            <aside class="control-panel" aria-label="크롭 조작 도구">
                 <section class="control-card">
-                    <p class="eyebrow">Evaluation</p>
-                    <h2>What will be measured</h2>
+                    <p class="eyebrow">평가 기준</p>
+                    <h2>이 항목을 측정합니다</h2>
                     <ul id="criteriaList" class="criteria-list">
-                        <li>Loading criteria…</li>
+                        <li>평가 기준 불러오는 중…</li>
                     </ul>
                     <p class="annotation-note">
-                        FrameWise uses manually reviewed guide points and transparent composition rules.
+                        FrameWise는 사람이 검토한 기준 좌표와 공개된 구도 규칙을 사용합니다.
                     </p>
                 </section>
 
                 <section class="control-card">
-                    <p class="eyebrow">Controls</p>
+                    <p class="eyebrow">조작</p>
                     <div class="crop-actions">
                         <button id="zoomOutBtn" class="control-button" type="button" disabled>
-                            − Zoom
+                            − 축소
                         </button>
                         <button id="zoomInBtn" class="control-button" type="button" disabled>
-                            + Zoom
+                            + 확대
                         </button>
                         <button id="resetCropBtn" class="control-button" type="button" disabled>
-                            Reset
+                            초기화
                         </button>
                     </div>
                     <a id="modeSwitch" class="mode-switch" href="game.html?mode=practice">
-                        Switch to untimed practice
+                        시간 제한 없이 연습하기
                     </a>
                 </section>
 
                 <button id="submitBtn" class="primary-button submit-button" type="button" disabled>
-                    Check My Composition
+                    내 구도 확인하기
                 </button>
             </aside>
         </div>
     </div>
 </main>
 
+<footer class="legal-footer">
+    <a href="credits.html">사진 출처 및 이용 안내</a>
+</footer>
+
 <div id="loadingOverlay" class="loading-overlay hidden" role="status" aria-live="polite" aria-hidden="true">
     <div class="loading-box">
         <span class="loading-icon" aria-hidden="true">◫</span>
-        <h2>Building your feedback…</h2>
-        <p>Comparing your crop with this photo's composition goals.</p>
+        <h2>피드백을 만드는 중…</h2>
+        <p>내 크롭을 이 사진의 구도 목표와 비교하고 있습니다.</p>
         <div class="loading-bar" aria-hidden="true">
             <div class="loading-progress"></div>
         </div>

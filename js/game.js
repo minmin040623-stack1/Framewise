@@ -17,9 +17,9 @@ const resetCropBtn = document.getElementById("resetCropBtn");
 const overlay = document.getElementById("loadingOverlay");
 
 const DIFFICULTY_LABELS = {
-    1: "Easy",
-    2: "Medium",
-    3: "Hard"
+    1: "쉬움",
+    2: "보통",
+    3: "어려움"
 };
 
 const TIME_BY_DIFFICULTY = {
@@ -29,16 +29,16 @@ const TIME_BY_DIFFICULTY = {
 };
 
 const CRITERIA_LABELS = {
-    "rule-of-thirds": "Subject placement on the thirds grid",
-    centered: "Alignment with the frame center",
-    "look-room": "Space in the subject's viewing direction",
-    "horizon-position": "Horizon placement",
-    "crop-area-range": "How much of the original frame remains",
-    "subject-prominence": "Subject size inside the crop",
-    "layer-proportions": "Foreground, middle ground, and background proportions",
-    "frame-preservation": "Preservation of the natural frame",
-    "curve-preservation": "Preservation of the shoreline curve",
-    "leading-line": "Preservation of the leading line"
+    "rule-of-thirds": "삼등분할 격자 위 피사체 위치",
+    centered: "피사체와 화면 중심의 정렬",
+    "look-room": "피사체가 바라보는 방향의 여백",
+    "horizon-position": "수평선의 위치",
+    "crop-area-range": "원본에서 남기는 화면의 비율",
+    "subject-prominence": "크롭 안에서 피사체가 차지하는 크기",
+    "layer-proportions": "전경·중경·배경의 비율",
+    "frame-preservation": "자연스러운 외부 프레임 보존",
+    "curve-preservation": "해안선 곡선 보존",
+    "leading-line": "리딩 라인 보존"
 };
 
 const params = new URLSearchParams(window.location.search);
@@ -87,7 +87,7 @@ function renderCriteria(photo) {
 
     if (preservationWeight > 0) {
         const item = document.createElement("li");
-        item.textContent = "Preservation of the main subject";
+        item.textContent = "주요 피사체가 잘리지 않고 보존되는 정도";
         criteriaList.appendChild(item);
     }
 }
@@ -96,18 +96,18 @@ function configureMode(photo) {
     sessionStorage.setItem("framewiseMode", gameMode);
 
     if (gameMode === "practice") {
-        modeBadge.textContent = "Untimed practice";
+        modeBadge.textContent = "시간 제한 없는 연습";
         timerValue.textContent = "∞";
         timerSuffix.textContent = "";
         timer.classList.add("practice-timer");
-        modeSwitch.textContent = "Switch to timed challenge";
+        modeSwitch.textContent = "시간 제한 도전으로 바꾸기";
         modeSwitch.href = `game.html?mode=timed&photo=${photo.id}`;
         return;
     }
 
-    modeBadge.textContent = "Timed challenge";
-    timerSuffix.textContent = "s";
-    modeSwitch.textContent = "Switch to untimed practice";
+    modeBadge.textContent = "시간 제한 도전";
+    timerSuffix.textContent = "초";
+    modeSwitch.textContent = "시간 제한 없이 연습하기";
     modeSwitch.href = `game.html?mode=practice&photo=${photo.id}`;
 }
 
@@ -137,10 +137,10 @@ function startTimer(photo) {
 function loadImage(photo) {
     return new Promise((resolve, reject) => {
         image.onload = resolve;
-        image.onerror = () => reject(new Error("The selected image could not be loaded."));
+        image.onerror = () => reject(new Error("선택한 사진을 불러오지 못했습니다."));
         image.alt = photo.title
-            ? `${photo.title} — crop practice image`
-            : `${photo.mission} crop practice image`;
+            ? `${photo.title} 크롭 연습 사진`
+            : `${photo.mission} 크롭 연습 사진`;
         image.src = `assets/images/${photo.image}`;
     });
 }
@@ -169,7 +169,7 @@ function fitImageWrapperToPhoto() {
 function initializeCropper(photo) {
     return new Promise((resolve, reject) => {
         if (typeof window.Cropper !== "function") {
-            reject(new Error("The crop tool could not be loaded."));
+            reject(new Error("크롭 도구를 불러오지 못했습니다."));
             return;
         }
 
@@ -189,7 +189,7 @@ function initializeCropper(photo) {
             center: true,
             ready() {
                 setControlsEnabled(true);
-                setStatus("Ready to crop", "ready");
+                setStatus("크롭 준비 완료", "ready");
                 startTimer(photo);
                 resolve();
             }
@@ -200,12 +200,12 @@ function initializeCropper(photo) {
 async function loadPhoto() {
     try {
         setControlsEnabled(false);
-        setStatus("Loading image…", "loading");
+        setStatus("사진 불러오는 중…", "loading");
 
         const response = await fetch("assets/data/photos.json");
 
         if (!response.ok) {
-            throw new Error(`Photo data request failed (${response.status}).`);
+            throw new Error(`사진 데이터 요청에 실패했습니다. (${response.status})`);
         }
 
         const photos = await response.json();
@@ -217,13 +217,13 @@ async function loadPhoto() {
         });
 
         if (!currentPhoto) {
-            throw new Error("No practice photos are available.");
+            throw new Error("연습에 사용할 수 있는 사진이 없습니다.");
         }
 
         sessionStorage.setItem("framewiseLastPhotoId", currentPhoto.id);
         missionText.textContent = currentPhoto.mission;
         tipText.textContent = currentPhoto.tip;
-        difficultyText.textContent = `Difficulty: ${DIFFICULTY_LABELS[currentPhoto.difficulty] || "Custom"}`;
+        difficultyText.textContent = `난이도: ${DIFFICULTY_LABELS[currentPhoto.difficulty] || "사용자 지정"}`;
         renderCriteria(currentPhoto);
         configureMode(currentPhoto);
 
@@ -232,9 +232,9 @@ async function loadPhoto() {
         await initializeCropper(currentPhoto);
     } catch (error) {
         console.error(error);
-        setStatus(error.message || "The challenge could not be loaded.", "error");
-        missionText.textContent = "Challenge unavailable";
-        tipText.textContent = "Return home and try again.";
+        setStatus(error.message || "도전을 불러오지 못했습니다.", "error");
+        missionText.textContent = "도전을 시작할 수 없습니다";
+        tipText.textContent = "홈으로 돌아간 뒤 다시 시도해 주세요.";
         setControlsEnabled(false);
     }
 }
@@ -261,7 +261,7 @@ function submitCrop() {
     hasSubmitted = true;
     window.clearInterval(timerInterval);
     setControlsEnabled(false);
-    setStatus("Building feedback…", "loading");
+    setStatus("피드백 만드는 중…", "loading");
 
     try {
         const cropData = cropper.getData();
@@ -297,7 +297,7 @@ function submitCrop() {
         console.error(error);
         hasSubmitted = false;
         setControlsEnabled(true);
-        setStatus("Could not save this crop. Please try again.", "error");
+        setStatus("크롭을 저장하지 못했습니다. 다시 시도해 주세요.", "error");
     }
 }
 

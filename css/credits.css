@@ -1,0 +1,220 @@
+.credits-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(16px);
+}
+
+.credits-header .container {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.credits-header .container > span {
+    color: var(--sub-text);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.credits-page {
+    padding: 54px 0 84px;
+}
+
+.credits-container {
+    max-width: 960px;
+}
+
+.eyebrow {
+    color: #7FB4FF;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.credits-intro {
+    padding: 34px;
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at 88% 12%, rgba(37, 99, 235, 0.22), transparent 35%),
+        var(--surface-color);
+    box-shadow: var(--shadow);
+}
+
+.credits-intro h1 {
+    margin-top: 8px;
+    font-size: clamp(2.3rem, 7vw, 4rem);
+}
+
+.credits-intro > p:not(.eyebrow) {
+    max-width: 700px;
+    margin-top: 15px;
+    color: #CBD5E1;
+}
+
+.credit-summary {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.credit-summary span,
+.sample-label {
+    border: 1px solid rgba(96, 165, 250, 0.24);
+    border-radius: 999px;
+    background: rgba(37, 99, 235, 0.1);
+    color: #BFDBFE;
+    font-size: 0.76rem;
+    font-weight: 600;
+}
+
+.credit-summary span {
+    padding: 8px 11px;
+}
+
+.credit-summary strong {
+    margin-left: 4px;
+    color: #FFFFFF;
+}
+
+.credit-section {
+    padding: 0;
+    margin-top: 54px;
+}
+
+.section-heading h2 {
+    margin-top: 7px;
+    font-size: clamp(1.55rem, 4vw, 2.1rem);
+}
+
+.section-heading > p:not(.eyebrow) {
+    max-width: 720px;
+    margin-top: 11px;
+}
+
+.original-credit,
+.notice-card {
+    margin-top: 18px;
+    padding: 22px 24px;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: rgba(30, 41, 59, 0.72);
+}
+
+.original-credit p + p,
+.notice-card p + p {
+    margin-top: 8px;
+}
+
+.original-credit strong,
+.notice-card strong {
+    color: #E2E8F0;
+}
+
+.credit-list {
+    margin-top: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: rgba(30, 41, 59, 0.72);
+}
+
+.credit-row {
+    padding: 17px 19px;
+    display: grid;
+    grid-template-columns: 92px minmax(190px, 1.25fr) minmax(100px, 0.55fr) minmax(170px, 1fr);
+    align-items: center;
+    gap: 18px;
+}
+
+.credit-row + .credit-row {
+    border-top: 1px solid var(--border-color);
+}
+
+.sample-label {
+    width: fit-content;
+    padding: 6px 9px;
+}
+
+.credit-row h3 {
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+}
+
+.credit-row p {
+    font-size: 0.76rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.credit-row a,
+.notice-card a {
+    color: #BFDBFE;
+    text-decoration: underline;
+    text-decoration-color: rgba(191, 219, 254, 0.35);
+    text-underline-offset: 3px;
+}
+
+.credit-row a:hover,
+.notice-card a:hover {
+    text-decoration-color: currentColor;
+}
+
+.credits-actions {
+    margin-top: 44px;
+    text-align: center;
+}
+
+@media (max-width: 760px) {
+    .credits-page {
+        padding: 28px 0 58px;
+    }
+
+    .credits-intro {
+        padding: 25px;
+    }
+
+    .credit-section {
+        margin-top: 42px;
+    }
+
+    .credit-row {
+        grid-template-columns: 82px 1fr;
+        gap: 8px 14px;
+    }
+
+    .credit-row > p {
+        grid-column: 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .credits-header .container > span {
+        display: none;
+    }
+
+    .credit-summary {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .credit-summary span {
+        width: fit-content;
+    }
+
+    .credit-row {
+        grid-template-columns: 1fr;
+    }
+
+    .credit-row > p {
+        grid-column: auto;
+    }
+}

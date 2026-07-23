@@ -15,9 +15,16 @@
 }
 
 body {
-    font-family: "Inter", sans-serif;
+    font-family:
+        "Noto Sans KR",
+        "Pretendard",
+        "Apple SD Gothic Neo",
+        "Malgun Gothic",
+        "Inter",
+        sans-serif;
     background: var(--bg-color);
     color: var(--text-color);
+    word-break: keep-all;
 }
 
 .container {
@@ -121,6 +128,40 @@ section {
     padding: 40px 0;
     border-top: 1px solid var(--border-color);
     color: var(--sub-text);
+    text-align: center;
+}
+
+.footer .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 7px 14px;
+}
+
+.footer p {
+    font-size: 0.8rem;
+}
+
+.footer-link,
+.legal-footer a {
+    color: var(--sub-text);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    text-decoration: underline;
+    text-decoration-color: rgba(148, 163, 184, 0.35);
+    text-underline-offset: 3px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.footer-link:hover,
+.legal-footer a:hover {
+    color: #CBD5E1;
+    text-decoration-color: currentColor;
+}
+
+.legal-footer {
+    padding: 0 20px 26px;
     text-align: center;
 }
 
