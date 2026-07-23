@@ -756,7 +756,7 @@
                 "subjectId": "cabin",
                 "target": {
                     "min": 0.20,
-                    "max": 0.38,
+                    "max": 0.48,
                     "softness": 0.12
                 }
             }
@@ -1172,7 +1172,7 @@
                 "category": "spaceAndBalance",
                 "weight": 1,
                 "target": {
-                    "min": 0.62,
+                    "min": 0.55,
                     "max": 0.86,
                     "softness": 0.16
                 }

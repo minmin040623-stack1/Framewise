@@ -217,6 +217,12 @@ photos.forEach((photo) => {
             result.score >= 85,
             `sample${photo.id} coach example ${referenceIndex + 1} scored ${result.score}`
         );
+        assert.ok(
+            result.criteria
+                .filter((criterion) => criterion.id !== "reference-similarity")
+                .every((criterion) => criterion.score >= 80),
+            `sample${photo.id} coach example ${referenceIndex + 1} contradicts its own criteria`
+        );
     });
 });
 
@@ -247,6 +253,24 @@ const sample2ClippedSubjectCrop = evaluateNormalizedCrop(2, {
     y: 0.255,
     width: 0.7432,
     height: 0.606
+});
+const sample8TighterCabinCrop = evaluateNormalizedCrop(8, {
+    x: 0.433,
+    y: 0.09,
+    width: 0.527,
+    height: 0.32
+});
+const sample12NearbyLighthouseCrop = evaluateNormalizedCrop(12, {
+    x: 0.16,
+    y: 0.328,
+    width: 0.8,
+    height: 0.612
+});
+const sample12FenceClippedCrop = evaluateNormalizedCrop(12, {
+    x: 0.16,
+    y: 0.22,
+    width: 0.64,
+    height: 0.72
 });
 
 assert.ok(curveResult.criteria.some((criterion) => criterion.id === "curve-preservation"));
@@ -283,6 +307,18 @@ assert.ok(
         .find((criterion) => criterion.id === "look-room")
         ?.score < 100,
     "Look-room should not receive full credit when the subject is clipped"
+);
+assert.ok(
+    sample8TighterCabinCrop.score >= 85,
+    `sample8 tighter intact cabin crop should remain strong: ${sample8TighterCabinCrop.score}`
+);
+assert.ok(
+    sample12NearbyLighthouseCrop.score >= 80,
+    `sample12 nearby coach crop should not be underscored: ${sample12NearbyLighthouseCrop.score}`
+);
+assert.ok(
+    sample12FenceClippedCrop.score < sample12NearbyLighthouseCrop.score,
+    "sample12 should still penalize a crop that removes too much of the leading fence"
 );
 
 console.log("composition-score tests passed");
