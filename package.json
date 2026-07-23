@@ -2,9 +2,9 @@
   "name": "framewise",
   "version": "2.0.0",
   "private": true,
-  "description": "A rule-based photography composition crop trainer.",
+  "description": "A photography composition crop trainer with a client-side inspired film lab.",
   "scripts": {
-    "test": "node tests/composition-score.test.js && node tests/photo-selection.test.js && node tests/result-runtime.test.js && node tests/credits.test.js && node tests/localization.test.js",
+    "test": "node tests/composition-score.test.js && node tests/photo-selection.test.js && node tests/result-runtime.test.js && node tests/credits.test.js && node tests/localization.test.js && node tests/film-presets.test.js && node tests/image-analysis.test.js && node tests/film-renderer.test.js && node tests/film-utils.test.js && node tests/film-page.test.js",
     "serve": "npx serve ."
   }
 }

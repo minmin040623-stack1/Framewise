@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="description"
+        content="사진을 브라우저 안에서 여러 필름 스타일로 변환하고, 원본과 비교한 뒤 내려받아 보세요."
+    >
+
+    <title>FrameWise | AI Film Lab</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/film.css">
+</head>
+
+<body class="film-body">
+
+<header class="film-header">
+    <div class="film-container film-header-inner">
+        <a href="index.html" class="film-brand" aria-label="FrameWise 홈으로 이동">
+            <span class="film-brand-icon" aria-hidden="true">📷</span>
+            <span>FrameWise</span>
+        </a>
+
+        <nav class="film-navigation" aria-label="Film Lab 메뉴">
+            <a class="film-header-link" href="game.html?mode=practice">구도 연습</a>
+            <a class="film-header-link" href="credits.html">사진 출처</a>
+        </nav>
+    </div>
+</header>
+
+<main class="film-page">
+    <div class="film-container">
+        <section class="film-intro" aria-labelledby="filmHeading">
+            <div class="film-intro-copy">
+                <p class="film-eyebrow">AI Film Lab</p>
+                <h1 id="filmHeading">
+                    한 장의 사진에
+                    <span>여러 필름의 분위기를 입혀 보세요.</span>
+                </h1>
+                <p class="film-intro-description">
+                    사진을 올리면 여덟 가지 Inspired 필름 스타일을 한눈에 비교할 수 있어요.
+                    마음에 드는 색감을 고른 뒤 효과와 입자까지 조절해 나만의 결과로 저장해 보세요.
+                </p>
+            </div>
+
+            <div class="film-privacy-card">
+                <span class="film-privacy-icon" aria-hidden="true">✓</span>
+                <div>
+                    <strong>사진은 브라우저 안에서만 처리해요</strong>
+                    <p>외부 서버나 생성형 AI API로 사진을 보내지 않습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="film-upload-section" aria-labelledby="uploadHeading">
+            <div class="film-upload-heading">
+                <div>
+                    <p class="film-eyebrow">사진 가져오기</p>
+                    <h2 id="uploadHeading">어떤 사진에 필름 색감을 더해 볼까요?</h2>
+                </div>
+                <p>긴 변이 큰 사진도 미리보기에서는 알맞게 줄여 빠르게 처리해요.</p>
+            </div>
+
+            <input
+                id="filmFileInput"
+                class="film-file-input"
+                type="file"
+                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                aria-describedby="filmFileHelp fileError"
+            >
+
+            <label id="dropZone" class="film-drop-zone" for="filmFileInput">
+                <span class="film-drop-icon" aria-hidden="true">＋</span>
+                <span class="film-drop-copy">
+                    <strong>사진을 이곳에 끌어다 놓으세요</strong>
+                    <span>또는 눌러서 파일을 선택할 수 있어요</span>
+                </span>
+                <span class="film-file-button" aria-hidden="true">사진 선택하기</span>
+            </label>
+
+            <p id="filmFileHelp" class="film-file-help">
+                JPG, JPEG, PNG, WebP · 한 번에 사진 한 장
+            </p>
+            <p id="fileError" class="film-file-error" role="alert" hidden></p>
+            <p id="workspaceStatus" class="film-workspace-status" role="status" aria-live="polite">
+                사진을 올리면 필름 미리보기를 준비할게요.
+            </p>
+        </section>
+
+        <section id="filmWorkspace" class="film-workspace" aria-labelledby="workspaceHeading" hidden>
+            <header class="film-workspace-header">
+                <div>
+                    <p class="film-eyebrow">필름 미리보기</p>
+                    <h2 id="workspaceHeading">원본과 결과를 비교해 보세요</h2>
+                </div>
+                <dl class="film-file-meta">
+                    <div>
+                        <dt>파일</dt>
+                        <dd id="fileName">—</dd>
+                    </div>
+                    <div>
+                        <dt>크기</dt>
+                        <dd id="fileDimensions">—</dd>
+                    </div>
+                </dl>
+            </header>
+
+            <div class="film-workspace-grid">
+                <div class="film-stage-column">
+                    <section class="film-stage-card" aria-labelledby="comparisonHeading">
+                        <div class="film-stage-heading">
+                            <div>
+                                <p class="film-eyebrow">Before &amp; After</p>
+                                <h3 id="comparisonHeading">원본과 필름 색감 비교</h3>
+                            </div>
+                            <div class="film-comparison-legend" aria-hidden="true">
+                                <span>원본</span>
+                                <span>결과</span>
+                            </div>
+                        </div>
+
+                        <div class="film-comparison-frame">
+                            <canvas
+                                id="originalCanvas"
+                                class="film-comparison-canvas film-original-canvas"
+                                role="img"
+                                aria-label="업로드한 원본 사진"
+                            >
+                                원본 사진 미리보기
+                            </canvas>
+
+                            <div id="resultClip" class="film-result-clip">
+                                <canvas
+                                    id="resultCanvas"
+                                    class="film-comparison-canvas film-result-canvas"
+                                    role="img"
+                                    aria-label="선택한 필름 스타일을 적용한 사진"
+                                >
+                                    필름 스타일 결과 미리보기
+                                </canvas>
+                            </div>
+
+                            <span class="film-compare-label film-compare-label-original" aria-hidden="true">
+                                원본
+                            </span>
+                            <span class="film-compare-label film-compare-label-result" aria-hidden="true">
+                                결과
+                            </span>
+                            <span class="film-comparison-divider" aria-hidden="true"></span>
+
+                            <div
+                                id="processingOverlay"
+                                class="film-processing-overlay"
+                                aria-hidden="true"
+                                hidden
+                            >
+                                <span class="film-spinner" aria-hidden="true"></span>
+                                <strong>필름 색감을 만들고 있어요…</strong>
+                            </div>
+                        </div>
+
+                        <div class="film-compare-control">
+                            <label for="compareSlider">원본과 결과 비교</label>
+                            <input
+                                id="compareSlider"
+                                class="film-range"
+                                type="range"
+                                min="0"
+                                max="100"
+                                value="50"
+                                aria-valuetext="결과 50%, 원본 50%"
+                                disabled
+                            >
+                            <output id="compareValue" for="compareSlider">결과 50%</output>
+                        </div>
+                    </section>
+
+                    <section class="film-notice-card" aria-labelledby="inspiredHeading">
+                        <span class="film-notice-mark" aria-hidden="true">i</span>
+                        <div>
+                            <h3 id="inspiredHeading">FrameWise만의 Inspired 스타일이에요</h3>
+                            <p>
+                                모든 스타일은 필름의 일반적인 인상을 바탕으로 독자적으로 재해석했습니다.
+                                제조사의 공식 프로필을 복제하거나 유료 LUT를 사용하지 않았어요.
+                            </p>
+                        </div>
+                    </section>
+                </div>
+
+                <aside class="film-control-panel" aria-label="필름 스타일과 효과 설정">
+                    <section class="film-recommendation-card" aria-labelledby="recommendationHeading">
+                        <div class="film-recommendation-heading">
+                            <div>
+                                <p class="film-eyebrow">규칙 기반 추천</p>
+                                <h3 id="recommendationHeading">이 사진과 어울리는 스타일</h3>
+                            </div>
+                            <span class="film-rule-badge">AI 모델 아님</span>
+                        </div>
+                        <strong id="recommendationName" class="film-recommendation-name">분석 전</strong>
+                        <p id="recommendationReason" class="film-recommendation-reason">
+                            사진의 평균 밝기, 색온도와 채도를 살펴 한 가지 스타일을 추천해요.
+                        </p>
+                    </section>
+
+                    <fieldset id="presetFieldset" class="film-preset-fieldset" disabled>
+                        <legend>필름 스타일 고르기</legend>
+                        <p class="film-field-help">
+                            각 카드는 같은 사진에 서로 다른 색감을 적용한 미리보기예요.
+                        </p>
+                        <div
+                            id="categoryFilters"
+                            class="film-category-filters"
+                            role="group"
+                            aria-label="필름 스타일 카테고리"
+                        ></div>
+                        <div id="presetGrid" class="film-preset-grid"></div>
+                    </fieldset>
+
+                    <section class="film-adjustment-card" aria-labelledby="adjustmentHeading">
+                        <div class="film-panel-heading">
+                            <p class="film-eyebrow">세부 조절</p>
+                            <h3 id="adjustmentHeading">색감과 입자를 내 취향에 맞춰 보세요</h3>
+                        </div>
+
+                        <div class="film-slider-group">
+                            <div class="film-slider-heading">
+                                <label for="effectStrength">필름 효과</label>
+                                <output id="effectStrengthValue" for="effectStrength">70%</output>
+                            </div>
+                            <input
+                                id="effectStrength"
+                                class="film-range"
+                                type="range"
+                                min="0"
+                                max="100"
+                                value="70"
+                                disabled
+                            >
+                            <p>0%에서는 원본에 가깝고, 높일수록 선택한 색감이 또렷해져요.</p>
+                        </div>
+
+                        <div class="film-slider-group">
+                            <div class="film-slider-heading">
+                                <label for="grainStrength">필름 입자</label>
+                                <output id="grainStrengthValue" for="grainStrength">35%</output>
+                            </div>
+                            <input
+                                id="grainStrength"
+                                class="film-range"
+                                type="range"
+                                min="0"
+                                max="100"
+                                value="35"
+                                disabled
+                            >
+                            <p>사진 위에 더해지는 입자의 양을 조절해요.</p>
+                        </div>
+                    </section>
+
+                    <section class="film-export-card" aria-labelledby="exportHeading">
+                        <div class="film-panel-heading">
+                            <p class="film-eyebrow">내보내기</p>
+                            <h3 id="exportHeading">완성한 사진 저장하기</h3>
+                        </div>
+
+                        <label class="film-select-label" for="formatSelect">
+                            파일 형식
+                            <select id="formatSelect" class="film-format-select" disabled>
+                                <option value="image/jpeg">JPG</option>
+                                <option value="image/png">PNG</option>
+                            </select>
+                        </label>
+
+                        <div class="film-action-grid">
+                            <button
+                                id="resetButton"
+                                class="film-button film-button-secondary"
+                                type="button"
+                                disabled
+                            >
+                                설정 초기화
+                            </button>
+                            <button
+                                id="replaceButton"
+                                class="film-button film-button-secondary"
+                                type="button"
+                                disabled
+                            >
+                                다른 사진
+                            </button>
+                            <button
+                                id="downloadButton"
+                                class="film-button film-button-primary"
+                                type="button"
+                                disabled
+                            >
+                                이미지 다운로드
+                            </button>
+                        </div>
+                    </section>
+                </aside>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="film-footer">
+    <div class="film-container film-footer-inner">
+        <p>© 2026 FrameWise · 사진은 기기 안에서 처리되며 자동으로 저장되지 않습니다.</p>
+        <a href="credits.html">사진 출처 및 이용 안내</a>
+    </div>
+</footer>
+
+<script src="js/film-presets.js"></script>
+<script src="js/image-analysis.js"></script>
+<script src="js/film-renderer.js"></script>
+<script src="js/film.js"></script>
+
+</body>
+
+</html>
