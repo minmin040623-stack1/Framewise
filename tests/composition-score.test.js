@@ -122,7 +122,7 @@ const supportedCoachOverlays = new Set([
 allPhotoIds.forEach((photoId) => {
     const result = evaluateReference(photoId);
 
-    assert.equal(result.version, "composition-v2");
+    assert.equal(result.version, "composition-v3");
     assert.ok(result.score >= 90, `sample${photoId} reference score was ${result.score}`);
     assert.ok(result.breakdown.length >= 2);
     assert.ok(result.feedback.length >= 2);
@@ -230,6 +230,24 @@ const sample9OldTightCrop = evaluateNormalizedCrop(9, {
     height: 0.592
 });
 const sample9RevisedCrop = evaluateReference(9);
+const sample7VisuallySimilarCrop = evaluateNormalizedCrop(7, {
+    x: 0.12,
+    y: 0.055,
+    width: 0.682,
+    height: 0.73
+});
+const sample7BadCrop = evaluateNormalizedCrop(7, {
+    x: 0,
+    y: 0,
+    width: 0.48,
+    height: 0.45
+});
+const sample2ClippedSubjectCrop = evaluateNormalizedCrop(2, {
+    x: 0,
+    y: 0.255,
+    width: 0.7432,
+    height: 0.606
+});
 
 assert.ok(curveResult.criteria.some((criterion) => criterion.id === "curve-preservation"));
 assert.ok(leadingLineResult.criteria.some((criterion) => criterion.id === "leading-line"));
@@ -237,6 +255,34 @@ assert.equal(sample9.coachOverlay.targetAnchor, "bottom-right");
 assert.ok(
     sample9RevisedCrop.score >= sample9OldTightCrop.score + 15,
     "sample9 should reward the wider two-line thirds composition over the old tight crop"
+);
+assert.ok(
+    sample7VisuallySimilarCrop.score >= 80,
+    `sample7 visually similar crop should not be underscored: ${sample7VisuallySimilarCrop.score}`
+);
+assert.ok(
+    sample7VisuallySimilarCrop.criteria.some((criterion) => criterion.referenceModerated),
+    "sample7 visually similar crop should apply the reference-alignment safeguard"
+);
+assert.ok(
+    sample7BadCrop.score < 60,
+    `sample7 clearly poor crop should remain low: ${sample7BadCrop.score}`
+);
+assert.ok(
+    !sample2ClippedSubjectCrop.criteria
+        .find((criterion) => criterion.id === "subject-preservation")
+        ?.referenceModerated,
+    "A crop that removes too much of the subject must not receive preservation moderation"
+);
+assert.ok(
+    sample2ClippedSubjectCrop.score < 75,
+    `A reference-aligned crop with a clipped subject should remain limited: ${sample2ClippedSubjectCrop.score}`
+);
+assert.ok(
+    sample2ClippedSubjectCrop.criteria
+        .find((criterion) => criterion.id === "look-room")
+        ?.score < 100,
+    "Look-room should not receive full credit when the subject is clipped"
 );
 
 console.log("composition-score tests passed");

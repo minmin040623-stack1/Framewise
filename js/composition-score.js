@@ -8,6 +8,10 @@
     root.FrameWiseScore = api;
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
     const EPSILON = 0.000001;
+    const LOOK_ROOM_FULL_VISIBILITY = 0.85;
+    const REFERENCE_MODERATION_MIN_SCORE = 75;
+    const REFERENCE_MODERATION_MARGIN = 5;
+    const REFERENCE_MODERATION_MIN_VISIBLE_SUBJECT = 0.70;
 
     const CATEGORY_LABELS = {
         targetComposition: "이번 구도 목표",
@@ -246,8 +250,22 @@
 
         const ratio = frontSpace / Math.max(backSpace, EPSILON);
         const minimumRatio = target.target?.minFrontBackRatio ?? 1.2;
-        const score = 100 * clamp(ratio / minimumRatio, 0, 1);
+        const visibleRatio = intersectionArea(box, crop) / Math.max(rectArea(box), EPSILON);
+        const roomScore = 100 * clamp(ratio / minimumRatio, 0, 1);
+        const visibilityLimit = 100 * clamp(visibleRatio / LOOK_ROOM_FULL_VISIBILITY, 0, 1);
+        const score = Math.min(roomScore, visibilityLimit);
         const directionLabel = DIRECTION_LABELS[subject.lookDirection] || "시선";
+        let message;
+
+        if (visibleRatio < LOOK_ROOM_FULL_VISIBILITY) {
+            message = `피사체가 ${round(visibleRatio * 100, 1)}%만 보여 시선 여백을 정확히 보기 어려워요. 피사체가 더 들어오도록 범위를 넓혀 보세요.`;
+        } else if (score >= 80 && backSpace <= 0.01) {
+            message = "피사체가 바라보는 쪽에 충분한 공간을 남겼어요.";
+        } else if (score >= 80) {
+            message = `피사체가 바라보는 쪽에 뒤쪽보다 ${round(ratio, 1)}배 넓은 공간을 남겼어요.`;
+        } else {
+            message = `${directionLabel} 여백을 조금 더 남겨 보세요. 지금은 앞쪽 여백이 뒤쪽의 ${round(ratio, 1)}배예요.`;
+        }
 
         return {
             id: "look-room",
@@ -255,9 +273,8 @@
             category: target.category || "spaceAndBalance",
             score,
             weight: target.weight ?? 1,
-            message: score >= 80
-                ? `피사체가 바라보는 쪽에 뒤쪽보다 ${round(ratio, 1)}배 넓은 공간을 남겼어요.`
-                : `${directionLabel} 여백을 조금 더 남겨 보세요. 지금은 앞쪽 여백이 뒤쪽의 ${round(ratio, 1)}배예요.`
+            visibleRatio,
+            message
         };
     }
 
@@ -525,9 +542,10 @@
             category: "subjectPreservation",
             score,
             weight: 1,
+            visibleRatio: ratio,
             message: ratio >= 0.95
                 ? `중요한 피사체를 ${round(ratio * 100, 1)}% 남겨 거의 잘리지 않았어요.`
-                : `피사체가 ${round(ratio * 100, 1)}%만 남았어요. 몸이나 중요한 형태가 잘리지 않게 자르는 범위를 넓혀 보세요.`
+                : `피사체가 ${round(ratio * 100, 1)}% 남았어요. 중요한 부분이 더 들어오도록 자르는 범위를 조금 넓혀 보세요.`
         };
     }
 
@@ -558,6 +576,38 @@
             weight: 1,
             message: `추천 예시 ${bestIndex + 1}번과 겹치는 영역은 ${round(bestIoU * 100, 1)}%예요. 정답 여부가 아니라 두 사각형이 얼마나 비슷한지를 보여 주는 값이에요.`
         };
+    }
+
+    function moderateReferenceAlignedCriteria(criteria, reference) {
+        if (!reference || reference.score < REFERENCE_MODERATION_MIN_SCORE) {
+            return criteria;
+        }
+
+        const supportScore = clamp(
+            reference.score - REFERENCE_MODERATION_MARGIN,
+            0,
+            100 - REFERENCE_MODERATION_MARGIN
+        );
+
+        return criteria.map((criterion) => {
+            const isTargetComposition = criterion.category === "targetComposition";
+            const isMostlyPreservedSubject = criterion.id === "subject-preservation"
+                && criterion.visibleRatio >= REFERENCE_MODERATION_MIN_VISIBLE_SUBJECT;
+            const shouldModerate = (isTargetComposition || isMostlyPreservedSubject)
+                && criterion.score < supportScore;
+
+            if (!shouldModerate) {
+                return criterion;
+            }
+
+            return {
+                ...criterion,
+                rawScore: criterion.score,
+                score: supportScore,
+                referenceModerated: true,
+                message: `${criterion.message} 추천 예시와 ${round(reference.score, 1)}% 겹쳐 위치 차이에 따른 감점은 줄였어요.`
+            };
+        });
     }
 
     function weightedAverage(items) {
@@ -611,7 +661,7 @@
         }
 
         const crop = normalizeCrop(cropData, imageWidth, imageHeight);
-        const criteria = photo.targetCompositions
+        let criteria = photo.targetCompositions
             .map((target) => evaluateTarget(target, photo, crop))
             .filter(Boolean);
         const preservation = evaluateSubjectPreservation(photo, crop);
@@ -619,6 +669,8 @@
 
         if (preservation) criteria.push(preservation);
         if (reference) criteria.push(reference);
+
+        criteria = moderateReferenceAlignedCriteria(criteria, reference);
 
         const groups = {};
 
@@ -661,7 +713,9 @@
 
         if (weakest && weakest.id !== strongest?.id) {
             feedback.push({
-                tone: weakest.score >= 75 ? "good" : weakest.score >= 45 ? "normal" : "bad",
+                tone: weakest.referenceModerated
+                    ? "normal"
+                    : weakest.score >= 75 ? "good" : weakest.score >= 45 ? "normal" : "bad",
                 text: weakest.message
             });
         }
@@ -672,7 +726,7 @@
         });
 
         return {
-            version: "composition-v2",
+            version: "composition-v3",
             annotationBasis: photo.annotations?.source || "manual",
             score: clamp(score, 0, 100),
             normalizedCrop: crop,
