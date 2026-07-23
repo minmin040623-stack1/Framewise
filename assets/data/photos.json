@@ -2,18 +2,18 @@
     {
         "id": 1,
         "image": "sample1.jpg",
-        "creator": "FrameWise 촬영자",
+        "creator": "FrameWise 제작자",
         "license": "직접 촬영한 사진",
         "rightsType": "original",
-        "rightsNote": "© 2026 FrameWise 촬영자. FrameWise 및 성균공부방 프로그램 이용 허가 확인.",
-        "mission": "삼등분할 구도와 피사체 배치",
+        "rightsNote": "© 2026 FrameWise 제작자. FrameWise 및 성균공부방 프로그램 이용 허가 확인.",
+        "mission": "삼등분할로 사람과 해안선 살리기",
         "difficulty": 2,
-        "tip": "서 있는 사람을 왼쪽 아래 삼등분 교차점 가까이에 두고 해안선도 함께 남겨 보세요.",
+        "tip": "사람은 왼쪽 아래 교차점 근처에 두고, 해안선이 바다 쪽으로 이어지게 잘라 보세요.",
         "coachOverlay": {
             "type": "rule-of-thirds",
-            "label": "삼등분할 구도",
+            "label": "삼등분할",
             "targetAnchor": "bottom-left",
-            "guideText": "흰색 격자는 화면을 가로와 세로로 3등분합니다. 노란색 원은 사람을 배치할 교차점을 보여줍니다."
+            "guideText": "흰 선이 화면을 가로세로 3등분하고 있어요. 사람을 노란 교차점 근처에 두면 작은 인물도 배경 속에서 쉽게 눈에 들어와요."
         },
         "targetCompositions": [
             {
@@ -29,7 +29,7 @@
             },
             {
                 "type": "crop-area-range",
-                "label": "불필요한 영역 정리",
+                "label": "장면을 간결하게",
                 "category": "spaceAndBalance",
                 "weight": 1,
                 "target": {
@@ -74,21 +74,21 @@
                 "y": 0.30,
                 "width": 0.68,
                 "height": 0.68,
-                "reason": "사람을 왼쪽 1/3 지점 가까이에 두고, 굽은 해안선이 시선을 바다 쪽으로 이끌게 했습니다."
+                "reason": "사람을 왼쪽 1/3에 두었어요. 해안선이 사람 곁에서 시작해 바다 안쪽으로 이어지면서 시선도 자연스럽게 흘러요."
             },
             {
                 "x": 0.08,
                 "y": 0.22,
                 "width": 0.82,
                 "height": 0.75,
-                "reason": "조금 넓게 크롭해 해변의 상황을 보여주고, 사람과 바다 사이에 충분한 여백을 남겼습니다."
+                "reason": "해변을 조금 넓게 남긴 예시예요. 사람 앞쪽으로 바다가 열려 있어 장면의 분위기까지 함께 느낄 수 있어요."
             },
             {
                 "x": 0.25,
                 "y": 0.36,
                 "width": 0.48,
                 "height": 0.62,
-                "reason": "더 가깝게 크롭해 사람을 뚜렷한 주인공으로 만들면서도 굽은 해안선을 보존했습니다."
+                "reason": "사람을 더 크게 보고 싶다면 이렇게 자를 수 있어요. 해안선의 곡선은 남겨 인물과 장소의 관계가 끊기지 않아요."
             }
         ]
     },
@@ -102,14 +102,14 @@
         "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
         "rightsType": "creative-commons",
         "modifications": "FrameWise 화면에서 크롭 및 크기 조정.",
-        "mission": "삼등분할 구도와 시선 여백",
+        "mission": "삼등분할과 시선 여백으로 개 돋보이게 하기",
         "difficulty": 2,
-        "tip": "개를 오른쪽 1/3 선 가까이에 두고, 바라보는 왼쪽 방향에 열린 해변을 남겨 보세요.",
+        "tip": "개는 화면 오른쪽에 두고, 바라보는 왼쪽 해변은 넉넉히 남겨 보세요.",
         "coachOverlay": {
             "type": "look-room",
             "label": "시선 여백",
             "subjectId": "dog",
-            "guideText": "청록색 화살표는 개가 바라보는 방향을 나타냅니다. 화살표 앞쪽에 열린 해변을 충분히 남겨 보세요."
+            "guideText": "청록색 화살표가 개의 시선을 따라가요. 화살표 앞쪽 해변을 넓게 남기면 답답하지 않고, 개가 바라보는 곳도 함께 궁금해져요."
         },
         "targetCompositions": [
             {
@@ -134,7 +134,7 @@
             },
             {
                 "type": "crop-area-range",
-                "label": "배경 정리",
+                "label": "빈 배경 덜어내기",
                 "category": "spaceAndBalance",
                 "weight": 1,
                 "target": {
@@ -180,39 +180,39 @@
                 "y": 0.255,
                 "width": 0.929,
                 "height": 0.606,
-                "reason": "빈 하늘과 전경을 크게 줄이고, 개를 오른쪽 1/3에 두면서 시선 방향인 왼쪽에 열린 해변을 남겼습니다."
+                "reason": "빈 하늘과 앞쪽 모래를 과감히 덜어냈어요. 개는 오른쪽 1/3에 두고, 바라보는 왼쪽에는 넓은 해변을 남겼어요."
             },
             {
                 "x": 0.15,
                 "y": 0.24,
                 "width": 0.80,
                 "height": 0.70,
-                "reason": "해안선의 맥락은 유지하되 빈 하늘을 줄이고, 개가 바라보는 왼쪽에 편안한 시선 여백을 확보했습니다."
+                "reason": "주변 풍경도 보여 주고 싶다면 이 정도로 넓힐 수 있어요. 하늘은 줄이고 왼쪽 여백은 충분히 남겼어요."
             },
             {
                 "x": 0.28,
                 "y": 0.16,
                 "width": 0.64,
                 "height": 0.78,
-                "reason": "몸과 꼬리를 자르지 않고 개를 더 크게 보여주면서, 바라보는 방향의 열린 해변도 남겼습니다."
+                "reason": "개를 더 크게 담은 예시예요. 몸과 꼬리를 자르지 않았고, 시선이 향하는 쪽의 해변도 남아 있어요."
             }
         ]
     },
     {
         "id": 3,
         "image": "sample3.jpg",
-        "creator": "FrameWise 촬영자",
+        "creator": "FrameWise 제작자",
         "license": "직접 촬영한 사진",
         "rightsType": "original",
-        "rightsNote": "© 2026 FrameWise 촬영자. FrameWise 및 성균공부방 프로그램 이용 허가 확인.",
-        "mission": "중앙 구도",
+        "rightsNote": "© 2026 FrameWise 제작자. FrameWise 및 성균공부방 프로그램 이용 허가 확인.",
+        "mission": "인물을 화면 중심에 안정감 있게 놓기",
         "difficulty": 2,
-        "tip": "사람을 화면 중앙에 두고 다리 난간을 안정적인 가로 기준선으로 활용해 보세요.",
+        "tip": "사람의 몸을 가운데 세로선에 맞추고, 다리 난간은 화면 아래쪽에 남겨 보세요.",
         "coachOverlay": {
             "type": "centered",
             "label": "중앙 구도",
             "axes": ["x"],
-            "guideText": "세로 점선은 화면의 가로 중심 위치를 표시합니다. 사람의 몸을 이 선에 맞추고 다리 난간은 아래쪽에 남겨 보세요."
+            "guideText": "가운데 점선에 사람의 몸을 맞춰 보세요. 아래쪽 난간이 수평으로 받쳐 주면 인물이 흔들리지 않고 안정적으로 보여요."
         },
         "targetCompositions": [
             {
@@ -267,39 +267,39 @@
                 "y": 0.18,
                 "width": 0.56,
                 "height": 0.82,
-                "reason": "인물을 중앙에 배치하고 다리 난간을 화면 아래쪽 기준선으로 사용해 안정적인 구도를 만들었습니다."
+                "reason": "인물을 화면 한가운데에 두고 난간을 아래쪽에 받쳤어요. 사람에게 시선이 바로 모이고 전체 모습도 안정적으로 보여요."
             },
             {
                 "x": 0.18,
                 "y": 0.26,
                 "width": 0.44,
                 "height": 0.74,
-                "reason": "조금 더 가깝게 중앙 크롭해 얼굴을 강조하고 몸 양쪽에 비슷한 여백을 남겼습니다."
+                "reason": "표정에 더 집중하고 싶을 때 어울리는 예시예요. 몸 양쪽 여백을 비슷하게 남겨 중앙 구도를 유지했어요."
             },
             {
                 "x": 0.08,
                 "y": 0.12,
                 "width": 0.64,
                 "height": 0.88,
-                "reason": "더 넓게 크롭해 인물을 중심에 두면서도 도시와 강의 배경을 충분히 보여줍니다."
+                "reason": "도시와 강까지 함께 보여 주는 넓은 예시예요. 배경이 많아져도 인물이 가운데에 있어 중심을 잃지 않아요."
             }
         ]
     },
     {
         "id": 4,
         "image": "sample4.jpg",
-        "creator": "FrameWise 촬영자",
+        "creator": "FrameWise 제작자",
         "license": "직접 촬영한 사진",
         "rightsType": "original",
-        "rightsNote": "© 2026 FrameWise 촬영자. FrameWise 및 성균공부방 프로그램 이용 허가 확인.",
-        "mission": "대칭 구도와 프레임 속 프레임",
+        "rightsNote": "© 2026 FrameWise 제작자. FrameWise 및 성균공부방 프로그램 이용 허가 확인.",
+        "mission": "대칭과 타원형 프레임 살리기",
         "difficulty": 2,
-        "tip": "중정을 화면 중앙에 맞추고 타원형 천장이 완전한 건축 프레임으로 보이게 남겨 보세요.",
+        "tip": "중정을 가운데에 맞추고, 타원형 천장이 끊기지 않게 넓게 남겨 보세요.",
         "coachOverlay": {
             "type": "symmetry",
             "label": "세로 대칭축",
             "axis": "vertical",
-            "guideText": "노란색 선은 세로 대칭축입니다. 중정의 양쪽이 비슷한 비율로 보이게 맞춰 보세요."
+            "guideText": "노란 선을 기준으로 건물의 왼쪽과 오른쪽을 비교해 보세요. 양쪽의 폭이 비슷할수록 타원형 구조가 또렷하게 살아나요."
         },
         "targetCompositions": [
             {
@@ -315,7 +315,7 @@
             },
             {
                 "type": "frame-preservation",
-                "label": "타원형 프레임 보존",
+                "label": "타원형 천장 남기기",
                 "category": "targetComposition",
                 "weight": 1,
                 "frameId": "ceiling-frame",
@@ -325,7 +325,7 @@
             },
             {
                 "type": "crop-area-range",
-                "label": "건축 구도 크롭",
+                "label": "건축물의 중심 맞추기",
                 "category": "spaceAndBalance",
                 "weight": 1,
                 "target": {
@@ -376,43 +376,43 @@
                 "y": 0.00,
                 "width": 0.90,
                 "height": 0.86,
-                "reason": "타원형 천장과 발코니가 중정의 중심을 둘러싸는 완전한 자연 프레임을 만듭니다."
+                "reason": "타원형 천장과 발코니를 거의 온전히 남겼어요. 여러 겹의 곡선이 중정 중심을 자연스럽게 감싸 줘요."
             },
             {
                 "x": 0.10,
                 "y": 0.02,
                 "width": 0.80,
                 "height": 0.78,
-                "reason": "중앙 크롭으로 반복되는 곡선을 강조하고 바깥쪽의 산만한 가장자리를 줄였습니다."
+                "reason": "바깥쪽의 복잡한 가장자리는 덜어내고 반복되는 곡선에 집중한 예시예요. 좌우 폭도 비슷하게 맞췄어요."
             },
             {
                 "x": 0.16,
                 "y": 0.05,
                 "width": 0.68,
                 "height": 0.70,
-                "reason": "더 가깝게 크롭해 돔과 발코니 띠가 중앙 공간을 겹겹이 감싸는 프레임이 되게 했습니다."
+                "reason": "더 가까이 자르면 돔과 발코니 띠가 겹겹의 액자처럼 보여요. 중앙 공간도 훨씬 또렷해져요."
             }
         ]
     },
     {
         "id": 5,
         "image": "sample5.jpg",
-        "creator": "FrameWise 촬영자",
+        "creator": "FrameWise 제작자",
         "license": "직접 촬영한 사진",
         "rightsType": "original",
-        "rightsNote": "© 2026 FrameWise 촬영자. FrameWise 및 성균공부방 프로그램 이용 허가 확인.",
-        "mission": "도시 풍경의 깊이 표현",
+        "rightsNote": "© 2026 FrameWise 제작자. FrameWise 및 성균공부방 프로그램 이용 허가 확인.",
+        "mission": "하늘·마을·녹지로 풍경의 깊이 만들기",
         "difficulty": 2,
-        "tip": "빈 하늘과 복잡한 전경은 줄이고 언덕, 마을, 녹지가 서로 다른 깊이의 층으로 보이게 해보세요.",
+        "tip": "빈 하늘과 앞쪽의 복잡한 부분은 줄이고, 언덕과 마을, 녹지가 차례로 보이게 잘라 보세요.",
         "coachOverlay": {
             "type": "layers",
-            "label": "풍경의 깊이 단계",
-            "guideText": "반투명 색상 띠는 하늘, 언덕, 마을, 전경을 구분합니다. 빈 하늘이 화면을 지배하지 않으면서 모든 층이 보이게 해보세요."
+            "label": "풍경의 네 가지 층",
+            "guideText": "색 띠는 하늘, 언덕, 마을, 앞쪽 녹지를 나눠 보여 줘요. 어느 한 층이 화면을 너무 많이 차지하지 않으면 멀고 가까운 느낌이 더 잘 살아나요."
         },
         "targetCompositions": [
             {
                 "type": "layer-proportions",
-                "label": "도시 풍경의 깊이 단계",
+                "label": "풍경의 층을 고르게",
                 "category": "targetComposition",
                 "weight": 1,
                 "target": {
@@ -439,7 +439,7 @@
             },
             {
                 "type": "crop-area-range",
-                "label": "방해 요소 줄이기",
+                "label": "시선을 끄는 주변 요소 덜어내기",
                 "category": "spaceAndBalance",
                 "weight": 1,
                 "target": {
@@ -497,43 +497,43 @@
                 "y": 0.25,
                 "width": 0.67,
                 "height": 0.62,
-                "reason": "가까이 크롭해 전봇대를 제거하고 마을을 더 강조하면서, 언덕과 녹지를 분명한 깊이 단계로 남겼습니다."
+                "reason": "왼쪽 전봇대를 빼고 마을을 더 크게 담았어요. 앞쪽 녹지부터 마을과 언덕까지 거리가 차례로 느껴져요."
             },
             {
                 "x": 0.10,
                 "y": 0.18,
                 "width": 0.80,
                 "height": 0.65,
-                "reason": "마을을 화면 중심에 두고 위쪽 산과 아래쪽 녹지가 서로 균형을 이루도록 주변 풍경을 남겼습니다."
+                "reason": "마을을 중심으로 두되 산과 녹지도 충분히 남긴 예시예요. 장소의 분위기와 깊이를 함께 보여 줘요."
             },
             {
                 "x": 0.04,
                 "y": 0.13,
                 "width": 0.86,
                 "height": 0.72,
-                "reason": "가장 넓은 크롭은 주변 풍경을 더 많이 보여주며, 오른쪽의 밝은 언덕과 왼쪽의 어두운 나무가 균형을 이룹니다."
+                "reason": "주변 풍경을 가장 많이 보여 주는 예시예요. 오른쪽의 밝은 언덕과 왼쪽의 짙은 나무가 화면의 무게를 나눠 가져요."
             }
         ]
     },
     {
         "id": 6,
         "image": "sample6.jpg",
-        "creator": "FrameWise 촬영자",
+        "creator": "FrameWise 제작자",
         "license": "직접 촬영한 사진",
         "rightsType": "original",
-        "rightsNote": "© 2026 FrameWise 촬영자. FrameWise 및 성균공부방 프로그램 이용 허가 확인.",
-        "mission": "전경·중경·배경",
+        "rightsNote": "© 2026 FrameWise 제작자. FrameWise 및 성균공부방 프로그램 이용 허가 확인.",
+        "mission": "건물을 중심으로 바다 풍경에 깊이 더하기",
         "difficulty": 2,
-        "tip": "파란 지붕 건물을 전경의 중심 요소로 두고, 그 뒤로 바다와 하늘이 차례로 보이게 해보세요.",
+        "tip": "파란 지붕 건물을 화면의 중심으로 삼고, 그 뒤에 바다와 하늘이 차례로 보이게 해 보세요.",
         "coachOverlay": {
             "type": "layers",
             "label": "전경·중경·배경",
-            "guideText": "반투명 색상 띠는 하늘, 바다, 건물을 구분합니다. 건물이 전경의 중심을 잡을 만큼 충분히 크게 보이게 해보세요."
+            "guideText": "건물, 바다, 하늘이 아래에서 위로 차례로 쌓여 있어요. 건물을 넉넉히 담으면 앞쪽에 중심이 생기고, 바다와 하늘이 그 뒤의 깊이를 만들어 줘요."
         },
         "targetCompositions": [
             {
                 "type": "layer-proportions",
-                "label": "세 단계의 깊이",
+                "label": "건물·바다·하늘의 비율",
                 "category": "targetComposition",
                 "weight": 1,
                 "target": {
@@ -556,7 +556,7 @@
             },
             {
                 "type": "crop-area-range",
-                "label": "전경을 살리는 크롭",
+                "label": "파란 지붕을 중심으로",
                 "category": "spaceAndBalance",
                 "weight": 1,
                 "target": {
@@ -607,39 +607,39 @@
                 "y": 0.22,
                 "width": 0.90,
                 "height": 0.70,
-                "reason": "알록달록한 지붕의 시각적 비중을 키우고, 바다는 차분한 중경으로 남겼습니다."
+                "reason": "알록달록한 지붕을 화면 아래쪽에 넉넉히 담았어요. 바다는 건물 뒤에서 차분한 중간층이 되어 줘요."
             },
             {
                 "x": 0.00,
                 "y": 0.16,
                 "width": 1.00,
                 "height": 0.78,
-                "reason": "넓은 크롭은 파란 지붕 마을 전체를 보여주고, 바다와 하늘을 차례로 남겨 깊이감을 유지합니다."
+                "reason": "마을 전체를 보고 싶다면 이렇게 넓힐 수 있어요. 건물 뒤로 바다와 하늘이 얇게 이어져 해안 마을이라는 점도 잘 드러나요."
             },
             {
                 "x": 0.10,
                 "y": 0.27,
                 "width": 0.80,
                 "height": 0.63,
-                "reason": "더 가깝게 크롭해 지붕과 안뜰을 강조하면서도 해안 풍경을 알 수 있을 만큼 바다와 하늘을 남겼습니다."
+                "reason": "지붕과 안뜰에 더 집중한 예시예요. 위쪽에 바다와 하늘을 조금씩 남겨 장소의 배경은 잃지 않았어요."
             }
         ]
     },
     {
         "id": 7,
         "image": "sample7.jpg",
-        "creator": "FrameWise 촬영자",
+        "creator": "FrameWise 제작자",
         "license": "직접 촬영한 사진",
         "rightsType": "original",
-        "rightsNote": "© 2026 FrameWise 촬영자. FrameWise 및 성균공부방 프로그램 이용 허가 확인.",
-        "mission": "삼등분할 구도와 풍경의 깊이",
+        "rightsNote": "© 2026 FrameWise 제작자. FrameWise 및 성균공부방 프로그램 이용 허가 확인.",
+        "mission": "산촌은 살리고 길가는 덜어내기",
         "difficulty": 2,
-        "tip": "산촌을 오른쪽 아래 삼등분 교차점 가까이에 두고 길가의 불필요한 가장자리를 제거해 보세요.",
+        "tip": "산촌은 오른쪽 아래 교차점 근처에 두고, 시선을 끄는 길가는 과감히 덜어내 보세요.",
         "coachOverlay": {
             "type": "rule-of-thirds",
-            "label": "삼등분할 구도",
+            "label": "삼등분할",
             "targetAnchor": "bottom-right",
-            "guideText": "흰색 격자는 화면을 가로와 세로로 3등분합니다. 노란색 원은 산촌을 배치할 교차점을 보여줍니다."
+            "guideText": "산과 마을이 노란 교차점 근처에 모여 있어요. 아래쪽에 단단한 중심을 만들고 위쪽을 넓게 비우면 구름과 날씨가 더 극적으로 보여요."
         },
         "targetCompositions": [
             {
@@ -655,7 +655,7 @@
             },
             {
                 "type": "crop-area-range",
-                "label": "길가 영역 줄이기",
+                "label": "길가 덜어내기",
                 "category": "spaceAndBalance",
                 "weight": 1,
                 "target": {
@@ -700,21 +700,21 @@
                 "y": 0.00,
                 "width": 0.94,
                 "height": 0.86,
-                "reason": "산등성이와 마을을 아래쪽 1/3 가까이에 두어 극적인 구름을 위한 공간을 남겼습니다."
+                "reason": "산등성이와 마을을 아래쪽 1/3에 모았어요. 위쪽을 넓게 남겨 구름의 크기와 분위기가 더 잘 느껴져요."
             },
             {
                 "x": 0.12,
                 "y": 0.06,
                 "width": 0.78,
                 "height": 0.72,
-                "reason": "길가 전경을 제거해 희미한 무지개가 화면 안에서 더 잘 보이게 했습니다."
+                "reason": "앞쪽 길가를 걷어 내니 시선이 산과 희미한 무지개로 바로 향해요. 불필요하게 무겁던 아래쪽도 한결 가벼워졌어요."
             },
             {
                 "x": 0.25,
                 "y": 0.02,
                 "width": 0.72,
                 "height": 0.78,
-                "reason": "오른쪽 산을 강조해 넓은 하늘 아래쪽에 단단한 1/3 기준점을 만들었습니다."
+                "reason": "오른쪽 산을 더 크게 담은 예시예요. 넓은 하늘 아래에 확실한 중심이 생겨 화면이 비어 보이지 않아요."
             }
         ]
     },
@@ -728,14 +728,14 @@
         "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
         "rightsType": "creative-commons",
         "modifications": "FrameWise 화면에서 크롭 및 크기 조정.",
-        "mission": "피사체 강조",
+        "mission": "빨간 오두막이 먼저 보이게 자르기",
         "difficulty": 1,
-        "tip": "화면을 크게 차지하는 앞쪽 개울을 줄여 빨간 오두막이 분명한 주인공이 되게 해보세요.",
+        "tip": "앞쪽 개울은 과감히 줄이고, 빨간 오두막이 사진에서 가장 먼저 보이게 잘라 보세요.",
         "coachOverlay": {
             "type": "rule-of-thirds",
-            "label": "삼등분할 구도",
+            "label": "삼등분할",
             "targetAnchor": "top-right",
-            "guideText": "흰색 격자는 화면을 가로와 세로로 3등분합니다. 노란색 원은 빨간 오두막을 배치할 교차점을 보여줍니다."
+            "guideText": "빨간 오두막이 오른쪽 위 교차점 근처에 있어요. 주변을 흰 눈밭으로 단순하게 정리하면 작은 오두막의 색이 훨씬 강하게 살아나요."
         },
         "targetCompositions": [
             {
@@ -796,21 +796,21 @@
                 "y": 0.090,
                 "width": 0.804,
                 "height": 0.378,
-                "reason": "원본의 약 70%를 덜어내 개울이 지배하던 세로 사진을 빨간 오두막 중심의 가로 풍경으로 바꿨습니다."
+                "reason": "앞쪽 개울을 크게 덜어내 세로 사진을 가로 풍경으로 바꿨어요. 이제 빨간 오두막이 한눈에 들어와요."
             },
             {
                 "x": 0.060,
                 "y": 0.040,
                 "width": 0.920,
                 "height": 0.480,
-                "reason": "조금 넓게 크롭해 개울 한 줄을 전경으로 남기면서, 가장 강한 색인 빨간 오두막을 주인공으로 유지했습니다."
+                "reason": "개울도 조금 보여 주고 싶다면 이 정도로 넓힐 수 있어요. 앞쪽에 한 줄만 남겨 깊이를 만들고, 오두막의 빨간색은 여전히 가장 먼저 눈에 들어와요."
             },
             {
                 "x": 0.340,
                 "y": 0.090,
                 "width": 0.620,
                 "height": 0.320,
-                "reason": "더 가깝게 크롭해 오두막과 주변 눈을 강조하고, 어두운 나무와 지붕이 작은 자연 프레임이 되게 했습니다."
+                "reason": "오두막에 가장 집중한 예시예요. 어두운 나무와 지붕이 주변을 감싸면서 눈밭 속 빨간색을 더 또렷하게 보여 줘요."
             }
         ]
     },
@@ -824,14 +824,14 @@
         "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
         "rightsType": "creative-commons",
         "modifications": "FrameWise 화면에서 크롭 및 크기 조정.",
-        "mission": "삼등분할 구도와 여백",
+        "mission": "나무·울타리·여백으로 삼등분 만들기",
         "difficulty": 1,
-        "tip": "나무줄기는 오른쪽 1/3에, 울타리는 아래쪽 1/3에 가깝게 두고 왼쪽의 차분한 여백을 남겨 보세요.",
+        "tip": "나무는 오른쪽 세로선에, 울타리는 아래쪽 가로선에 맞추고 왼쪽 눈밭은 넓게 남겨 보세요.",
         "coachOverlay": {
             "type": "rule-of-thirds",
-            "label": "삼등분할 구도",
+            "label": "삼등분할",
             "targetAnchor": "bottom-right",
-            "guideText": "오른쪽 세로선은 나무를 정리하고 아래쪽 가로선은 울타리를 따라갑니다. 두 선의 노란 교차점이 나무줄기 가까이에 놓입니다."
+            "guideText": "나무는 세로선에, 울타리는 가로선에 맞춰 보세요. 두 선이 만나는 노란 지점 가까이에 나무를 놓으면 사진의 짜임이 한눈에 보여요."
         },
         "targetCompositions": [
             {
@@ -847,7 +847,7 @@
             },
             {
                 "type": "crop-area-range",
-                "label": "여백을 살리는 크롭",
+                "label": "왼쪽 눈밭 남기기",
                 "category": "spaceAndBalance",
                 "weight": 1,
                 "target": {
@@ -892,21 +892,21 @@
                 "y": 0.04,
                 "width": 0.90,
                 "height": 0.88,
-                "reason": "나무는 오른쪽 1/3 선을, 울타리는 아래쪽 1/3 선을 따릅니다. 표지판과 열린 설원은 왼쪽에서 차분한 균형을 만듭니다."
+                "reason": "나무는 오른쪽 세로선에, 울타리는 아래쪽 가로선에 맞췄어요. 왼쪽 눈밭과 작은 표지판이 빈 공간을 심심하지 않게 채워 줘요."
             },
             {
                 "x": 0.05,
                 "y": 0.13,
                 "width": 0.86,
                 "height": 0.72,
-                "reason": "빈 하늘과 전경을 줄이면서 나무, 울타리, 표지판을 남겨 균형 잡힌 삼등분할 구도를 만들었습니다."
+                "reason": "하늘과 앞쪽 눈을 조금 덜어낸 가로 예시예요. 나무와 울타리, 표지판이 모두 남아 삼등분 구조를 쉽게 확인할 수 있어요."
             },
             {
                 "x": 0.15,
                 "y": 0.17,
                 "width": 0.70,
                 "height": 0.66,
-                "reason": "더 가깝게 크롭하되 나무줄기를 오른쪽 아래 교차점에 두고, 구도를 이해할 수 있을 만큼 울타리와 왼쪽 여백을 남겼습니다."
+                "reason": "나무를 더 크게 보고 싶다면 이렇게 자를 수 있어요. 줄기는 오른쪽 아래 교차점에 두고, 울타리와 왼쪽 여백은 답답하지 않을 만큼 남겼어요."
             }
         ]
     },
@@ -920,14 +920,14 @@
         "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
         "rightsType": "creative-commons",
         "modifications": "FrameWise 화면에서 크롭 및 크기 조정. 수정된 이미지 부분도 CC BY-SA 2.0 유지.",
-        "mission": "중앙 구도와 화면 채우기",
+        "mission": "열기구를 화면 한가운데 크게 담기",
         "difficulty": 1,
-        "tip": "열기구를 중앙에 두고 빈 하늘과 복잡한 도시를 충분히 덜어내 형태가 눈에 띄게 해보세요.",
+        "tip": "열기구를 화면 중심에 맞추고, 주변의 빈 하늘과 복잡한 도시는 필요한 만큼만 남겨 보세요.",
         "coachOverlay": {
             "type": "centered",
             "label": "중앙 구도",
             "axes": ["x", "y"],
-            "guideText": "점선 십자가는 화면 중심을 나타냅니다. 열기구를 노란색 중심점 위에 배치해 보세요."
+            "guideText": "점선이 만나는 노란 지점이 화면의 정중앙이에요. 둥근 열기구처럼 모양이 분명한 피사체는 한가운데 놓을수록 형태가 힘 있게 보여요."
         },
         "targetCompositions": [
             {
@@ -954,7 +954,7 @@
             },
             {
                 "type": "crop-area-range",
-                "label": "배경 정리",
+                "label": "주변 하늘과 도시 덜어내기",
                 "category": "spaceAndBalance",
                 "weight": 1,
                 "target": {
@@ -999,21 +999,21 @@
                 "y": 0.00,
                 "width": 0.48,
                 "height": 0.53,
-                "reason": "열기구를 화면 한가운데에 두고 시선을 빼앗는 도시 요소를 거의 모두 제거했습니다."
+                "reason": "열기구를 화면 한가운데 크게 담았어요. 도시의 복잡한 요소를 거의 빼서 둥근 형태와 색에만 시선이 모여요."
             },
             {
                 "x": 0.209,
                 "y": 0.00,
                 "width": 0.625,
                 "height": 0.578,
-                "reason": "열기구를 분명한 중앙 피사체로 만들면서 주변 구름의 질감은 더 많이 남겼습니다."
+                "reason": "구름의 질감도 함께 보고 싶을 때 어울리는 예시예요. 여백이 늘어나도 열기구가 정확히 가운데에 있어 중심이 분명해요."
             },
             {
                 "x": 0.12,
                 "y": 0.00,
                 "width": 0.76,
                 "height": 0.62,
-                "reason": "가장 넓은 크롭은 열기구를 중앙에 유지하면서 더 많은 하늘 분위기와 도시의 좁은 띠를 남깁니다."
+                "reason": "하늘의 분위기와 아래쪽 도시까지 보여 주는 넓은 예시예요. 주변 정보가 많아져도 열기구를 중앙에 두어 시선을 붙잡아요."
             }
         ]
     },
@@ -1027,19 +1027,19 @@
         "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
         "rightsType": "creative-commons",
         "modifications": "FrameWise 화면에서 크롭 및 크기 조정. 수정된 이미지 부분도 CC BY-SA 2.0 유지.",
-        "mission": "굽은 해안선과 풍경의 깊이",
+        "mission": "굽은 해안선으로 시선 이끌기",
         "difficulty": 2,
-        "tip": "가까운 파도부터 먼 해변까지 이어지는 해안선의 곡선이 보이도록 넓게 크롭해 보세요.",
+        "tip": "가까운 파도에서 먼 해변까지, 해안선의 굽은 흐름이 끊기지 않게 넓게 잘라 보세요.",
         "coachOverlay": {
             "type": "curve",
             "label": "해안선 곡선",
             "pathId": "shoreline",
-            "guideText": "분홍색 선은 해안선의 자연스러운 곡선을 따라갑니다. 시선이 사진 안쪽으로 흐를 만큼 곡선을 충분히 남겨 보세요."
+            "guideText": "분홍색 선을 따라가면 가까운 파도에서 먼 해변까지 시선이 자연스럽게 움직여요. 곡선의 앞과 끝을 함께 남기면 흐름도 끊기지 않아요."
         },
         "targetCompositions": [
             {
                 "type": "curve-preservation",
-                "label": "해안선 곡선",
+                "label": "해안선의 흐름 남기기",
                 "category": "targetComposition",
                 "weight": 1,
                 "pathId": "shoreline",
@@ -1060,7 +1060,7 @@
             },
             {
                 "type": "crop-area-range",
-                "label": "넓은 풍경 크롭",
+                "label": "바다를 넓게 펼치기",
                 "category": "spaceAndBalance",
                 "weight": 1,
                 "target": {
@@ -1106,21 +1106,21 @@
                 "y": 0.07,
                 "width": 1.00,
                 "height": 0.72,
-                "reason": "넓은 화면에 가까운 파도부터 먼 해변까지 해안선의 곡선을 남기고, 수평선을 위쪽 1/3 가까이에 두었습니다."
+                "reason": "가까운 파도부터 먼 해변까지 이어지는 곡선을 한 화면에 담았어요. 수평선은 위쪽 1/3에 두어 바다의 흐름에 더 집중했어요."
             },
             {
                 "x": 0.03,
                 "y": 0.11,
                 "width": 0.94,
                 "height": 0.64,
-                "reason": "빈 전경을 일부 줄이면서 해안선 곡선, 도시 윤곽, 개와 산책하는 사람을 함께 보존했습니다."
+                "reason": "앞쪽의 빈 바다는 덜어내고, 해안선과 도시 윤곽, 개와 산책하는 사람은 남겼어요. 덕분에 장면의 이야기가 더 풍부해 보여요."
             },
             {
                 "x": 0.08,
                 "y": 0.13,
                 "width": 0.88,
                 "height": 0.58,
-                "reason": "가장 가까운 크롭은 화면이 지나치게 얇아지지 않으면서 해안선의 대각선 흐름을 강조합니다."
+                "reason": "해안선의 대각선 움직임을 더 강하게 보여 주는 예시예요. 지나치게 얇은 파노라마가 되지 않도록 위아래 공간도 남겼어요."
             }
         ]
     },
@@ -1134,19 +1134,19 @@
         "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
         "rightsType": "creative-commons",
         "modifications": "FrameWise 화면에서 크롭 및 크기 조정.",
-        "mission": "리딩 라인과 삼등분할 구도",
+        "mission": "울타리를 따라 등대로 시선 이끌기",
         "difficulty": 2,
-        "tip": "울타리와 길이 오른쪽 위 삼등분 교차점 가까이의 등대로 시선을 이끌게 해보세요.",
+        "tip": "앞쪽 울타리부터 멀리 있는 등대까지 선이 끊기지 않게 이어 보세요.",
         "coachOverlay": {
             "type": "leading-line",
             "label": "울타리 리딩 라인",
             "pathId": "fence",
-            "guideText": "보라색 화살표는 울타리를 따라 등대로 향합니다. 선이 피사체까지 이어지도록 양쪽 끝을 모두 남겨 보세요."
+            "guideText": "보라색 화살표가 앞쪽 울타리에서 등대까지 이어져요. 선의 시작점과 도착점인 등대를 함께 남기면 시선이 사진 밖으로 빠지지 않아요."
         },
         "targetCompositions": [
             {
                 "type": "leading-line",
-                "label": "울타리 리딩 라인",
+                "label": "울타리의 흐름 살리기",
                 "category": "targetComposition",
                 "weight": 1,
                 "pathId": "fence",
@@ -1168,7 +1168,7 @@
             },
             {
                 "type": "crop-area-range",
-                "label": "리딩 라인 주변 맥락",
+                "label": "등대 주변 풍경 남기기",
                 "category": "spaceAndBalance",
                 "weight": 1,
                 "target": {
@@ -1225,21 +1225,21 @@
                 "y": 0.166,
                 "width": 0.996,
                 "height": 0.763,
-                "reason": "불필요한 하늘을 줄이고 등대를 향해 모이는 울타리와 길을 보존했습니다."
+                "reason": "빈 하늘은 줄이고 울타리와 길은 충분히 남겼어요. 두 선이 멀리 있는 등대로 모이면서 시선을 자연스럽게 끌고 가요."
             },
             {
                 "x": 0.05,
                 "y": 0.12,
                 "width": 0.92,
                 "height": 0.82,
-                "reason": "더 넓은 크롭은 강한 전경의 선을 살리고 등대 주변의 환경도 충분히 보여줍니다."
+                "reason": "앞쪽 울타리의 힘을 살리면서 주변 절벽과 바다까지 보여 주는 예시예요. 등대가 놓인 환경도 함께 읽혀요."
             },
             {
                 "x": 0.16,
                 "y": 0.22,
                 "width": 0.80,
                 "height": 0.72,
-                "reason": "더 가까운 크롭은 대각선 울타리를 강조하고 등대를 오른쪽 위 삼등분 교차점 가까이 옮깁니다."
+                "reason": "울타리의 대각선을 더 강하게 보여 주는 가까운 예시예요. 등대도 오른쪽 위 교차점에 가까워져 작은 피사체가 잘 보여요."
             }
         ]
     },
@@ -1253,14 +1253,14 @@
         "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
         "rightsType": "creative-commons",
         "modifications": "FrameWise 화면에서 크롭 및 크기 조정. 수정된 이미지 부분도 CC BY-SA 2.0 유지.",
-        "mission": "시선 여백·삼등분할·화면 채우기",
+        "mission": "백로 앞에 시선 여백 남기기",
         "difficulty": 2,
-        "tip": "백로를 왼쪽 위 삼등분 영역 가까이 두고 부리 앞쪽에는 열린 물 공간을 남겨 보세요.",
+        "tip": "백로는 화면 왼쪽에 두고, 부리가 향하는 오른쪽 물 공간은 넉넉히 남겨 보세요.",
         "coachOverlay": {
             "type": "look-room",
             "label": "시선 여백",
             "subjectId": "egret",
-            "guideText": "청록색 화살표는 백로가 바라보는 방향을 나타냅니다. 답답해 보이지 않도록 부리 앞쪽에 열린 물 공간을 남겨 보세요."
+            "guideText": "청록색 화살표가 백로의 부리 앞쪽으로 이어져요. 이 공간을 넓게 남기면 백로의 시선과 움직임이 막히지 않고 장면에 긴장감도 생겨요."
         },
         "targetCompositions": [
             {
@@ -1296,7 +1296,7 @@
             },
             {
                 "type": "crop-area-range",
-                "label": "야생동물 크롭",
+                "label": "백로의 크기와 주변 물 조절",
                 "category": "spaceAndBalance",
                 "weight": 1,
                 "target": {
@@ -1342,21 +1342,21 @@
                 "y": 0.25,
                 "width": 0.68,
                 "height": 0.62,
-                "reason": "가깝게 크롭해 백로를 왼쪽 1/3 가까이에 두고 존재감을 키우면서도 부리 앞쪽에 넉넉한 물 공간을 남겼습니다."
+                "reason": "백로를 왼쪽 1/3 가까이에 크게 담았어요. 부리 앞쪽에는 넉넉한 물 공간이 남아 시선이 자연스럽게 이어져요."
             },
             {
                 "x": 0.016,
                 "y": 0.281,
                 "width": 0.884,
                 "height": 0.717,
-                "reason": "빈 물 공간을 일부 줄이되 새의 몸 전체와 넓은 시선 여백을 함께 보존했습니다."
+                "reason": "주변 물을 조금 덜어내면서도 새의 몸 전체와 앞쪽 여백을 함께 남긴 예시예요. 새가 잘 보이면서 주변 환경도 답답하지 않아요."
             },
             {
                 "x": 0.08,
                 "y": 0.18,
                 "width": 0.84,
                 "height": 0.74,
-                "reason": "가장 넓은 크롭은 서식 환경을 더 많이 보여주면서 새의 몸 전체와 시선 방향의 열린 물을 남깁니다."
+                "reason": "서식 환경을 넓게 보여 주는 예시예요. 백로는 작아지지만 몸 전체와 시선 방향의 열린 물이 함께 보여 장면이 여유로워요."
             }
         ]
     }

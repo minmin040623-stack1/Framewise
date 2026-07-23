@@ -28,13 +28,30 @@ photos.forEach((photo) => {
         /[가-힣]/.test(photo.coachOverlay.guideText),
         `Sample ${photo.id} guide explanation is not Korean.`
     );
+    assert.ok(
+        !/(습니다|됩니다)/.test(photo.coachOverlay.guideText),
+        `Sample ${photo.id} guide explanation should use the conversational coaching tone.`
+    );
     photo.referenceCrops.forEach((reference, index) => {
         assert.ok(
             /[가-힣]/.test(reference.reason),
             `Sample ${photo.id} coach reason ${index + 1} is not Korean.`
         );
+        assert.ok(
+            !/(습니다|됩니다)/.test(reference.reason),
+            `Sample ${photo.id} coach reason ${index + 1} should use the conversational coaching tone.`
+        );
     });
 });
+
+const home = fs.readFileSync(path.join(root, "index.html"), "utf8");
+const result = fs.readFileSync(path.join(root, "result.html"), "utf8");
+
+assert.ok(home.includes("사진을 보는 눈"), "The home headline should read naturally in Korean.");
+assert.ok(
+    result.includes("내가 자른 사진은 어떻게 보일까요?"),
+    "The result headline should avoid literal translation phrasing."
+);
 
 const firstPhoto = photos[0];
 const firstReference = firstPhoto.referenceCrops[0];

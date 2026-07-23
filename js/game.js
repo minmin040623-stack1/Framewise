@@ -29,16 +29,16 @@ const TIME_BY_DIFFICULTY = {
 };
 
 const CRITERIA_LABELS = {
-    "rule-of-thirds": "삼등분할 격자 위 피사체 위치",
-    centered: "피사체와 화면 중심의 정렬",
-    "look-room": "피사체가 바라보는 방향의 여백",
-    "horizon-position": "수평선의 위치",
-    "crop-area-range": "원본에서 남기는 화면의 비율",
-    "subject-prominence": "크롭 안에서 피사체가 차지하는 크기",
-    "layer-proportions": "전경·중경·배경의 비율",
-    "frame-preservation": "자연스러운 외부 프레임 보존",
-    "curve-preservation": "해안선 곡선 보존",
-    "leading-line": "리딩 라인 보존"
+    "rule-of-thirds": "피사체가 삼등분 교차점에 얼마나 가까운지",
+    centered: "피사체가 화면 중심에 얼마나 잘 맞는지",
+    "look-room": "피사체가 바라보는 쪽에 여백이 충분한지",
+    "horizon-position": "수평선이 화면 안에서 어디에 놓였는지",
+    "crop-area-range": "원본에서 어느 정도를 남겼는지",
+    "subject-prominence": "피사체가 화면에서 얼마나 눈에 띄는지",
+    "layer-proportions": "전경·중경·배경이 고르게 살아 있는지",
+    "frame-preservation": "피사체를 둘러싼 프레임을 잘 살렸는지",
+    "curve-preservation": "해안선의 흐름이 끊기지 않았는지",
+    "leading-line": "시선을 이끄는 선이 충분히 남았는지"
 };
 
 const params = new URLSearchParams(window.location.search);
@@ -87,7 +87,7 @@ function renderCriteria(photo) {
 
     if (preservationWeight > 0) {
         const item = document.createElement("li");
-        item.textContent = "주요 피사체가 잘리지 않고 보존되는 정도";
+        item.textContent = "중요한 피사체가 잘리지 않았는지";
         criteriaList.appendChild(item);
     }
 }
@@ -96,18 +96,18 @@ function configureMode(photo) {
     sessionStorage.setItem("framewiseMode", gameMode);
 
     if (gameMode === "practice") {
-        modeBadge.textContent = "시간 제한 없는 연습";
+        modeBadge.textContent = "천천히 연습";
         timerValue.textContent = "∞";
         timerSuffix.textContent = "";
         timer.classList.add("practice-timer");
-        modeSwitch.textContent = "시간 제한 도전으로 바꾸기";
+        modeSwitch.textContent = "시간 안에 도전해 보기";
         modeSwitch.href = `game.html?mode=timed&photo=${photo.id}`;
         return;
     }
 
-    modeBadge.textContent = "시간 제한 도전";
+    modeBadge.textContent = "시간 안에 도전";
     timerSuffix.textContent = "초";
-    modeSwitch.textContent = "시간 제한 없이 연습하기";
+    modeSwitch.textContent = "시간 제한 없이 풀기";
     modeSwitch.href = `game.html?mode=practice&photo=${photo.id}`;
 }
 
@@ -137,7 +137,7 @@ function startTimer(photo) {
 function loadImage(photo) {
     return new Promise((resolve, reject) => {
         image.onload = resolve;
-        image.onerror = () => reject(new Error("선택한 사진을 불러오지 못했습니다."));
+        image.onerror = () => reject(new Error("사진을 불러오지 못했어요. 잠시 뒤 다시 시도해 주세요."));
         image.alt = photo.title
             ? `${photo.title} 크롭 연습 사진`
             : `${photo.mission} 크롭 연습 사진`;
@@ -169,7 +169,7 @@ function fitImageWrapperToPhoto() {
 function initializeCropper(photo) {
     return new Promise((resolve, reject) => {
         if (typeof window.Cropper !== "function") {
-            reject(new Error("크롭 도구를 불러오지 못했습니다."));
+            reject(new Error("크롭 도구를 불러오지 못했어요. 페이지를 새로고침해 주세요."));
             return;
         }
 
@@ -189,7 +189,7 @@ function initializeCropper(photo) {
             center: true,
             ready() {
                 setControlsEnabled(true);
-                setStatus("크롭 준비 완료", "ready");
+                setStatus("크롭할 준비가 됐어요", "ready");
                 startTimer(photo);
                 resolve();
             }
@@ -200,12 +200,12 @@ function initializeCropper(photo) {
 async function loadPhoto() {
     try {
         setControlsEnabled(false);
-        setStatus("사진 불러오는 중…", "loading");
+        setStatus("사진 준비 중…", "loading");
 
         const response = await fetch("assets/data/photos.json");
 
         if (!response.ok) {
-            throw new Error(`사진 데이터 요청에 실패했습니다. (${response.status})`);
+            throw new Error(`사진 목록을 불러오지 못했어요. (${response.status})`);
         }
 
         const photos = await response.json();
@@ -217,7 +217,7 @@ async function loadPhoto() {
         });
 
         if (!currentPhoto) {
-            throw new Error("연습에 사용할 수 있는 사진이 없습니다.");
+            throw new Error("지금 연습할 수 있는 사진이 없어요.");
         }
 
         sessionStorage.setItem("framewiseLastPhotoId", currentPhoto.id);
@@ -232,9 +232,9 @@ async function loadPhoto() {
         await initializeCropper(currentPhoto);
     } catch (error) {
         console.error(error);
-        setStatus(error.message || "도전을 불러오지 못했습니다.", "error");
-        missionText.textContent = "도전을 시작할 수 없습니다";
-        tipText.textContent = "홈으로 돌아간 뒤 다시 시도해 주세요.";
+        setStatus(error.message || "연습 화면을 준비하지 못했어요.", "error");
+        missionText.textContent = "사진을 준비하지 못했어요";
+        tipText.textContent = "홈으로 돌아갔다가 다시 시작해 주세요.";
         setControlsEnabled(false);
     }
 }
@@ -261,7 +261,7 @@ function submitCrop() {
     hasSubmitted = true;
     window.clearInterval(timerInterval);
     setControlsEnabled(false);
-    setStatus("피드백 만드는 중…", "loading");
+    setStatus("결과를 살펴보는 중…", "loading");
 
     try {
         const cropData = cropper.getData();
@@ -297,7 +297,7 @@ function submitCrop() {
         console.error(error);
         hasSubmitted = false;
         setControlsEnabled(true);
-        setStatus("크롭을 저장하지 못했습니다. 다시 시도해 주세요.", "error");
+        setStatus("자른 사진을 저장하지 못했어요. 한 번 더 눌러 주세요.", "error");
     }
 }
 

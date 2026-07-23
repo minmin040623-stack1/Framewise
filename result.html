@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FrameWise 구도 점수와 측정 근거, 추천 크롭 예시를 확인하세요.">
+    <meta name="description" content="내가 자른 사진의 구도 점수와 그 이유를 확인하고, 여러 추천 예시와 비교해 보세요.">
 
     <title>FrameWise | 사진 구도 피드백</title>
 
@@ -25,7 +25,7 @@
             <span aria-hidden="true">📷</span>
             FrameWise
         </a>
-        <span class="result-header-label">사진 구도 피드백</span>
+        <span class="result-header-label">내 결과 살펴보기</span>
     </div>
 </header>
 
@@ -34,9 +34,9 @@
         <article class="result-card">
             <header class="result-intro">
                 <div>
-                    <p class="eyebrow">도전 완료</p>
-                    <h1>내 사진 구도 피드백</h1>
-                    <p id="resultMission" class="subtitle">사진별 구도 분석</p>
+                    <p class="eyebrow">사진을 다 잘랐어요</p>
+                    <h1>내가 자른 사진은 어떻게 보일까요?</h1>
+                    <p id="resultMission" class="subtitle">이번 사진의 연습 목표</p>
                 </div>
 
                 <div class="score-summary" aria-label="사진 구도 점수">
@@ -45,8 +45,8 @@
                         <small>/ 100</small>
                     </div>
                     <div>
-                        <h2 id="gradeText">계산 중…</h2>
-                        <p id="gradeSummary">점수의 근거를 확인해 보세요.</p>
+                        <h2 id="gradeText">살펴보는 중…</h2>
+                        <p id="gradeSummary">점수와 함께 이유도 알려 드릴게요.</p>
                     </div>
                 </div>
             </header>
@@ -69,8 +69,8 @@
             <section id="scoreBreakdownSection" class="analysis-section">
                 <div class="analysis-heading">
                     <div>
-                        <p class="eyebrow">투명한 점수</p>
-                        <h2>점수는 이렇게 계산되었습니다</h2>
+                        <p class="eyebrow">점수 한눈에 보기</p>
+                        <h2>어떤 부분에서 점수가 달라졌을까요?</h2>
                     </div>
                     <span id="scoreMethod" class="score-method">규칙 기반 평가</span>
                 </div>
@@ -81,8 +81,8 @@
             <section class="analysis-section">
                 <div class="analysis-heading">
                     <div>
-                        <p class="eyebrow">측정 근거</p>
-                        <h2>크롭으로 달라진 부분</h2>
+                        <p class="eyebrow">자세히 보기</p>
+                        <h2>항목별 점수를 차근차근 살펴볼까요?</h2>
                     </div>
                 </div>
                 <div id="criteriaDetails" class="criteria-details"></div>
@@ -91,8 +91,8 @@
             <section class="feedback-section" aria-labelledby="feedbackHeading">
                 <div class="analysis-heading">
                     <div>
-                        <p class="eyebrow">코치 피드백</p>
-                        <h2 id="feedbackHeading">잘한 점과 다음에 바꿔볼 점</h2>
+                        <p class="eyebrow">한 줄 코칭</p>
+                        <h2 id="feedbackHeading">잘된 점과 조금 더 다듬을 점</h2>
                     </div>
                 </div>
                 <div id="feedbackList" class="feedback-list" aria-live="polite"></div>
@@ -101,28 +101,28 @@
             <section class="comparison-section" aria-labelledby="comparisonHeading">
                 <div class="analysis-heading comparison-heading">
                     <div>
-                        <p class="eyebrow">눈으로 비교하기</p>
-                        <h2 id="comparisonHeading">내 크롭과 추천 예시</h2>
+                        <p class="eyebrow">나란히 비교하기</p>
+                        <h2 id="comparisonHeading">내 결과와 추천 예시를 나란히 볼까요?</h2>
                     </div>
                     <button id="guideToggle" class="guide-toggle" type="button" aria-pressed="true">
-                        구도 가이드 숨기기
+                        가이드 숨기기
                     </button>
                 </div>
 
                 <div class="comparison-grid">
                     <section class="preview-card">
-                        <h3>내 크롭</h3>
+                        <h3>내 결과</h3>
                         <div class="preview-media">
                             <img id="croppedPreview" src="" alt="사용자가 제출한 크롭">
                         </div>
                         <p class="preview-caption">
-                            쉽게 비교할 수 있도록 내 크롭에는 가이드 선을 표시하지 않습니다.
+                            내가 자른 사진에는 선을 넣지 않았어요. 오른쪽 예시와 편하게 비교해 보세요.
                         </p>
                     </section>
 
                     <section class="preview-card reference-preview">
                         <div class="reference-heading">
-                            <h3>추천 크롭 예시</h3>
+                            <h3>이렇게도 자를 수 있어요</h3>
                             <span id="referenceCounter" class="reference-counter">1 / 1</span>
                         </div>
 
@@ -147,7 +147,7 @@
                         </div>
 
                         <p class="preview-caption">
-                            좋은 구도에는 여러 답이 있습니다. 크롭 영역뿐 아니라 추천 이유도 비교해 보세요.
+                            좋은 구도는 하나만 있는 게 아니에요. 예시가 달라질 때마다 이유도 함께 읽어 보세요.
                         </p>
                     </section>
                 </div>
@@ -157,10 +157,10 @@
                 <p id="sourceCredit" class="source-credit"></p>
                 <div class="result-actions">
                     <button id="retryBtn" class="secondary-action" type="button">
-                        같은 사진 다시 도전
+                        같은 사진 다시 해보기
                     </button>
                     <button id="nextBtn" class="primary-button" type="button">
-                        다음 도전
+                        다른 사진 도전하기
                     </button>
                 </div>
             </footer>

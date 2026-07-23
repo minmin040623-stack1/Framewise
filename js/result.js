@@ -21,17 +21,17 @@ function initializeResult() {
     document.getElementById("resultMission").textContent = photoInfo.mission;
 
     if (score >= 92) {
-        grade.textContent = "구도를 아주 잘 잡았어요";
-        gradeSummary.textContent = "내 크롭이 이 사진의 구도 목표와 매우 잘 맞습니다.";
+        grade.textContent = "구도가 아주 좋아요";
+        gradeSummary.textContent = "이 사진에서 살려야 할 요소를 고르게 잘 담았어요.";
     } else if (score >= 82) {
-        grade.textContent = "탄탄한 구도예요";
-        gradeSummary.textContent = "전체 구조가 좋습니다. 작은 조정으로 더 나아질 수 있어요.";
+        grade.textContent = "탄탄하게 잘랐어요";
+        gradeSummary.textContent = "전체 흐름이 좋아요. 한두 가지만 다듬으면 더 또렷해져요.";
     } else if (score >= 70) {
-        grade.textContent = "좋은 방향이에요";
-        gradeSummary.textContent = "의도한 구도가 보입니다. 아래 근거를 참고해 조금 더 다듬어 보세요.";
+        grade.textContent = "방향을 잘 잡았어요";
+        gradeSummary.textContent = "사진의 중심이 잘 보여요. 아래에서 아쉬운 부분만 확인해 보세요.";
     } else {
-        grade.textContent = "조금 더 살펴볼까요?";
-        gradeSummary.textContent = "추천한 부분을 조정한 뒤 같은 사진에 다시 도전해 보세요.";
+        grade.textContent = "한 번 더 다듬어 볼까요?";
+        gradeSummary.textContent = "아래 제안대로 조금만 바꾸면 사진의 중심이 한결 또렷해질 거예요.";
     }
 
     renderHistory();
@@ -107,8 +107,8 @@ function renderScoreDetails() {
     }
 
     scoreMethod.textContent = scoreAnalysis.annotationBasis === "manual"
-        ? "사람이 검토한 가이드 · 규칙 기반"
-        : "규칙 기반 구도 평가";
+        ? "사람이 확인한 위치 · 구도 규칙"
+        : "사진 구도 규칙으로 계산";
 
     criteria.forEach((item) => {
         const card = document.createElement("article");
@@ -130,7 +130,7 @@ function renderScoreDetails() {
 
     const messages = feedback.length > 0
         ? feedback
-        : [{ tone: "normal", text: "이 사진의 상세 피드백은 아직 준비되지 않았습니다." }];
+        : [{ tone: "normal", text: "이 사진은 아직 자세한 피드백을 준비하고 있어요." }];
 
     messages.forEach((item) => {
         const message = document.createElement("div");
@@ -157,7 +157,7 @@ function renderSourceCredit() {
 
     if (photoInfo.rightsType === "original") {
         sourceCredit.append(
-            document.createTextNode("직접 촬영한 사진 © 2026 FrameWise 촬영자 · "),
+            document.createTextNode("직접 찍은 사진 © 2026 FrameWise 제작자 · "),
             creditsLink
         );
         return;
@@ -165,7 +165,7 @@ function renderSourceCredit() {
 
     if (!photoInfo.sourceUrl) {
         sourceCredit.append(
-            document.createTextNode("사진 권리 정보를 확인할 수 없습니다 · "),
+            document.createTextNode("이 사진의 출처 정보를 찾지 못했어요 · "),
             creditsLink
         );
         return;
@@ -180,7 +180,7 @@ function renderSourceCredit() {
     sourceLink.href = photoInfo.sourceUrl;
     sourceLink.target = "_blank";
     sourceLink.rel = "noreferrer";
-    sourceLink.textContent = photoInfo.title || "원본 보기";
+    sourceLink.textContent = photoInfo.title || "사진 원본 보기";
 
     sourceCredit.append(prefix, sourceLink, creator);
 
@@ -189,17 +189,17 @@ function renderSourceCredit() {
         licenseLink.href = photoInfo.licenseUrl;
         licenseLink.target = "_blank";
         licenseLink.rel = "noreferrer";
-        licenseLink.textContent = photoInfo.license || "라이선스 보기";
+        licenseLink.textContent = photoInfo.license || "이용 조건 보기";
         sourceCredit.appendChild(licenseLink);
     } else {
         sourceCredit.append(
-            document.createTextNode(photoInfo.license || "원본 페이지의 라이선스 참고")
+            document.createTextNode(photoInfo.license || "원본 페이지에서 이용 조건 확인")
         );
     }
 
     sourceCredit.append(
         document.createTextNode(
-            ` · ${photoInfo.modifications || "FrameWise 크롭 화면에서 사용했습니다."} · `
+            ` · ${photoInfo.modifications || "FrameWise 화면에 맞게 잘라 사용했어요."} · `
         ),
         creditsLink
     );
@@ -574,7 +574,7 @@ function renderReferenceCrop() {
 
 function initializeReferencePreview() {
     if (referenceCrops.length === 0) {
-        referenceReason.textContent = "이 사진의 추천 크롭 예시는 아직 준비되지 않았습니다.";
+        referenceReason.textContent = "이 사진은 아직 추천 예시를 준비하고 있어요.";
         referenceCounter.textContent = "0 / 0";
         referenceControls.hidden = true;
         referenceCanvas.hidden = true;
@@ -591,7 +591,7 @@ function initializeReferencePreview() {
     referenceImage = new Image();
     referenceImage.onload = renderReferenceCrop;
     referenceImage.onerror = () => {
-        referenceReason.textContent = "추천 크롭 예시를 불러오지 못했습니다.";
+        referenceReason.textContent = "추천 예시를 불러오지 못했어요. 페이지를 새로고침해 주세요.";
         referenceControls.hidden = true;
         referenceCanvas.hidden = true;
         guideNote.hidden = true;
@@ -617,8 +617,8 @@ guideToggle.addEventListener("click", () => {
     guidesVisible = !guidesVisible;
     guideToggle.setAttribute("aria-pressed", String(guidesVisible));
     guideToggle.textContent = guidesVisible
-        ? "구도 가이드 숨기기"
-        : "구도 가이드 보기";
+        ? "가이드 숨기기"
+        : "가이드 다시 보기";
     renderReferenceCrop();
 });
 

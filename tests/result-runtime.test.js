@@ -134,7 +134,7 @@ const photoInfo = {
         type: "rule-of-thirds",
         label: "삼등분할 구도",
         targetAnchor: "top-right",
-        guideText: "흰색 격자는 화면을 가로와 세로로 3등분합니다."
+        guideText: "흰 선이 화면을 가로세로 3등분해요."
     },
     targetCompositions: [{ type: "rule-of-thirds" }],
     annotations: { source: "manual", subjects: [] },
@@ -144,7 +144,7 @@ const photoInfo = {
             y: 0.2,
             width: 0.7,
             height: 0.6,
-            reason: "추천 크롭 이유 테스트."
+            reason: "추천 예시의 이유를 보여 줘요."
         }
     ]
 };
@@ -160,7 +160,7 @@ const scoreAnalysis = {
         },
         {
             key: "referenceSimilarity",
-            label: "추천 크롭 유사도",
+            label: "추천 예시와 비슷한 정도",
             score: 100,
             weight: 10
         }
@@ -241,23 +241,23 @@ vm.runInNewContext(resultScript, sandbox, { filename: "js/result.js" });
 
 assert.equal(redirectTarget, null);
 assert.equal(elements.scoreValue.textContent, 92);
-assert.equal(elements.referenceReason.textContent, "추천 크롭 이유 테스트.");
+assert.equal(elements.referenceReason.textContent, "추천 예시의 이유를 보여 줘요.");
 assert.equal(elements.guideLabel.textContent, "삼등분할 구도");
 assert.equal(
     elements.guideExplanation.textContent,
-    "흰색 격자는 화면을 가로와 세로로 3등분합니다."
+    "흰 선이 화면을 가로세로 3등분해요."
 );
 assert.equal(elements.guideToggle.getAttribute("aria-pressed"), undefined);
 assert.ok(drawImageCalls > 0, "Coach crop canvas never called drawImage");
 
 elements.guideToggle.click();
 assert.equal(elements.guideToggle.getAttribute("aria-pressed"), "false");
-assert.equal(elements.guideToggle.textContent, "구도 가이드 보기");
+assert.equal(elements.guideToggle.textContent, "가이드 다시 보기");
 assert.equal(elements.guideNote.hidden, true);
 
 elements.guideToggle.click();
 assert.equal(elements.guideToggle.getAttribute("aria-pressed"), "true");
-assert.equal(elements.guideToggle.textContent, "구도 가이드 숨기기");
+assert.equal(elements.guideToggle.textContent, "가이드 숨기기");
 assert.equal(elements.guideNote.hidden, false);
 
 console.log("result runtime test passed");

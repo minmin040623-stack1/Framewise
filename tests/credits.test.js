@@ -49,7 +49,7 @@ assert.ok(
     "The experimental outpainting asset should be credited."
 );
 assert.ok(
-    credits.includes("외부 저작자의 사진이 포함되지 않습니다"),
+    credits.includes("외부에서 가져온 사진의 저작권은 각 사진의 원저작자에게 있습니다"),
     "The program notice should distinguish third-party photo rights."
 );
 

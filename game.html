@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="실제 사진을 직접 크롭하고 명확한 구도 기준에 따라 피드백을 받아 보세요.">
+    <meta name="description" content="사진을 원하는 장면으로 직접 잘라 보고, 구도 기준에 맞춘 피드백을 받아 보세요.">
 
     <title>FrameWise | 사진 구도 도전</title>
 
@@ -41,15 +41,15 @@
     <div class="container">
         <section class="challenge-brief" aria-labelledby="missionText">
             <div>
-                <p class="eyebrow">현재 구도 목표</p>
-                <h1 id="missionText">도전을 불러오는 중…</h1>
-                <p id="tipText" class="challenge-tip">구도 가이드를 준비하고 있습니다.</p>
+                <p class="eyebrow">이번 사진의 연습 목표</p>
+                <h1 id="missionText">사진을 준비하고 있어요…</h1>
+                <p id="tipText" class="challenge-tip">잠시만 기다려 주세요.</p>
             </div>
 
             <div class="challenge-meta">
                 <span id="difficultyText" class="meta-pill">난이도: --</span>
                 <span id="statusText" class="meta-pill status-pill" role="status" aria-live="polite">
-                    사진 불러오는 중…
+                    사진 준비 중…
                 </span>
             </div>
         </section>
@@ -58,10 +58,10 @@
             <section class="image-panel" aria-labelledby="cropHeading">
                 <div class="panel-heading">
                     <div>
-                        <p class="eyebrow">직접 해보기</p>
-                        <h2 id="cropHeading">원하는 구도로 크롭하세요</h2>
+                        <p class="eyebrow">이제 직접 해볼 차례예요</p>
+                        <h2 id="cropHeading">어떤 장면을 남기고 싶나요?</h2>
                     </div>
-                    <p>사진을 드래그하거나 크롭 영역과 확대·축소 버튼을 조절하세요.</p>
+                    <p>사진을 움직이고 파란 테두리를 조절해 원하는 장면만 남겨 보세요.</p>
                 </div>
 
                 <div class="image-wrapper">
@@ -71,18 +71,19 @@
 
             <aside class="control-panel" aria-label="크롭 조작 도구">
                 <section class="control-card">
-                    <p class="eyebrow">평가 기준</p>
-                    <h2>이 항목을 측정합니다</h2>
+                    <p class="eyebrow">점수 기준</p>
+                    <h2>이 사진에서는 이런 부분을 봐요</h2>
                     <ul id="criteriaList" class="criteria-list">
-                        <li>평가 기준 불러오는 중…</li>
+                        <li>점수 기준을 준비하고 있어요…</li>
                     </ul>
                     <p class="annotation-note">
-                        FrameWise는 사람이 검토한 기준 좌표와 공개된 구도 규칙을 사용합니다.
+                        AI가 피사체를 자동으로 찾은 결과가 아니에요.
+                        사람이 사진마다 확인해 둔 위치와 구도 규칙을 사용합니다.
                     </p>
                 </section>
 
                 <section class="control-card">
-                    <p class="eyebrow">조작</p>
+                    <p class="eyebrow">화면 조절</p>
                     <div class="crop-actions">
                         <button id="zoomOutBtn" class="control-button" type="button" disabled>
                             − 축소
@@ -95,12 +96,12 @@
                         </button>
                     </div>
                     <a id="modeSwitch" class="mode-switch" href="game.html?mode=practice">
-                        시간 제한 없이 연습하기
+                        시간 제한 없이 천천히 풀기
                     </a>
                 </section>
 
                 <button id="submitBtn" class="primary-button submit-button" type="button" disabled>
-                    내 구도 확인하기
+                    결과 확인하기
                 </button>
             </aside>
         </div>
@@ -114,8 +115,8 @@
 <div id="loadingOverlay" class="loading-overlay hidden" role="status" aria-live="polite" aria-hidden="true">
     <div class="loading-box">
         <span class="loading-icon" aria-hidden="true">◫</span>
-        <h2>피드백을 만드는 중…</h2>
-        <p>내 크롭을 이 사진의 구도 목표와 비교하고 있습니다.</p>
+        <h2>결과를 살펴보고 있어요…</h2>
+        <p>잠시 뒤 점수와 추천 예시를 함께 보여 드릴게요.</p>
         <div class="loading-bar" aria-hidden="true">
             <div class="loading-progress"></div>
         </div>
