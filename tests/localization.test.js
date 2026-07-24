@@ -58,12 +58,12 @@ assert.ok(
     "The learning heading should break at a natural Korean phrase boundary."
 );
 assert.ok(
-    game.includes('class="panel-guide"'),
-    "The crop instruction should use the single-line desktop guide style."
+    !game.includes("사진을 움직이고 파란 테두리를 조절해 원하는 장면만 남겨 보세요."),
+    "The crop panel should stay visually concise without a redundant instruction."
 );
 assert.ok(
-    /내가 자른 사진은\s*<br>\s*어떻게 보일까요\?/.test(result),
-    "The result headline should avoid literal translation phrasing."
+    result.includes("내 구도는 어떨까요?"),
+    "The result headline should be concise and natural in Korean."
 );
 
 const firstPhoto = photos[0];

@@ -165,11 +165,6 @@
     line-height: 1.5;
 }
 
-.panel-heading > .panel-guide {
-    max-width: none;
-    white-space: nowrap;
-}
-
 .image-wrapper {
     width: min(100%, var(--image-max-width, 100%));
     height: auto;
@@ -424,10 +419,6 @@
 
     .panel-heading > p {
         text-align: left;
-    }
-
-    .panel-heading > .panel-guide {
-        white-space: normal;
     }
 
     .image-panel {
