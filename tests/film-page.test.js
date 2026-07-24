@@ -220,10 +220,16 @@ assert.ok(
     "Film preset cards should support horizontal overflow."
 );
 assert.ok(
-    /\.film-result-clip\s*\{[^}]*clip-path\s*:\s*inset\(0 0 0 calc\(100% - var\(--film-compare-position\)\)\)/is.test(
+    /\.film-result-clip\s*\{[^}]*clip-path\s*:\s*inset\(0 0 0 var\(--film-compare-position\)\)/is.test(
         filmCss
     ),
-    "The processed result should be revealed from the right side of the comparison."
+    "The processed result should begin at the slider and divider position."
+);
+assert.ok(
+    /\.film-comparison-divider\s*\{[^}]*left\s*:\s*var\(--film-compare-position\)/is.test(
+        filmCss
+    ),
+    "The visible divider should follow the slider position directly."
 );
 assert.ok(
     /\.film-compare-label-original\s*\{[^}]*left\s*:\s*14px/is.test(filmCss) &&

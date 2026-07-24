@@ -78,6 +78,26 @@ assert.equal(
     "framewise-photo-film-inspired.jpg"
 );
 
+assert.deepEqual(
+    film.getCompareState(27),
+    {
+        dividerPercentage: 27,
+        originalPercentage: 27,
+        resultPercentage: 73
+    },
+    "The slider thumb, image divider, and visible result ratio should stay synchronized."
+);
+assert.deepEqual(film.getCompareState(150), {
+    dividerPercentage: 100,
+    originalPercentage: 100,
+    resultPercentage: 0
+});
+assert.deepEqual(film.getCompareState(-20), {
+    dividerPercentage: 0,
+    originalPercentage: 0,
+    resultPercentage: 100
+});
+
 let queuedCallback = null;
 let cancelledFrame = null;
 let callbackCount = 0;

@@ -50,6 +50,16 @@
         return Math.min(Math.max(value, min), max);
     }
 
+    function getCompareState(value) {
+        const dividerPercentage = clamp(Number(value) || 0, 0, 100);
+
+        return {
+            dividerPercentage,
+            originalPercentage: dividerPercentage,
+            resultPercentage: 100 - dividerPercentage
+        };
+    }
+
     function extensionFromName(name) {
         const match = String(name || "").toLowerCase().match(/\.([a-z0-9]+)$/);
         return match ? match[1] : "";
@@ -384,16 +394,20 @@
         }
 
         function setCompare(value) {
-            const percentage = clamp(Number(value) || 0, 0, 100);
-            elements.compare.value = String(percentage);
+            const {
+                dividerPercentage,
+                originalPercentage,
+                resultPercentage
+            } = getCompareState(value);
+            elements.compare.value = String(dividerPercentage);
             elements.comparisonFrame.style.setProperty(
                 "--film-compare-position",
-                `${percentage}%`
+                `${dividerPercentage}%`
             );
-            elements.compareValue.value = `결과 ${Math.round(percentage)}%`;
+            elements.compareValue.value = `결과 ${Math.round(resultPercentage)}%`;
             elements.compare.setAttribute(
                 "aria-valuetext",
-                `결과 ${Math.round(percentage)}%, 원본 ${Math.round(100 - percentage)}%`
+                `원본 ${Math.round(originalPercentage)}%, 결과 ${Math.round(resultPercentage)}%`
             );
         }
 
@@ -1074,6 +1088,7 @@
         MAX_SOURCE_PIXELS,
         validateFile,
         fitWithin,
+        getCompareState,
         buildDownloadFilename,
         createRenderScheduler,
         initFilmLab
