@@ -45,11 +45,24 @@ photos.forEach((photo) => {
 });
 
 const home = fs.readFileSync(path.join(root, "index.html"), "utf8");
+const game = fs.readFileSync(path.join(root, "game.html"), "utf8");
 const result = fs.readFileSync(path.join(root, "result.html"), "utf8");
 
 assert.ok(home.includes("사진을 보는 눈"), "The home headline should read naturally in Korean.");
 assert.ok(
-    result.includes("내가 자른 사진은 어떻게 보일까요?"),
+    /구도를 연습하거나,\s*<br>\s*필름 색감을 비교해 보세요/.test(home),
+    "The tool heading should break after the introductory phrase."
+);
+assert.ok(
+    /외운 규칙보다,\s*<br>\s*다시 써먹을 수 있는 감각\./.test(home),
+    "The learning heading should break at a natural Korean phrase boundary."
+);
+assert.ok(
+    game.includes('class="panel-guide"'),
+    "The crop instruction should use the single-line desktop guide style."
+);
+assert.ok(
+    /내가 자른 사진은\s*<br>\s*어떻게 보일까요\?/.test(result),
     "The result headline should avoid literal translation phrasing."
 );
 
