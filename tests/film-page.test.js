@@ -220,6 +220,17 @@ assert.ok(
     "Film preset cards should support horizontal overflow."
 );
 assert.ok(
+    /\.film-result-clip\s*\{[^}]*clip-path\s*:\s*inset\(0 0 0 calc\(100% - var\(--film-compare-position\)\)\)/is.test(
+        filmCss
+    ),
+    "The processed result should be revealed from the right side of the comparison."
+);
+assert.ok(
+    /\.film-compare-label-original\s*\{[^}]*left\s*:\s*14px/is.test(filmCss) &&
+        /\.film-compare-label-result\s*\{[^}]*right\s*:\s*14px/is.test(filmCss),
+    "Comparison labels should keep the original on the left and the result on the right."
+);
+assert.ok(
     /:(?:focus-visible|focus-within)\b/i.test(filmCss),
     "film.css should provide a visible keyboard focus state."
 );

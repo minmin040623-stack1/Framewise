@@ -426,14 +426,14 @@
     position: absolute;
     inset: 0;
     overflow: hidden;
-    clip-path: inset(0 calc(100% - var(--film-compare-position)) 0 0);
+    clip-path: inset(0 0 0 calc(100% - var(--film-compare-position)));
 }
 
 .film-comparison-divider {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: var(--film-compare-position);
+    left: calc(100% - var(--film-compare-position));
     z-index: 3;
     width: 2px;
     background: rgba(255, 255, 255, 0.95);
@@ -473,11 +473,11 @@
 }
 
 .film-compare-label-original {
-    right: 14px;
+    left: 14px;
 }
 
 .film-compare-label-result {
-    left: 14px;
+    right: 14px;
 }
 
 .film-processing-overlay {
