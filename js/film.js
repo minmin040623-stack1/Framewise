@@ -324,6 +324,8 @@
             compareValue: get("compareValue"),
             fileName: get("fileName"),
             fileDimensions: get("fileDimensions"),
+            tasteOptions: get("tasteOptions"),
+            tasteStatus: get("tasteStatus"),
             recommendationName: get("recommendationName"),
             recommendationReason: get("recommendationReason"),
             presetFieldset: get("presetFieldset"),
@@ -350,11 +352,31 @@
         const presets = presetsApi.presets || [];
         const renderer = options.renderer
             || rendererApi.createRenderer({ document: documentRef });
+        let preferenceStorage = options.preferenceStorage || null;
+
+        if (!preferenceStorage) {
+            try {
+                preferenceStorage = windowRef.localStorage;
+            } catch (_error) {
+                preferenceStorage = null;
+            }
+        }
+
+        const storedTaste = (() => {
+            try {
+                return preferenceStorage?.getItem("framewiseFilmTaste") || "auto";
+            } catch (_error) {
+                return "auto";
+            }
+        })();
         const cardElements = new Map();
         let generation = 0;
         let renderRevision = 0;
         let state = "empty";
         let activeCategory = "All";
+        let currentTaste = analysisApi.normalizeTasteId
+            ? analysisApi.normalizeTasteId(storedTaste)
+            : "auto";
         let selectedPresetId = presets[0]?.id || "";
         let recommendation = null;
         let current = null;
@@ -479,6 +501,71 @@
             });
         }
 
+        function updateTasteOptions() {
+            [...elements.tasteOptions.querySelectorAll("button")].forEach((button) => {
+                const active = button.dataset.tasteId === currentTaste;
+                button.classList.toggle("is-active", active);
+                button.setAttribute("aria-pressed", String(active));
+            });
+
+            const profile = analysisApi.getTasteProfile
+                ? analysisApi.getTasteProfile(currentTaste)
+                : { label: "사진에 맞춰 추천" };
+            elements.tasteStatus.textContent = currentTaste === "auto"
+                ? "사진의 밝기와 색만 보고 추천해요. 사진과 선택 기록은 저장하지 않아요."
+                : `‘${profile.label}’ 취향을 이 브라우저에만 기억해요. 사진은 저장하지 않아요.`;
+        }
+
+        function persistTaste() {
+            try {
+                preferenceStorage?.setItem("framewiseFilmTaste", currentTaste);
+            } catch (_error) {
+                // A blocked storage API must not stop local image editing.
+            }
+        }
+
+        function setTaste(tasteId, options = {}) {
+            currentTaste = analysisApi.normalizeTasteId
+                ? analysisApi.normalizeTasteId(tasteId)
+                : "auto";
+
+            if (options.persist !== false) {
+                persistTaste();
+            }
+
+            updateTasteOptions();
+
+            if (!current?.metrics || options.updateRecommendation === false) {
+                return;
+            }
+
+            const nextRecommendation = analysisApi.recommendPreset(
+                current.metrics,
+                currentTaste
+            );
+            renderRecommendation(nextRecommendation);
+            selectPreset(recommendation.presetId || presets[0]?.id);
+            setEffectValue((recommendation.intensity ?? 0.76) * 100);
+            renderScheduler.schedule();
+        }
+
+        function createTasteOptions() {
+            const profiles = analysisApi.tasteProfiles || [];
+
+            profiles.forEach((profile) => {
+                const button = documentRef.createElement("button");
+                button.type = "button";
+                button.className = "film-taste-option";
+                button.dataset.tasteId = profile.id;
+                button.textContent = profile.label;
+                button.title = profile.description;
+                button.setAttribute("aria-pressed", "false");
+                elements.tasteOptions.append(button);
+            });
+
+            updateTasteOptions();
+        }
+
         function createCategoryFilters() {
             const sourceCategories = presetsApi.categories?.length
                 ? presetsApi.categories
@@ -587,7 +674,7 @@
                 dimensions.height
             );
             const metrics = analysisApi.analyzeImageData(imageData);
-            const result = analysisApi.recommendPreset(metrics);
+            const result = analysisApi.recommendPreset(metrics, currentTaste);
             analysisCanvas.width = 1;
             analysisCanvas.height = 1;
             return { metrics, result };
@@ -604,7 +691,12 @@
 
             recommendation = {
                 presetId: preset?.id || "",
-                reason
+                reason,
+                intensity: Number.isFinite(result?.intensity)
+                    ? clamp(result.intensity, 0, 1)
+                    : 0.76,
+                tasteId: result?.tasteId || currentTaste,
+                preferenceSource: result?.preferenceSource || "photo"
             };
             elements.recommendationName.textContent = preset?.name || "추천 준비 중";
             elements.recommendationReason.textContent = reason;
@@ -794,7 +886,7 @@
                 current.metrics = analysis.metrics;
                 renderRecommendation(analysis.result);
                 selectPreset(recommendation.presetId || presets[0]?.id);
-                setEffectValue(100);
+                setEffectValue((recommendation.intensity ?? 0.76) * 100);
                 setCompare(50);
 
                 await renderSelectedPreview(requestGeneration);
@@ -832,7 +924,7 @@
 
             applyCategory("All");
             selectPreset(recommendation?.presetId || presets[0]?.id);
-            setEffectValue(100);
+            setEffectValue((recommendation?.intensity ?? 0.76) * 100);
             setCompare(50);
             renderScheduler.schedule();
             elements.status.textContent = "추천 프리셋과 기본 강도로 되돌렸어요.";
@@ -996,6 +1088,7 @@
             current = null;
         }
 
+        createTasteOptions();
         createCategoryFilters();
         createPresetCards();
         applyCategory("All");
@@ -1047,6 +1140,14 @@
             renderScheduler.schedule();
         });
 
+        elements.tasteOptions.addEventListener("click", (event) => {
+            const button = event.target.closest("button[data-taste-id]");
+
+            if (button) {
+                setTaste(button.dataset.tasteId);
+            }
+        });
+
         elements.effect.addEventListener("input", () => {
             setEffectValue(elements.effect.value);
             renderScheduler.schedule();
@@ -1078,6 +1179,7 @@
                 state,
                 selectedPresetId,
                 activeCategory,
+                tasteId: currentTaste,
                 hasPhoto: Boolean(current)
             })
         };

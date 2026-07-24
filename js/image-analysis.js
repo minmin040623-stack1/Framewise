@@ -9,6 +9,45 @@
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
     "use strict";
 
+    const tasteProfiles = Object.freeze([
+        {
+            id: "auto",
+            label: "사진에 맞춰 추천",
+            description: "밝기와 색 분포를 보고 자동으로 골라요."
+        },
+        {
+            id: "warm-soft",
+            label: "따뜻하고 부드럽게",
+            description: "피부와 일상 장면을 편안한 온기로 보여 줘요."
+        },
+        {
+            id: "fresh-clean",
+            label: "맑고 자연스럽게",
+            description: "원래 색을 크게 해치지 않고 밝고 깨끗하게 정리해요."
+        },
+        {
+            id: "vivid",
+            label: "선명하고 생생하게",
+            description: "풍경과 사물의 빨강·녹색·파랑을 또렷하게 살려요."
+        },
+        {
+            id: "cinematic",
+            label: "영화처럼 깊게",
+            description: "차가운 그림자와 따뜻한 빛의 대비를 강조해요."
+        },
+        {
+            id: "muted",
+            label: "차분한 빈티지",
+            description: "채도와 밝기를 낮춰 오래된 사진처럼 담담하게 만들어요."
+        },
+        {
+            id: "monochrome",
+            label: "흑백으로 집중",
+            description: "색보다 빛, 표정과 질감에 시선이 가게 해요."
+        }
+    ]);
+    const tasteProfileIds = new Set(tasteProfiles.map((profile) => profile.id));
+
     const MAX_SAMPLES = 50000;
 
     function clamp(value, min = 0, max = 1) {
@@ -156,11 +195,21 @@
         return Math.round(clamp(value) * 100);
     }
 
+    function normalizeTasteId(value) {
+        const id = String(value || "auto");
+        return tasteProfileIds.has(id) ? id : "auto";
+    }
+
+    function getTasteProfile(value) {
+        const id = normalizeTasteId(value);
+        return tasteProfiles.find((profile) => profile.id === id) || tasteProfiles[0];
+    }
+
     /*
      * This is a transparent rule set, not a generative model or a machine
      * learning prediction. Reasons mention only values measured above.
      */
-    function recommendPreset(metrics) {
+    function recommendAutomatic(metrics) {
         const brightness = metric(metrics, "brightness");
         const dark = metric(metrics, "dark");
         const highlight = metric(metrics, "highlight");
@@ -218,8 +267,92 @@
         };
     }
 
+    function recommendForTaste(metrics, tasteId) {
+        const brightness = metric(metrics, "brightness");
+        const dark = metric(metrics, "dark");
+        const highlight = metric(metrics, "highlight");
+        const saturation = metric(metrics, "saturation");
+        const warmth = metric(metrics, "warmth", 0.5);
+        const contrast = metric(metrics, "contrast");
+        const texture = metric(metrics, "texture");
+
+        if (tasteId === "warm-soft") {
+            const presetId = warmth >= 0.55 || saturation >= 0.26
+                ? "golden-day-inspired"
+                : "portra-400-inspired";
+            return {
+                presetId,
+                intensity: 0.74,
+                reason: `‘따뜻하고 부드럽게’를 골랐어요. 사진의 따뜻한 색 지수는 ${percent(warmth)}%, 채도는 ${percent(saturation)}%라 온기를 더하되 하이라이트는 부드럽게 남기는 스타일을 추천해요.`
+            };
+        }
+
+        if (tasteId === "fresh-clean") {
+            return {
+                presetId: "fuji-c200-inspired",
+                intensity: 0.68,
+                reason: `‘맑고 자연스럽게’를 골랐어요. 현재 밝기 ${percent(brightness)}%, 채도 ${percent(saturation)}%를 크게 바꾸지 않고 녹색과 하늘을 깨끗하게 정리하는 스타일을 추천해요.`
+            };
+        }
+
+        if (tasteId === "vivid") {
+            return {
+                presetId: "vivid-landscape-inspired",
+                intensity: saturation >= 0.34 ? 0.66 : 0.78,
+                reason: `‘선명하고 생생하게’를 골랐어요. 원본 채도가 ${percent(saturation)}%라 색이 이미 강하면 효과를 줄이고, 부족하면 빨강과 녹색을 더 살리도록 추천 강도를 조절해요.`
+            };
+        }
+
+        if (tasteId === "cinematic") {
+            const nightLike = dark >= 0.30 || highlight >= 0.035;
+            return {
+                presetId: nightLike
+                    ? "tungsten-night-inspired"
+                    : "cinestill-400d-inspired",
+                intensity: nightLike ? 0.76 : 0.72,
+                reason: `‘영화처럼 깊게’를 골랐어요. 어두운 영역 ${percent(dark)}%, 밝은 광원 ${percent(highlight)}%를 기준으로 그림자와 하이라이트의 색을 나눠 보여 주는 스타일을 추천해요.`
+            };
+        }
+
+        if (tasteId === "muted") {
+            return {
+                presetId: "reto-aqua400-inspired",
+                intensity: 0.62,
+                reason: `‘차분한 빈티지’를 골랐어요. 원본 채도 ${percent(saturation)}%, 대비 ${percent(contrast)}%에서 색을 과하게 누르지 않도록 낮은 효과 강도로 시작해요.`
+            };
+        }
+
+        const fineGrain = texture < 0.30 || contrast < 0.34;
+        return {
+            presetId: fineGrain
+                ? "fine-grain-mono-inspired"
+                : "bw-400-inspired",
+            intensity: 0.82,
+            reason: `‘흑백으로 집중’을 골랐어요. 질감 변화 ${percent(texture)}%, 대비 ${percent(contrast)}%를 보고 ${fineGrain ? "고운 입자와 넓은 중간 계조" : "굵은 입자와 또렷한 중간 대비"}가 어울리는 흑백을 추천해요.`
+        };
+    }
+
+    function recommendPreset(metrics, tasteId = "auto") {
+        const normalizedTasteId = normalizeTasteId(tasteId);
+        const recommendation = normalizedTasteId === "auto"
+            ? recommendAutomatic(metrics)
+            : recommendForTaste(metrics, normalizedTasteId);
+
+        return {
+            ...recommendation,
+            tasteId: normalizedTasteId,
+            preferenceSource: normalizedTasteId === "auto" ? "photo" : "explicit",
+            intensity: Number.isFinite(recommendation.intensity)
+                ? recommendation.intensity
+                : 0.76
+        };
+    }
+
     return {
+        tasteProfiles,
         analyzeImageData,
-        recommendPreset
+        recommendPreset,
+        normalizeTasteId,
+        getTasteProfile
     };
 });

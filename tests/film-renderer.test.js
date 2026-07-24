@@ -1,5 +1,6 @@
 const assert = require("node:assert/strict");
 const rendererApi = require("../js/film-renderer.js");
+const presetApi = require("../js/film-presets.js");
 
 const preview = rendererApi.fitDimensions(4000, 3000, {
     maxLongEdge: 1400,
@@ -209,5 +210,29 @@ assert.equal(fallback.disposed, true);
 assert.equal(rendererApi.constants.PREVIEW_MAX_LONG_EDGE, 1400);
 assert.equal(rendererApi.constants.THUMBNAIL_MAX_LONG_EDGE, 360);
 assert.equal(rendererApi.constants.EXPORT_MAX_PIXELS, 16_000_000);
+
+presetApi.presets.forEach((preset) => {
+    const resolved = rendererApi.resolveParameters(
+        presetApi.resolveParameters(preset, 0.76, preset.grain.default),
+        { intensity: 1, grain: preset.grain.default }
+    );
+
+    [
+        ...resolved.colorMatrix,
+        ...resolved.channelOffset,
+        resolved.exposure,
+        resolved.contrast,
+        resolved.saturation,
+        resolved.temperature,
+        resolved.tint,
+        resolved.grainAmount,
+        resolved.grainSize,
+        resolved.vignette,
+        resolved.bloom,
+        resolved.halation
+    ].forEach((value) => {
+        assert.ok(Number.isFinite(value), `${preset.id} produced a non-finite render value.`);
+    });
+});
 
 console.log("Film renderer tests passed.");

@@ -29,10 +29,11 @@ is the only flow that intentionally opens the same photo again.
 Film Lab loop:
 
 1. Select or drop one JPG, PNG, or WebP image.
-2. Analyze a small preview for average brightness, color, contrast, and texture.
-3. Review one transparent rule-based recommendation and eight preset previews.
-4. Choose a style and adjust effect, grain, and before/after comparison.
-5. Export a JPG or PNG while preserving the source aspect ratio.
+2. Choose an intended mood or keep photo-only automatic recommendation.
+3. Analyze a small preview for average brightness, color, contrast, and texture.
+4. Review one transparent rule-based recommendation and twelve preset previews.
+5. Choose a style and adjust effect, grain, and before/after comparison.
+6. Export a JPG or PNG while preserving the source aspect ratio.
 
 ## Current scope
 
@@ -53,10 +54,12 @@ Included:
 - retry and non-repeating next challenge
 - source and license display when recorded
 - personal photo upload inside Film Lab
-- eight independently designed "Inspired" film presets
+- twelve independently designed "Inspired" film presets
 - WebGL rendering with a Canvas2D fallback
 - deterministic color, tone, grain, vignette, bloom, and halation effects
 - rule-based film recommendation from lightweight pixel statistics
+- explicit mood preferences that override photo-only recommendation
+- local retention of only the selected mood ID, never the uploaded photograph
 - before/after slider and JPG/PNG download
 
 Not included:
@@ -125,6 +128,12 @@ The recommendation is a visible ruleset over brightness, dark/highlight share,
 saturation, warmth, green/cyan share, contrast, and local texture. It does not
 detect a person and must not claim that it does.
 
+One uploaded photograph is not enough evidence to infer stable personal taste.
+Film Lab asks for an explicit desired mood and combines it with the measured
+photo statistics. The mood choice is saved locally so the next visit can start
+from the same preference; the photograph and its statistics are not stored.
+Suggested effect strength starts conservatively between 62% and 82%.
+
 All preset names include `Inspired`. They are original parameter sets, not
 claims of accurate manufacturer color reproduction. Video observations,
 official product references, confidence notes, and parameter rationale are
@@ -191,6 +200,8 @@ Node-based tests.
 - Film Lab must not upload, retain, or silently transmit a user's photograph.
 - A recommendation reason may mention only metrics the current analyzer
   actually measures.
+- Explicit user taste must take priority over a photo-only heuristic.
+- Preference storage may contain only the selected mood ID.
 
 ## Next priorities
 

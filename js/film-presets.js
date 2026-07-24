@@ -430,6 +430,239 @@
             recommendationEligible: false
         },
         {
+            id: "golden-day-inspired",
+            name: "Golden Day Inspired",
+            category: "Everyday",
+            description: "따뜻한 노랑과 주황, 산뜻한 채도와 부드러운 밝기를 더한 편안한 일상 톤",
+            recommendedFor: "가족 사진, 여행, 맑은 오후, 일상의 따뜻한 순간",
+            videoReference: {
+                featured: false,
+                timestamps: [],
+                observations: ["사용자 제공 비교 영상이 아닌 Kodak GOLD 200 공식 특성에서 방향을 참고함"],
+                confidence: "medium"
+            },
+            researchReference: {
+                inspirations: ["KODAK GOLD 200"],
+                observations: [
+                    "공식 자료의 일상 사진 용도, 선명한 채도, 고운 입자와 넓은 노출 관용도",
+                    "FrameWise에서는 따뜻한 일상색과 부드러운 하이라이트로 재해석"
+                ]
+            },
+            parameters: {
+                colorMatrix: [
+                    1.045, 0.012, -0.012,
+                    0.008, 1.015, -0.006,
+                    0.002, 0.014, 0.965
+                ],
+                channelOffset: [0.010, 0.004, -0.006],
+                exposure: 0.045,
+                contrast: 1.025,
+                saturation: 1.08,
+                temperature: 0.105,
+                tint: 0.012,
+                toneCurve: {
+                    gamma: 0.985,
+                    toe: 0.035,
+                    shoulder: 0.15,
+                    blackPoint: 0.009
+                },
+                shadowTint: {
+                    color: [0.34, 0.27, 0.18],
+                    amount: 0.028
+                },
+                highlightTint: {
+                    color: [1.00, 0.76, 0.46],
+                    amount: 0.075
+                },
+                selectiveSaturation: {
+                    red: 1.10,
+                    green: 1.02,
+                    blue: 0.92
+                },
+                monochrome: false
+            },
+            grain: { default: 0.22, size: 0.90 },
+            vignette: { default: 0.09 },
+            bloom: { default: 0.055 },
+            halation: { default: 0.012, color: [1.00, 0.30, 0.08] },
+            recommendationEligible: true
+        },
+        {
+            id: "vivid-landscape-inspired",
+            name: "Vivid Landscape Inspired",
+            category: "Vivid",
+            description: "빨강과 녹색을 또렷하게 올리고 미세한 입자와 깊은 대비로 풍경을 강조한 선명한 톤",
+            recommendedFor: "풍경, 꽃, 단풍, 바다, 색이 중요한 여행 사진",
+            videoReference: {
+                featured: false,
+                timestamps: [],
+                observations: ["사용자 제공 비교 영상이 아닌 EKTAR 100과 Velvia 공식 특성에서 방향을 참고함"],
+                confidence: "medium"
+            },
+            researchReference: {
+                inspirations: ["KODAK EKTAR 100", "FUJICHROME Velvia 100"],
+                observations: [
+                    "EKTAR의 높은 채도·선명도·미세 입자",
+                    "Velvia의 매우 높은 채도와 빨강·녹색 강조",
+                    "두 공식 방향을 결합한 FrameWise의 독자적인 풍경용 색감"
+                ]
+            },
+            parameters: {
+                colorMatrix: [
+                    1.070, -0.012, -0.008,
+                    -0.006, 1.070, -0.010,
+                    -0.004, -0.006, 1.035
+                ],
+                channelOffset: [0.002, 0.002, -0.002],
+                exposure: 0.005,
+                contrast: 1.14,
+                saturation: 1.24,
+                temperature: 0.015,
+                tint: 0.008,
+                toneCurve: {
+                    gamma: 1.01,
+                    toe: 0.065,
+                    shoulder: 0.095,
+                    blackPoint: 0.018
+                },
+                shadowTint: {
+                    color: [0.10, 0.18, 0.22],
+                    amount: 0.025
+                },
+                highlightTint: {
+                    color: [1.00, 0.91, 0.78],
+                    amount: 0.025
+                },
+                selectiveSaturation: {
+                    red: 1.20,
+                    green: 1.22,
+                    blue: 1.08
+                },
+                monochrome: false
+            },
+            grain: { default: 0.12, size: 0.72 },
+            vignette: { default: 0.11 },
+            bloom: { default: 0.025 },
+            halation: { default: 0.006, color: [1.00, 0.22, 0.05] },
+            recommendationEligible: true
+        },
+        {
+            id: "tungsten-night-inspired",
+            name: "Tungsten Night Inspired",
+            category: "Cinematic",
+            description: "차가운 밤 그림자와 따뜻한 조명, 붉은 빛 번짐을 대비시킨 저조도 영화 톤",
+            recommendedFor: "야간 거리, 네온사인, 실내 조명, 공연과 도시 사진",
+            videoReference: {
+                featured: false,
+                timestamps: [],
+                observations: ["사용자 제공 비교 영상이 아닌 CineStill 800T 공식 저조도·텅스텐 특성에서 방향을 참고함"],
+                confidence: "medium"
+            },
+            researchReference: {
+                inspirations: ["CineStill 800T"],
+                observations: [
+                    "공식 자료의 텅스텐 균형, 저조도 용도와 약한 할레이션",
+                    "상표 제품을 복제하지 않고 차가운 그림자와 따뜻한 광원 분리로 재해석"
+                ]
+            },
+            parameters: {
+                colorMatrix: [
+                    0.970, 0.006, 0.020,
+                    -0.006, 1.000, 0.018,
+                    -0.016, 0.010, 1.085
+                ],
+                channelOffset: [-0.012, -0.002, 0.020],
+                exposure: 0.025,
+                contrast: 1.12,
+                saturation: 1.04,
+                temperature: -0.13,
+                tint: 0.020,
+                toneCurve: {
+                    gamma: 1.025,
+                    toe: 0.080,
+                    shoulder: 0.13,
+                    blackPoint: 0.020
+                },
+                shadowTint: {
+                    color: [0.08, 0.20, 0.42],
+                    amount: 0.13
+                },
+                highlightTint: {
+                    color: [1.00, 0.50, 0.24],
+                    amount: 0.10
+                },
+                selectiveSaturation: {
+                    red: 1.12,
+                    green: 0.94,
+                    blue: 1.14
+                },
+                monochrome: false
+            },
+            grain: { default: 0.34, size: 1.08 },
+            vignette: { default: 0.18 },
+            bloom: { default: 0.11 },
+            halation: { default: 0.30, color: [1.00, 0.16, 0.035] },
+            recommendationEligible: true
+        },
+        {
+            id: "fine-grain-mono-inspired",
+            name: "Fine Grain Mono Inspired",
+            category: "Black & White",
+            description: "섬세한 입자와 넓은 중간 계조로 피부와 질감을 차분하게 보여 주는 깨끗한 흑백 톤",
+            recommendedFor: "인물, 정물, 건축, 고운 명암과 세부 묘사가 중요한 사진",
+            videoReference: {
+                featured: false,
+                timestamps: [],
+                observations: ["사용자 제공 비교 영상에 없는 고운 입자 흑백 방향"],
+                confidence: "low-medium"
+            },
+            researchReference: {
+                inspirations: ["ILFORD DELTA 400 PROFESSIONAL"],
+                observations: [
+                    "공식 비교 자료의 현대적인 미세 입자와 선명한 흑백 방향",
+                    "기존 B&W 400 Inspired보다 입자를 줄이고 중간 계조를 넓게 설계"
+                ]
+            },
+            parameters: {
+                colorMatrix: [
+                    1, 0, 0,
+                    0, 1, 0,
+                    0, 0, 1
+                ],
+                channelOffset: [0, 0, 0],
+                exposure: 0.015,
+                contrast: 1.07,
+                saturation: 0,
+                temperature: 0,
+                tint: 0,
+                toneCurve: {
+                    gamma: 0.995,
+                    toe: 0.040,
+                    shoulder: 0.14,
+                    blackPoint: 0.010
+                },
+                shadowTint: {
+                    color: [0.14, 0.16, 0.19],
+                    amount: 0.012
+                },
+                highlightTint: {
+                    color: [0.94, 0.92, 0.87],
+                    amount: 0.015
+                },
+                selectiveSaturation: {
+                    red: 1,
+                    green: 1,
+                    blue: 1
+                },
+                monochrome: true
+            },
+            grain: { default: 0.20, size: 0.76 },
+            vignette: { default: 0.10 },
+            bloom: { default: 0.025 },
+            halation: { default: 0, color: [1.00, 0.20, 0.06] },
+            recommendationEligible: true
+        },
+        {
             id: "bw-400-inspired",
             name: "B&W 400 Inspired",
             category: "Black & White",

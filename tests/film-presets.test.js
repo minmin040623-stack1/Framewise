@@ -14,6 +14,10 @@ const expectedIds = [
     "harman-phoenix200-inspired",
     "lomochrome-purple-inspired",
     "reto-aqua400-inspired",
+    "golden-day-inspired",
+    "vivid-landscape-inspired",
+    "tungsten-night-inspired",
+    "fine-grain-mono-inspired",
     "bw-400-inspired"
 ];
 const expectedCategories = new Set([
@@ -87,11 +91,25 @@ assert.deepEqual(
         "portra-400-inspired",
         "fuji-c200-inspired",
         "cinestill-400d-inspired",
+        "golden-day-inspired",
+        "vivid-landscape-inspired",
+        "tungsten-night-inspired",
+        "fine-grain-mono-inspired",
         "bw-400-inspired"
     ]
 );
 assert.ok(getPreset("cinestill-400d-inspired").halation.default > 0);
+assert.ok(getPreset("tungsten-night-inspired").halation.default >= 0.25);
+assert.ok(
+    getPreset("vivid-landscape-inspired").parameters.saturation
+        > getPreset("golden-day-inspired").parameters.saturation
+);
 assert.equal(getPreset("bw-400-inspired").parameters.monochrome, true);
+assert.equal(getPreset("fine-grain-mono-inspired").parameters.monochrome, true);
+assert.ok(
+    getPreset("fine-grain-mono-inspired").grain.default
+        < getPreset("bw-400-inspired").grain.default
+);
 assert.ok(
     getPreset("reto-aqua400-inspired").grain.default
         > getPreset("portra-400-inspired").grain.default

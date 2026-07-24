@@ -81,6 +81,8 @@ const requiredIds = [
     "compareValue",
     "fileName",
     "fileDimensions",
+    "tasteOptions",
+    "tasteStatus",
     "recommendationName",
     "recommendationReason",
     "presetFieldset",
@@ -151,6 +153,14 @@ assertAttribute(
     "#fileError should announce upload errors."
 );
 
+const tasteStatusTag = getOpeningTagById(filmHtml, "tasteStatus");
+assertAttribute(
+    tasteStatusTag,
+    "aria-live",
+    "polite",
+    "#tasteStatus should announce a changed preference without interrupting the user."
+);
+
 [
     "compareSlider",
     "presetFieldset",
@@ -189,6 +199,9 @@ assert.ok(
     "규칙 기반 추천",
     "AI 모델 아님",
     "브라우저 안에서",
+    "열두 가지 Inspired",
+    "원하는 분위기",
+    "사진과 취향을 함께 본 추천",
     "Inspired",
     "공식 프로필",
     "유료 LUT"
@@ -220,6 +233,10 @@ assert.ok(
     "Film preset cards should support horizontal overflow."
 );
 assert.ok(
+    /\.film-taste-options\s*\{[^}]*display\s*:\s*grid/is.test(filmCss),
+    "The preference choices should use a compact responsive grid."
+);
+assert.ok(
     /\.film-result-clip\s*\{[^}]*clip-path\s*:\s*inset\(0 0 0 var\(--film-compare-position\)\)/is.test(
         filmCss
     ),
@@ -239,6 +256,10 @@ assert.ok(
 assert.ok(
     /:(?:focus-visible|focus-within)\b/i.test(filmCss),
     "film.css should provide a visible keyboard focus state."
+);
+assert.ok(
+    /\.film-taste-option:focus-visible\b/i.test(filmCss),
+    "Preference buttons should have a visible keyboard focus state."
 );
 assert.ok(
     /@media\s*\(\s*prefers-reduced-motion\s*:\s*reduce\s*\)/i.test(filmCss),

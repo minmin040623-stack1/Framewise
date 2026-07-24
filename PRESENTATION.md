@@ -90,7 +90,7 @@ FrameWise는 사진을 보는 감각을 직접 연습하기 위해 만든 웹사
 1. 기존 안정 버전을 태그와 브랜치로 보존했다.
 2. 별도 페이지인 `AI Film Lab`을 제안했다.
 3. 영상 비교 자료와 공식 제품 설명을 조사했다.
-4. 8개의 독자적인 `Inspired` 프리셋을 구현했다.
+4. 12개의 독자적인 `Inspired` 프리셋을 구현했다.
 5. 업로드, 추천, 비교 슬라이더, 강도 조절, 다운로드를 완성했다.
 
 ### 흐름 요약
@@ -304,7 +304,7 @@ PROJECT.md 확인
 | `composition-score.js` | 사진별 구도 평가와 점수 근거 생성 |
 | `game.js` | 사진 로딩, Cropper.js, 타이머, 제출과 기록 |
 | `result.js` | 결과 표시, 가이드 선, 추천 크롭과 출처 |
-| `film-presets.js` | 8개 Inspired 프리셋의 파라미터 |
+| `film-presets.js` | 12개 Inspired 프리셋의 파라미터 |
 | `image-analysis.js` | 밝기·채도·색·대비·질감 통계와 규칙 추천 |
 | `film-renderer.js` | WebGL 처리와 Canvas2D 대체 처리 |
 | `film.js` | 업로드부터 미리보기·조절·다운로드까지 전체 흐름 |
@@ -387,7 +387,7 @@ result.js
     ↓
 규칙 기반 프리셋 한 개 추천
     ↓
-8개 Inspired 스타일 동시 비교
+12개 Inspired 스타일 동시 비교
     ↓
 효과·입자 강도 조절
     ↓
@@ -406,6 +406,18 @@ JPG 또는 PNG 다운로드
 - LomoChrome Purple Inspired
 - RETO Aqua 400 Inspired
 - B&W 400 Inspired
+- Golden Day Inspired
+- Vivid Landscape Inspired
+- Tungsten Night Inspired
+- Fine Grain Mono Inspired
+
+### 취향을 반영하는 방식
+
+- 필름 이름 대신 원하는 결과를 먼저 고를 수 있다.
+- 따뜻함, 자연스러움, 생생함, 시네마틱, 빈티지, 흑백으로 선택한다.
+- 사용자의 선택을 사진 밝기·색·대비와 함께 계산한다.
+- 한 장의 사진만 보고 취향을 알아냈다고 주장하지 않는다.
+- 선택한 분위기 ID만 브라우저에 기억하고 사진은 저장하지 않는다.
 
 ### 정직한 표현
 
@@ -643,7 +655,7 @@ JPG 또는 PNG 다운로드
 - 제작자가 제공한 비교 화면에서 관찰한 상대적 차이
 - 영상 압축, 현상, 스캔으로 색이 달라질 수 있다는 한계
 - 각 제조사·브랜드의 일반 특성 참고 링크
-- 8개 Inspired 프리셋의 색, 톤, 입자, 광학 효과 파라미터
+- 12개 Inspired 프리셋의 색, 톤, 입자, 광학 효과 파라미터
 - 프리셋별 분석 신뢰도
 - 이후 재검증을 위한 체크리스트
 

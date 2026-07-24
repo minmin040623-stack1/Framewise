@@ -79,6 +79,60 @@ override what was actually visible in the comparison.
   profile or name; the source only supports the broad educational direction.
   [ILFORD HP5 Plus](https://www.ilfordphoto.com/hp5-plus-120)
 
+## Additional official web references
+
+The following sources were reviewed on 2026-07-24 to expand the Lab beyond the
+owner-supplied comparison. They define broad design directions, not numerical
+targets copied from a profile or scan.
+
+| Official reference | Supported direction | FrameWise interpretation |
+|---|---|---|
+| [KODAK GOLD 200](https://www.kodak.com/en/still-film/product/consumer/gold-200-film/) | Everyday daylight use, vibrant saturation, fine grain, sharp detail, broad exposure latitude | `Golden Day Inspired`: warm, forgiving everyday color with a gentle highlight shoulder |
+| [KODAK EKTAR 100](https://kodakprofessional.com/photographers/film/color/kodak-professional-ektar-100-film/530) | High saturation, ultra-vivid color, very fine grain, exceptional sharpness; nature and travel use | One half of `Vivid Landscape Inspired`: fine grain, crisp contrast and strong color separation |
+| [FUJICHROME Velvia 100](https://www.fujifilm.com/jp/ja/consumer/films/negative-and-reversal/velvia) | Very high saturation, emphasized red and green, landscape and nature use | The other half of `Vivid Landscape Inspired`: stronger red/green selective saturation |
+| [FUJICHROME PROVIA 100F](https://www.fujifilm.com/es/es-es/consumer/films/negative-and-reversal) | Moderate saturation and contrast, fine grain, broad subject suitability | Supports the user-facing “fresh and clean” preference axis; no separate Provia-named preset was added |
+| [CineStill 800T](https://cinestillfilm.com/collections/800t-filmfamily/products/800tungsten-high-speed-color-film-120-format-retail) | Tungsten balance, low-light use, slight halation | `Tungsten Night Inspired`: cool shadows, warm practical lights and controlled red halation |
+| [ILFORD HP5 PLUS and DELTA 400 comparison](https://www.ilfordphoto.com/hp5-vs-delta-professional-400/) | Two valid ISO 400 black-and-white directions: classic all-purpose character versus more modern fine-grain rendering | Keeps the coarser `B&W 400 Inspired` and adds the cleaner `Fine Grain Mono Inspired` |
+| [LomoChrome Metropolis guide](https://www.lomography.com/magazine/355329-a-guide-to-lomography-film-lomochrome-metropolis) | Muted tones with selective color pops | Supports the “muted vintage” preference axis; the existing RETO Aqua look remains its current starting preset |
+
+## Preference design
+
+It would be misleading to infer a person's stable taste from one uploaded
+photograph. Personalized aesthetics research describes image taste as highly
+subjective and dependent on both the viewer and the image. Research also warns
+that a group-average ground truth can represent some people substantially
+better than others:
+
+- [Correct for Whom? Subjectivity and the Evaluation of Personalized Image
+  Aesthetics Assessment Models](https://ojs.aaai.org/index.php/AAAI/article/view/26395)
+- [Personalized Image Aesthetics Assessment With Rich
+  Attributes](https://openaccess.thecvf.com/content/CVPR2022/papers/Yang_Personalized_Image_Aesthetics_Assessment_With_Rich_Attributes_CVPR_2022_paper.pdf)
+
+FrameWise therefore uses an explicit, reversible preference choice rather than
+claiming to discover taste automatically:
+
+1. The user chooses one of seven goals, including an automatic option.
+2. The analyzer measures only brightness, dark/highlight share, saturation,
+   warmth, green/cyan share, contrast and local texture.
+3. An explicit goal has priority over the photo-only heuristic.
+4. Metrics choose a sensible preset inside that goal and a conservative
+   starting intensity between 62% and 82%.
+5. Only the goal ID is stored in local browser storage. The photograph and
+   pixel statistics are not retained.
+6. The recommendation remains a starting point. The user can choose any preset
+   and adjust effect and grain independently.
+
+The six explicit goals are:
+
+| Goal | Primary starting looks | Reason |
+|---|---|---|
+| Warm and soft | Golden Day / Portra | Gentle skin and everyday warmth |
+| Fresh and clean | Fuji C200 | Mild transformation that protects the original impression |
+| Vivid | Vivid Landscape | Stronger landscape and object color |
+| Cinematic | Tungsten Night / CineStill 400D | Separate shadow and highlight color, selected by dark/highlight share |
+| Muted vintage | RETO Aqua 400 | Lower saturation with a restrained starting intensity |
+| Monochrome | Fine Grain Mono / B&W 400 | Texture and contrast choose clean or coarse grain |
+
 ## Parameter interpretation
 
 Parameter conventions in `js/film-presets.js`:
@@ -246,6 +300,50 @@ Parameter conventions in `js/film-presets.js`:
 - Confidence: **low** as a video-derived preset; **medium** as an independent
   FrameWise black-and-white look.
 
+### Golden Day Inspired
+
+- Video-derived: none.
+- Official-reference direction: GOLD 200 everyday use, vivid color, fine grain,
+  sharp detail and wide latitude.
+- FrameWise interpretation: warm yellow/orange highlights, moderate saturation,
+  a gentle shoulder and medium-fine deterministic grain.
+- Key parameters: exposure `0.045`, contrast `1.025`, saturation `1.08`,
+  temperature `0.105`, grain `0.22 / 0.90`, bloom `0.055`.
+- Confidence: **medium** for the broad direction, not for film matching.
+
+### Vivid Landscape Inspired
+
+- Video-derived: none.
+- Official-reference direction: EKTAR's high saturation and fine detail plus
+  Velvia's pronounced red/green saturation.
+- FrameWise interpretation: crisp contrast, selective red/green color and very
+  fine grain without a strong cast.
+- Key parameters: contrast `1.14`, saturation `1.24`, selective saturation
+  `R 1.20 / G 1.22 / B 1.08`, grain `0.12 / 0.72`.
+- Confidence: **medium** as an original combined landscape direction.
+
+### Tungsten Night Inspired
+
+- Video-derived: none.
+- Official-reference direction: tungsten balance, difficult low-light use and
+  slight halation.
+- FrameWise interpretation: cool blue shadows, warm practical-light
+  highlights, stronger bloom and controlled red halation.
+- Key parameters: contrast `1.12`, temperature `-0.13`, shadow tint
+  `[0.08,0.20,0.42] @ 0.13`, bloom `0.11`, halation `0.30`.
+- Confidence: **medium** for the general night direction.
+
+### Fine Grain Mono Inspired
+
+- Video-derived: none.
+- Official-reference direction: a cleaner, more modern ISO 400 black-and-white
+  option than the classic all-purpose look.
+- FrameWise interpretation: lower contrast, broader middle tones and smaller
+  grain than `B&W 400 Inspired`.
+- Key parameters: contrast `1.07`, shoulder `0.14`, grain `0.20 / 0.76`,
+  vignette `0.10`.
+- Confidence: **low-medium** as a reference-derived independent look.
+
 ## Validation checklist
 
 When permission-cleared source scans become available:
@@ -256,3 +354,5 @@ When permission-cleared source scans become available:
 4. Separate scanner color from emulsion behavior.
 5. Keep every preset name suffixed with `Inspired`.
 6. Record each parameter change and update the confidence rating here.
+7. Test preference choices with real users instead of treating click history as
+   a stable psychological profile.

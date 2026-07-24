@@ -1,7 +1,10 @@
 const assert = require("node:assert/strict");
 const {
+    tasteProfiles,
     analyzeImageData,
-    recommendPreset
+    recommendPreset,
+    normalizeTasteId,
+    getTasteProfile
 } = require("../js/image-analysis.js");
 
 function solidImage(width, height, rgba) {
@@ -79,6 +82,55 @@ assert.equal(
     recommendPreset(textureMetrics).presetId,
     "bw-400-inspired"
 );
+assert.deepEqual(
+    tasteProfiles.map((profile) => profile.id),
+    [
+        "auto",
+        "warm-soft",
+        "fresh-clean",
+        "vivid",
+        "cinematic",
+        "muted",
+        "monochrome"
+    ]
+);
+assert.equal(normalizeTasteId("not-a-taste"), "auto");
+assert.equal(getTasteProfile("vivid").label, "선명하고 생생하게");
+assert.equal(
+    recommendPreset(warmMetrics, "warm-soft").presetId,
+    "golden-day-inspired"
+);
+assert.equal(
+    recommendPreset(greenMetrics, "fresh-clean").presetId,
+    "fuji-c200-inspired"
+);
+assert.equal(
+    recommendPreset(greenMetrics, "vivid").presetId,
+    "vivid-landscape-inspired"
+);
+assert.equal(
+    recommendPreset(nightMetrics, "cinematic").presetId,
+    "tungsten-night-inspired"
+);
+assert.equal(
+    recommendPreset(warmMetrics, "muted").presetId,
+    "reto-aqua400-inspired"
+);
+assert.equal(
+    recommendPreset(warmMetrics, "monochrome").presetId,
+    "fine-grain-mono-inspired"
+);
+assert.equal(
+    recommendPreset(textureMetrics, "monochrome").presetId,
+    "bw-400-inspired"
+);
+
+tasteProfiles.forEach((profile) => {
+    const result = recommendPreset(warmMetrics, profile.id);
+    assert.equal(result.tasteId, profile.id);
+    assert.ok(result.intensity >= 0 && result.intensity <= 1);
+    assert.ok(["photo", "explicit"].includes(result.preferenceSource));
+});
 
 const transparentIgnored = analyzeImageData(imageFromPixels(2, 1, [
     [255, 0, 0, 0],

@@ -345,6 +345,7 @@
 }
 
 .film-stage-card,
+.film-taste-card,
 .film-recommendation-card,
 .film-preset-fieldset,
 .film-adjustment-card,
@@ -628,9 +629,62 @@
 }
 
 .film-recommendation-card,
+.film-taste-card,
 .film-adjustment-card,
 .film-export-card {
     padding: 20px;
+}
+
+.film-taste-intro {
+    margin-top: 9px;
+    color: #AFC0D4;
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+
+.film-taste-options {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.film-taste-option {
+    min-height: 46px;
+    padding: 9px 10px;
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.035);
+    color: #C4D0DF;
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        border-color 0.18s ease,
+        background-color 0.18s ease,
+        color 0.18s ease;
+}
+
+.film-taste-option:hover,
+.film-taste-option.is-active,
+.film-taste-option[aria-pressed="true"] {
+    border-color: rgba(96, 165, 250, 0.7);
+    background: rgba(37, 99, 235, 0.16);
+    color: #EFF6FF;
+}
+
+.film-taste-option:first-child {
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+.film-taste-status {
+    margin-top: 11px;
+    color: #8295AC;
+    font-size: 0.7rem;
+    line-height: 1.5;
 }
 
 .film-rule-badge {
@@ -957,6 +1011,7 @@
 .film-brand:focus-visible,
 .film-header-link:focus-visible,
 .film-drop-zone:focus-visible,
+.film-taste-option:focus-visible,
 .film-category-filter:focus-visible,
 .film-preset-card:focus-visible,
 .film-preset-card:focus-within,
@@ -1101,6 +1156,7 @@
     .film-upload-section,
     .film-workspace-header,
     .film-stage-card,
+    .film-taste-card,
     .film-recommendation-card,
     .film-preset-fieldset,
     .film-adjustment-card,
@@ -1138,6 +1194,15 @@
         gap: 10px;
     }
 
+    .film-taste-options {
+        grid-template-columns: 1fr;
+    }
+
+    .film-taste-option:first-child {
+        grid-column: auto;
+        text-align: left;
+    }
+
     .film-action-grid {
         grid-template-columns: 1fr;
     }
@@ -1150,6 +1215,7 @@
 @media (prefers-reduced-motion: reduce) {
     .film-drop-zone,
     .film-header-link,
+    .film-taste-option,
     .film-preset-card,
     .film-button {
         transition: none;

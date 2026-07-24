@@ -49,8 +49,8 @@
                     <span>여러 필름의 분위기를 입혀 보세요.</span>
                 </h1>
                 <p class="film-intro-description">
-                    사진을 올리면 여덟 가지 Inspired 필름 스타일을 한눈에 비교할 수 있어요.
-                    마음에 드는 색감을 고른 뒤 효과와 입자까지 조절해 나만의 결과로 저장해 보세요.
+                    사진을 올리면 열두 가지 Inspired 필름 스타일을 한눈에 비교할 수 있어요.
+                    원하는 분위기를 먼저 고르면 사진과 취향을 함께 보고 시작점을 추천해 드려요.
                 </p>
             </div>
 
@@ -199,11 +199,30 @@
                 </div>
 
                 <aside class="film-control-panel" aria-label="필름 스타일과 효과 설정">
+                    <section class="film-taste-card" aria-labelledby="tasteHeading">
+                        <div class="film-panel-heading">
+                            <p class="film-eyebrow">원하는 분위기</p>
+                            <h3 id="tasteHeading">필름 이름을 몰라도 괜찮아요</h3>
+                        </div>
+                        <p class="film-taste-intro">
+                            완성하고 싶은 느낌을 고르면 사진의 밝기와 색을 함께 살펴 추천해요.
+                        </p>
+                        <div
+                            id="tasteOptions"
+                            class="film-taste-options"
+                            role="group"
+                            aria-label="원하는 사진 분위기"
+                        ></div>
+                        <p id="tasteStatus" class="film-taste-status" aria-live="polite">
+                            선택한 분위기만 이 브라우저에 기억하고 사진은 저장하지 않아요.
+                        </p>
+                    </section>
+
                     <section class="film-recommendation-card" aria-labelledby="recommendationHeading">
                         <div class="film-recommendation-heading">
                             <div>
                                 <p class="film-eyebrow">규칙 기반 추천</p>
-                                <h3 id="recommendationHeading">이 사진과 어울리는 스타일</h3>
+                                <h3 id="recommendationHeading">사진과 취향을 함께 본 추천</h3>
                             </div>
                             <span class="film-rule-badge">AI 모델 아님</span>
                         </div>
